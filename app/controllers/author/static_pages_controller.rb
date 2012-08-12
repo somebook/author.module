@@ -13,7 +13,7 @@ class Author::StaticPagesController < Author::SpaceController
   def new
     @static_page = StaticPage.new
     @shard_languages.each{ |c| @static_page.contents << Content.new(shard_language_id: c.id, is_enabled: true)}
-    @form_legend = t('author.static_page.form_legend.new')
+    @form_legend = t("author.static_page.form_legend.new")
     render :form
   end
 
@@ -31,7 +31,7 @@ class Author::StaticPagesController < Author::SpaceController
       redirect_to new_author_static_page_path, error: 'Page creation fails.'
     end
   end
-  
+
   def destroy
     @static_page = StaticPage.find_by_id(params[:id])
     if @static_page.destroy
@@ -40,13 +40,13 @@ class Author::StaticPagesController < Author::SpaceController
       redirect_to author_static_pages_path, error: 'There were errors while deleting static page.'
     end
   end
-  
+
   def edit
     @static_page = StaticPage.find_by_id(params[:id])
-    @form_legend = t('author.static_page.form_legend.edit')
+    @form_legend = t("author.static_page.form_legend.edit")
     render :form
   end
-  
+
   def update
     params[:static_page][:contents_attributes].each do |k,ca|
       ca[:is_enabled]=ca[:is_enabled] ? true : false
@@ -59,12 +59,12 @@ class Author::StaticPagesController < Author::SpaceController
     end
   end
 
-  private 
+  private
 
   def shard_languages
     @shard_languages = @current_shard.shard_languages
   end
-  
+
   def assets
     @albums = @current_shard.albums
     @videos = @current_shard.videos.default_order

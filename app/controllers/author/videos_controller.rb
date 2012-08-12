@@ -29,7 +29,7 @@ class Author::VideosController < Author::SpaceController
   # GET /videos/new.json
   def new
     @video = Video.new
-    @form_legend = t('author.video.form_legend.new')
+    @form_legend = t("author.video.form_legend.new")
     @video.stream = params[:stream] || params[:video][:stream]
     @video.categories = [:people]
     @video.shard = @current_shard
@@ -45,7 +45,7 @@ class Author::VideosController < Author::SpaceController
   # GET /videos/1/edit
   def edit
     @video = @current_shard.videos.find(params[:id]) || not_found
-    @form_legend = t('author.video.form_legend.edit')
+    @form_legend = t("author.video.form_legend.edit")
     respond_to { |format|
       format.html { render :form }
     }
@@ -84,7 +84,7 @@ class Author::VideosController < Author::SpaceController
     @video = Video.new(params[:video])
     @video.user = current_user
     @video.shard = @current_shard
-    @form_legend = t('author.video.form_legend.new')
+    @form_legend = t("author.video.form_legend.new")
     @video.stream = params[:stream] || params[:video][:stream]
     params[:video][:categories] = [params[:video][:categories].to_sym] unless params[:video][:categories].nil?
 
@@ -106,7 +106,7 @@ class Author::VideosController < Author::SpaceController
   def update
     params[:video][:user_id] = current_user.id
     @video = @current_shard.videos.find(params[:id]) || not_found
-    @form_legend = t('author.video.form_legend.edit')
+    @form_legend = t("author.video.form_legend.edit")
     params[:video][:categories] = [params[:video][:categories].to_sym] unless params[:video][:categories].nil?
 
     respond_to { |format|
@@ -157,8 +157,8 @@ private
   def s3_upload_policy_document
     return @policy if @policy
     ret = {"expiration" => 5.minutes.from_now.utc.xmlschema,
-      "conditions" =>  [ 
-        {"bucket" =>  Somebook::Application.config.social_app_accounts[@current_shard.name.to_sym][:amazon][:videos_bucket]}, 
+      "conditions" =>  [
+        {"bucket" =>  Somebook::Application.config.social_app_accounts[@current_shard.name.to_sym][:amazon][:videos_bucket]},
         {"acl" => "public-read"},
         ["starts-with", "$key", "videos/"],
         {"redirect" => uploaded_author_video_url(@video)},

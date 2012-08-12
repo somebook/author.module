@@ -5,7 +5,7 @@ class Author::TerminalsController < Author::SpaceController
     @terminals=@account.terminals
   end
   def new
-    @form_legend = translate('author.terminal.form_legend.new')
+    @form_legend = t("author.terminal.form_legend.new")
     @terminal = Terminal.new
     @terminal.account= @shard_language.accounts.find(params[:account_id]) || not_found
     respond_to do |format|
@@ -16,7 +16,7 @@ class Author::TerminalsController < Author::SpaceController
   def create
     @terminal = Terminal.new(params[:terminal])
     @terminal.account= @shard_language.accounts.find(params[:account_id]) || not_found
-    @form_legend = translate('author.terminal.form_legend.new')
+    @form_legend = t("author.terminal.form_legend.new")
 
     respond_to do |format|
       if @terminal.save
@@ -31,7 +31,7 @@ class Author::TerminalsController < Author::SpaceController
   def edit
     @terminal = Terminal.find_by_id(params[:id]) || not_found
     if(current_user.has_role_for_shard?(:master, @terminal.account.shard_language.shard))
-      @form_legend = translate('author.terminal.form_legend.edit')
+      @form_legend = t("author.terminal.form_legend.edit")
       respond_to do |format|
         format.html { render :form }
       end
@@ -54,7 +54,7 @@ class Author::TerminalsController < Author::SpaceController
   def update
     @terminal = Terminal.find_by_id(params[:id]) || not_found
     if(current_user.has_role_for_shard?(:master, @terminal.account.shard_language.shard))
-      @form_legend = translate('author.terminal.form_legend.edit')
+      @form_legend = t("author.terminal.form_legend.edit")
 
       respond_to do |format|
         if @terminal.update_attributes(params[:terminal])

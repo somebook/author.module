@@ -27,7 +27,7 @@ class Author::AudiosController < Author::SpaceController
     @current_shard.shard_languages.each {|lang|
       @audio_languages << AudioLanguage.new(shard_language_id: lang.id)
     }
-    @form_legend = t('author.audio.form_legend.new')
+    @form_legend = t("author.audio.form_legend.new")
 
     respond_to { |format|
       format.html { render :form }
@@ -38,7 +38,7 @@ class Author::AudiosController < Author::SpaceController
   def edit
     @audio = @audio_album.audios.find(params[:id]) || not_found
     @audio_languages = @audio.audio_languages
-    @form_legend = t('author.audio.form_legend.edit')
+    @form_legend = t("author.audio.form_legend.edit")
     respond_to { |format|
       format.html { render :form }
     }
@@ -47,7 +47,7 @@ class Author::AudiosController < Author::SpaceController
   def create
     @audio = Audio.new(params[:audio])
     @audio.audio_album = @audio_album
-    @form_legend = t('author.audio.form_legend.new')
+    @form_legend = t("author.audio.form_legend.new")
     debugger
 
     respond_to do |format|
@@ -71,7 +71,7 @@ class Author::AudiosController < Author::SpaceController
   def update
     @audio = @audio_album.audios.find(params[:id]) || not_found
     @audio_languages = @audio.audio_languages
-    @form_legend = t('author.audio.form_legend.edit')
+    @form_legend = t("author.audio.form_legend.edit")
 
     respond_to { |format|
       if @audio.update_attributes(params[:audio])
@@ -101,7 +101,7 @@ private
   def shard_languages
     @shard_languages = @current_shard.shard_languages
   end
-  
+
   def find_audio_album
     @audio_album = AudioAlbum.find_by_id(params[:audio_album_id])
   end

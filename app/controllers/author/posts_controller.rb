@@ -39,7 +39,7 @@ class Author::PostsController < Author::SpaceController
   # GET /posts/new.json
   def new
     @post = Post.new(:stream => params[:stream])
-    @form_legend = translate('author.post.form_legend.new')
+    @form_legend = t("author.post.form_legend.new")
     @shard_languages.each do |c|
       cnt = Content.new(is_enabled: true)
       cnt.shard_language = c
@@ -65,7 +65,7 @@ class Author::PostsController < Author::SpaceController
   # GET /posts/1/edit
   def edit
     @post = @current_shard.posts.find(params[:id]) || not_found
-    @form_legend = translate('author.post.form_legend.edit')
+    @form_legend = t("author.post.form_legend.edit")
 
     respond_to do |format|
       format.html { render :form }
@@ -97,7 +97,7 @@ class Author::PostsController < Author::SpaceController
       }
       @post.shard=@current_shard
       @post.user=current_user
-      @form_legend = translate('author.post.form_legend.new')
+      @form_legend = t("author.post.form_legend.new")
       if params[:post][:contents_attributes]
          params[:post][:contents_attributes].each do |k, v|
            v[:status] ||= []
@@ -124,7 +124,7 @@ class Author::PostsController < Author::SpaceController
     params[:post][:publish_at] = params[:publish_at_date] + " " + params[:publish_at_time] if params[:publish_at_date]
     params[:post][:user_id] = current_user.id
     @post = @current_shard.posts.find(params[:id]) || not_found
-    @form_legend = translate('author.post.form_legend.edit')
+    @form_legend = t("author.post.form_legend.edit")
     validated=true
     if(params[:post][:contents_attributes])
       params[:post][:contents_attributes].each do |k, v|
@@ -195,12 +195,12 @@ class Author::PostsController < Author::SpaceController
         @post.save
       rescue TerminalPublishingError => e
         if(e.user_note.blank?)
-          flash[:error_notice]=e.terminal.to_s+" : "+I18n.t('author.post.reconnect_terminal_error')
+          flash[:error_notice]=e.terminal.to_s+" : "+I18n.t("author.post.reconnect_terminal_error")
         else
           flash[:error_notice]=e.terminal.to_s+" : "+e.user_note
         end
 
-        flash[:error_notice_ext]=e.terminal.to_s+" >>> "+I18n.t('author.post.reconnect_terminal_error') + " (#{e}: #{e.parent})"
+        flash[:error_notice_ext]=e.terminal.to_s+" >>> "+I18n.t("author.post.reconnect_terminal_error") + " (#{e}: #{e.parent})"
       end
     end
     render partial: 'post', content_type: "text/html"

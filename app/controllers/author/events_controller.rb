@@ -36,7 +36,7 @@ class Author::EventsController < Author::SpaceController
   # GET /events/new.json
   def new
     @event = Event.new
-    @form_legend = translate('author.event.form_legend.new')
+    @form_legend = t("author.event.form_legend.new")
     @shard_languages.each{ |c| @event.infos << EventInfo.new(shard_language_id: c.id) }
 
     respond_to do |format|
@@ -48,7 +48,7 @@ class Author::EventsController < Author::SpaceController
   # GET /events/1/edit
   def edit
     @event = @current_shard.events.find(params[:id]) || not_found
-    @form_legend = translate('author.event.form_legend.edit')
+    @form_legend = t("author.event.form_legend.edit")
     respond_to do |format|
       format.html { render :form }
     end
@@ -63,10 +63,10 @@ class Author::EventsController < Author::SpaceController
     params[:event][:infos_attributes].each do |info|
       info[1][:tickets_url] = nil if info[1][:tickets_url].nil? || info[1][:tickets_url].strip == ""
     end
-    
+
     @event = Event.new(params[:event])
     @event.shard=@current_shard
-    @form_legend = translate('author.event.form_legend.new')
+    @form_legend = t("author.event.form_legend.new")
     respond_to do |format|
       if @event.save
         format.html { redirect_to author_events_url, notice: 'Event was successfully created.' }
@@ -89,7 +89,7 @@ class Author::EventsController < Author::SpaceController
     end
 
     @event = @current_shard.events.find(params[:id]) || not_found
-    @form_legend = translate('author.event.form_legend.edit')
+    @form_legend = t("author.event.form_legend.edit")
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
@@ -112,9 +112,9 @@ class Author::EventsController < Author::SpaceController
       format.json { head :ok }
     end
   end
-  
-  private 
-  
+
+  private
+
   def shard_languages
     @shard_languages = @current_shard.shard_languages
   end

@@ -14,7 +14,7 @@ class Author::ApiKeysController < Author::SpaceController
   # GET /api_keys/new.json
   def new
     @api_key = ApiKey.new
-    @form_legend = t('author.api_key.form_legend.new')
+    @form_legend = t("author.api_key.form_legend.new")
     render :form
   end
 
@@ -22,7 +22,7 @@ class Author::ApiKeysController < Author::SpaceController
   def edit
     @api_key = ApiKey.find(params[:id])
     not_found unless @current_shard.shard_languages.include? @api_key.shard_language
-    @form_legend = t('author.api_key.form_legend.edit')
+    @form_legend = t("author.api_key.form_legend.edit")
     render :form
   end
 
@@ -33,7 +33,7 @@ class Author::ApiKeysController < Author::SpaceController
 
     respond_to do |format|
       if @api_key.save
-        format.html { redirect_to author_api_keys_path, notice: 'Api key was successfully created.' }
+        format.html { redirect_to api_keys_path, notice: 'Api key was successfully created.' }
         format.json { render json: @api_key, status: :created, location: @api_key }
       else
         format.html { render action: "new" }
@@ -50,7 +50,7 @@ class Author::ApiKeysController < Author::SpaceController
 
     respond_to do |format|
       if @api_key.update_attributes(params[:api_key])
-        format.html { redirect_to author_api_keys_path, notice: 'Api key was successfully updated.' }
+        format.html { redirect_to api_keys_path, notice: 'Api key was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -67,7 +67,7 @@ class Author::ApiKeysController < Author::SpaceController
     @api_key.destroy
 
     respond_to do |format|
-      format.html { redirect_to author_api_keys_path }
+      format.html { redirect_to api_keys_path }
       format.json { head :no_content }
     end
   end
