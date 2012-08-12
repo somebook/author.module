@@ -1,0 +1,38 @@
+.clearfix.calendar.widget
+  %a.calendar-toggle
+    %i.icon.cal
+    %em= t("front.matsuev.event.calendar")
+  %nav= render "front/matsuev/shared/calend_widget", last_months: @last_months, count: 6
+#calend.clearfix
+  .filter.date
+    %form
+      %select
+        %option{ value: "", selected: ("selected" unless params[:date])}= t('front.matsuev.event.upcoming')
+        - @months_for_filter.each do |year|
+          %optgroup{ label: year.keys[0] }
+            - year.values[0].each do |month|
+              %option{ value: "#{year.keys[0]}-#{month}", selected: ("selected" if params[:date] == "#{year.keys[0]}-#{month}")}= I18n.l Time.mktime(2000, month), format: "%B", locale: @current_shard_language.language.code
+  = render('city_selector', cities: @cities)
+  %ul.months.clearfix
+    - @months.each do |month|
+      %li.clearfix{ "data-month" => "#{month*'-'}" }
+        .clearfix.month-year
+          .l_line
+          .c
+            %span.month= I18n.l Time.mktime(2000, month[1]), format: "%B", locale: @current_shard_language.language.code
+            %br
+            %span.year= month[0]
+          .r_line
+        %ul.thumbs.days
+          =# render('city_selector', cities: @cities) if month == @months.first
+          - @events.each do |event|
+            - next if event.starts_at.year != month[0] || event.starts_at.month != month[1]
+            %li.clearfix
+              .hide
+                %a{ href: event_path(event), title: event.infos.where(shard_language_id: @current_shard_language).first.title.to_s }
+                  .day= event.starts_at.day
+                  .city= event.info(@current_shard_language).city
+                  .place= event.info(@current_shard_language).place
+                  .time= event.starts_at.strftime("%H:%M") unless event.without_time
+                .info.clearfix
+                  = raw event.info(@current_shard_language).desc

@@ -1,0 +1,34 @@
+:plain
+  <div id="block-arwm-ie6bar-ie6bar">
+    <div class="ie6bar-close"><a href="#" class="png_bg" onclick="document.getElementById('block-arwm-ie6bar-ie6bar').style.display='none';return false;">&nbsp;</a></div>
+    <div class="ie6bar-video">
+
+=t('front.matsuev.errors.browser.what_is')
+%br
+:plain
+  <a href="http://www.whatbrowser.org/ru/" target="_blank">
+=t('front.matsuev.errors.browser.video')
+:plain
+  <span>&nbsp;</span></a></div>
+    <div class="ie6bar-title">
+=t('front.matsuev.errors.browser.too_old')
+%br
+=t('front.matsuev.errors.browser.upgrade')
+:plain
+  </div>
+    <table class="ie6bar-icons-table">
+      <tr>
+        <td><a href="http://www.google.com/chrome?hl=ru" target="_blank"><span class="ie6bar-icons ie6bar-icon-chrome png_bg"></span>Google Chrome</a></td>
+        <td><a href="http://www.apple.com/ru/safari/" target="_blank"><span class="ie6bar-icons ie6bar-icon-safari png_bg"></span>Apple Safari</a></td>
+        <td><a href="http://www.mozilla-europe.org/ru/firefox/" target="_blank"><span class="ie6bar-icons ie6bar-icon-firefox png_bg"></span>Mozilla Firefox</a></td>
+        <td><a href="http://ru.opera.com/" target="_blank"><span class="ie6bar-icons ie6bar-icon-opera png_bg"></span>Opera</a></td>
+        <td><a href="http://www.microsoft.com/rus/windows/internet-explorer/" target="_blank"><span class="ie6bar-icons ie6bar-icon-explorer png_bg"></span>Internet Explorer</a></td>
+      </tr>
+    </table>
+  </div>
+  <script>
+  var IE6 = (navigator.userAgent.indexOf("MSIE 6")>=0) ? true : false;
+  if(IE6) {
+    $("#block-arwm-ie6bar-ie6bar").show();
+  }
+  </script>

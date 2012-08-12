@@ -1,0 +1,31 @@
+- if !@current_shard || @current_shard.posts.empty?
+  %h2 Blog is empty
+- @posts.each do |post|
+  - content = post.contents.for_shard_language(@current_shard_language).first
+  %article.post.clearfix
+    %time
+      %em= post.created_at.day
+      = t("months.m#{post.created_at.month.to_s}")
+    %h2
+      = link_to post.content(@current_shard_language).title, blog_path(post)
+    - if content.photos.empty? && content.videos.empty?
+      %p= raw content.cut
+      = link_to t("front.matsuev.blog.read_more") + "...", blog_path(post) if content.has_cut?
+    - elsif content.photos.empty?
+      - if content.videos.first.youtube?
+        %iframe.video{ width: "540", height: "370", src: "http://www.youtube.com/embed/#{content.videos.first.youtube_id}", frameborder: "0", allowfullscreen: true }
+      - else
+        %video{ id: "video_#{content.videos.first.id}", class: "video-js vjs-default-skin", controls: true, preload: "auto", width: "540", height: "305", :"data-setup" => '{}' }
+          %source{ src: content.videos.first.url(false, "mp4"), type: 'video/mp4' }
+          %source{ src: content.videos.first.url(false, "webm"), type: 'video/webm' }
+      %br
+      = link_to t("front.matsuev.blog.read_more") + "...", blog_path(post), class: "post-more-link"
+    - else
+      %a.photo{ href: blog_path(post), style: "font-size: 0px" }
+        = image_tag content.photos.first.link("400")
+      %br
+      = link_to t("front.matsuev.blog.read_more") + " (" + t("front.matsuev.blog.text") + " + #{content.photos.count} " + t("front.matsuev.blog.photos") + ")...", blog_path(post), class: "post-more-link"
+    = render partial: 'front/matsuev/shared/tag_cloud', locals: { tags: content.tags.misc }
+.ajax-pagination
+  = image_tag "denis/ajax-loader.gif", class: "loader"
+  = will_paginate(@posts, page_links: false, container: false, previous_label: "", next_label: t('front.matsuev.blog.more'), :renderer => WillPaginate::ActionView::LinkRenderer) unless @posts.empty?

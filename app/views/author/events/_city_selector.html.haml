@@ -1,0 +1,6 @@
+.filter.city
+  %form
+    %select
+      %option{ value: "", selected: ("selected" unless params[:city])}= t('front.matsuev.event.cities')
+      - cities.each do |city|
+        %option{ value: city, selected: ("selected" if params[:city] == city)}= city

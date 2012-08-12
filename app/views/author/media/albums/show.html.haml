@@ -1,0 +1,4 @@
+%ul.clearfix.thumbs.photos
+  - @photos.each do |photo|
+    %li
+      = link_to image_tag(photo.link('160c')), photo.link("800"), class: %w(lightbox), :'data-original' => photo.link("0-d")

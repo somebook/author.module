@@ -1,0 +1,44 @@
+!!!
+%html{ lang: "ru-RU" }
+  %head
+    = javascript_include_tag "jquery"
+  :plain
+    <script src="http://vkontakte.ru/js/api/xd_connection.js?2" type="text/javascript"></script>
+  .body
+    :javascript
+      var messages=[];
+    - unless @terms.nil?
+      - @terms.each do |t|
+        - t.social_contents.with_status(:pending).each do |sc|
+          = sc.id
+          = sc.body
+          :javascript
+            messages.push({id:#{sc.id}, message:"#{sc.body}" ,owner_id:"#{(sc.terminal.identifier=='wall') ? "" : sc.terminal.identifier }"});
+            var i=0;
+    - else
+      %b= t('front_end.errors.proxy_feed.no_messages')
+
+    - if params[:network]=='vkontakte'
+      :javascript
+        function nextpost()
+        {
+          if( i<messages.length)
+          {
+            var m=messages[i];
+            VK.api("wall.post", {message:m["message"], owner_id:m["owner_id"], from_group:1}, function(data) {
+                  if (data.response) { // если получен ответ
+                    var jqxhr = $.post("#{proxy_report_path}", {id:m["id"],user_id:"#{params[:user_id]}",auth_key:"#{params[:auth_key]}",network:"#{params[:network]}"} , function() {
+                      i++;
+                      nextpost();
+                    })
+                    .error(function() { alert("error"); });
+                  } else { // ошибка при отправке сообщения
+                      alert('Ошибка! ' + data.error.error_code + ' ' + data.error.error_msg);
+                  }
+             });
+          }
+        };
+        VK.init(function() {
+          nextpost();
+        });
+

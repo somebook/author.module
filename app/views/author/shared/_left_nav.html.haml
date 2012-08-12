@@ -1,0 +1,26 @@
+- if @static_page_class
+  - section = @static_page_class
+- else
+  - if section_page.include? "blog"
+    - section = "news"
+  - elsif section_page.include? "events"
+    - section = "concerts"
+  - elsif section_page.include? "media"
+    - section = "media"
+  - else
+    - section = ""
+%section
+  %div.chapter{ class: "#{lang_code} #{section}" }
+  - if section_page.include? "media"
+    %nav
+      %ul.vertical
+        %li{ class: ("active" if section_page.include? "albums") }
+          = link_to t('front.matsuev.media.photogallery'), :media_albums
+        %li{ class: ("active" if section_page.include? "videos") }
+          = link_to t('front.matsuev.media.videoarchive'), :media_videos
+        %li{ class: ("active" if section_page.include? "press") }
+          = link_to t('front.matsuev.media.press'), :media_press
+        -# %li
+        -#   %a{ href: "#" } Пресса
+        -# %li
+        -#   %a{ href: "#" } Рецензии

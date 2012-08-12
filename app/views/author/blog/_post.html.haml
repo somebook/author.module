@@ -1,0 +1,32 @@
+- content = post.contents.for_shard_language(@current_shard_language).first
+- if post.sticky?
+  - if content.videos.empty?
+    - klass = "post first-#{post.stream_name} textpost"
+  - else
+    - klass = "post first-#{post.stream_name} videopost"
+- else
+  - klass = "post"
+%article{ class: klass }
+  %time
+    %em= post.created_at.day
+    = t("months.m#{post.created_at.month.to_s}")
+  %h2
+    = link_to post.content(@current_shard_language).title, blog_path(post)
+  - if content.photos.empty? && content.videos.empty?
+    %p= raw content.cut
+    = link_to t("front.demo.blog.read_more") + "...", blog_path(post) if content.has_cut?
+  - elsif content.photos.empty?
+    - if content.videos.first.youtube?
+      %iframe.video{ src: "http://www.youtube.com/embed/#{content.videos.first.youtube_id}", frameborder: "0", allowfullscreen: true }
+    - else
+      %video{ id: "video_#{content.videos.first.id}", class: "video-js vjs-default-skin", controls: true, preload: "auto", :"data-setup" => '{}' }
+        %source{ src: content.videos.first.url(false, "mp4"), type: 'video/mp4' }
+        %source{ src: content.videos.first.url(false, "webm"), type: 'video/webm' }
+    %br
+    = link_to t("front.demo.blog.read_more") + "...", blog_path(post), class: "post-more-link"
+  - else
+    %a.photo{ href: blog_path(post), style: "font-size: 0px" }
+      = image_tag content.photos.first.link("400")
+    %br
+    = link_to t("front.demo.blog.read_more") + " (" + t("front.demo.blog.text") + " + #{content.photos.count} " + t("front.demo.blog.photos") + ")...", blog_path(post), class: "post-more-link"
+  = render partial: "demo/shared/tag_cloud", locals: { tags: content.tags }

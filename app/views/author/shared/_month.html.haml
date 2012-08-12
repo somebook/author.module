@@ -1,0 +1,17 @@
+- cache("calend-#{month}-#{@current_shard_language.language.code}") do
+  - y, m = month.split("-")
+  - date = Date.new(y.to_i, m.to_i)
+  - empty_month = "next" unless @current_shard.is_there_events_at(date.next_month)
+  - empty_month = "prev" unless @current_shard.is_there_events_at(date.prev_month)
+  - empty_month = "next prev" if (!@current_shard.is_there_events_at(date.next_month) && !@current_shard.is_there_events_at(date.prev_month))
+  %div{ onclick: "window.location.href = \'#{events_path(date: month)}\'", "data-month" => month, "data-empty" => empty_month }
+    %table
+      %caption
+        = I18n.l Time.mktime(y, m), format: "%B", locale: lang_code
+        %b= "(#{y})"
+      - date.calendar.length.times do |tr|
+        %tr
+          - date.calendar[tr].length.times do |td|
+            %td
+              - if date.calendar[tr][td]
+                %i{ class: (@current_shard_language.shard.events.where('starts_at >= ? and starts_at <= ?', Time.new(y.to_i, m.to_i, date.calendar[tr][td]), Time.new(y.to_i, m.to_i, date.calendar[tr][td], 23, 59, 59)).empty? ? "" : "f")}
