@@ -1,0 +1,14 @@
+.password_auth_form{ style: "display: none;" }
+  = form_for [:author, language, account], html: { class: %w(form-horizontal) } do |f|
+    = f.hidden_field :service_id
+    = f.hidden_field :stream
+    = f.hidden_field :shard_language_id
+    = f.hidden_field :provider
+    .control-group
+      = f.label :nickname, "Username"
+      .controls= f.text_field :nickname
+    .control-group
+      = f.label :password
+      .controls= f.password_field :password
+    .form-actions
+      = f.submit t('author.shard_language.form_legend.save'), class: %w(btn btn-primary)

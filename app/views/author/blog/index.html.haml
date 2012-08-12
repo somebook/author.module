@@ -1,9 +1,0 @@
-.clearfix.feed
-  - unless @current_shard and @current_shard.posts.length > 0
-    %h2= t("front.blog.empty")
-  - else
-    .block.width360.official
-      %span.ribbon
-      = render "demo/blog/posts", posts: @official_posts, stream: :official
-    .block.personal
-      = render "demo/blog/posts", posts: @personal_posts, stream: :personal

@@ -1,0 +1,46 @@
+%h2= t('author.dashboard.statistics.statistics')
+.box
+  %table.table
+    %tbody
+      - if can? :blog, Post.new(shard_id: @current_shard.id)
+        %tr
+          %td
+            = link_to t('author.dashboard.statistics.posts'), blog_author_posts_path
+          %td
+            = link_to @statistics[:blog], blog_author_posts_path
+      - if can? :news, Post.new(shard_id: @current_shard.id)
+        %tr
+          %td
+            = link_to t('author.dashboard.statistics.news'), news_author_posts_path
+          %td
+            = link_to @statistics[:news], news_author_posts_path
+      - if can? :manage, Event.new(shard_id: @current_shard.id)
+        %tr
+          %td
+            = link_to t('author.dashboard.statistics.events'), author_events_path
+          %td
+            = link_to @statistics[:events], author_events_path
+      - if can? :manage, Album.new(shard_id: @current_shard.id)
+        %tr
+          %td
+            = link_to t('author.dashboard.statistics.albums'), author_albums_path
+          %td
+            = link_to @statistics[:albums], author_albums_path
+      - if can? :manage, Video.new(shard_id: @current_shard.id)
+        %tr
+          %td
+            = link_to t('author.dashboard.statistics.videos'), author_videos_path
+          %td
+            = link_to @statistics[:videos], author_videos_path
+      - if can? :manage, AudioAlbum.new(shard_id: @current_shard.id)
+        %tr
+          %td
+            = link_to t('author.dashboard.statistics.audio_albums'), author_audio_albums_path
+          %td
+            = link_to @statistics[:audio_albums], author_audio_albums_path
+      - if can? :manage, StaticPage.new(shard_id: @current_shard.id)
+        %tr
+          %td
+            = link_to t('author.dashboard.statistics.static_pages'), author_static_pages_path
+          %td
+            = link_to @statistics[:static_pages], author_static_pages_path

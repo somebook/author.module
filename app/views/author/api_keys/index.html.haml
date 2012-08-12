@@ -1,0 +1,20 @@
+%h1= "Application programming interface keys"
+
+= render partial: "shared/flash_messages"
+
+= link_to t('author.api_key.form_legend.new'), new_author_api_key_path, class: %w(btn)
+%br
+%br
+
+%table.table.table-striped.data
+  %tr
+    %th= t('author.api_key.title')
+    %th= t('author.api_key.domain')
+    %th= t('global.actions')
+  - @api_keys.each do |api_key|
+    %tr
+      %td= api_key.title
+      %td= api_key.shard_language.domain
+      %td
+        = link_to t('global.edit'), edit_author_api_key_path(api_key), class: %w(btn btn-small)
+        = link_to t('global.destroy'), [:author, api_key], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)

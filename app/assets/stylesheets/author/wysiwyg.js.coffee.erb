@@ -1,0 +1,75 @@
+#= require wysiwyg/jquery.wysiwyg
+#= require wysiwyg/controls/wysiwyg.image
+#= require wysiwyg/controls/wysiwyg.link
+#= require wysiwyg/controls/wysiwyg.table
+#= require wysiwyg/plugins/wysiwyg.i18n
+#= require wysiwyg/plugins/wysiwyg.rmFormat
+#= require wysiwyg/i18n/lang-ru
+
+jQuery ->
+  $('.wysiwyg').wysiwyg
+    initialContent: "<p></p>"
+    css: "<%= asset_path "wysiwyg-inner.css" %>"
+    plugins:
+      i18n: { lang: "ru" }
+      rmFormat: { rmMsWordMarkup: true }
+    controls:
+      bold          : { visible : true }
+      italic        : { visible : true }
+      underline     : { visible : true }
+      strikeThrough : { visible : true }
+
+      justifyLeft   : { visible : true }
+      justifyCenter : { visible : true }
+      justifyRight  : { visible : true }
+      justifyFull   : { visible : false }
+
+      indent  : { visible : true }
+      outdent : { visible : true }
+
+      subscript   : { visible : false }
+      superscript : { visible : false }
+
+      undo : { visible : true }
+      redo : { visible : true }
+
+      insertOrderedList    : { visible : true }
+      insertUnorderedList  : { visible : true }
+      insertHorizontalRule : { visible : true }
+      code : { visible : false }
+      createLink : { visible : true }
+
+      h4:
+        visible: false
+        className: 'h4'
+        command: if ($.browser.msie || $.browser.safari) then 'formatBlock' else 'heading'
+        arguments: if ($.browser.msie || $.browser.safari) then '<h4>' else 'h4'
+        tags: ['h4']
+        tooltip: 'Header 4'
+      h5:
+        visible: false
+        className: 'h5'
+        command: if ($.browser.msie || $.browser.safari) then 'formatBlock' else 'heading'
+        arguments: if ($.browser.msie || $.browser.safari) then '<h5>' else 'h5'
+        tags: ['h5']
+        tooltip: 'Header 5'
+      h6:
+        visible: false
+        className: 'h6'
+        command: if ($.browser.msie || $.browser.safari) then 'formatBlock' else 'heading'
+        arguments: if ($.browser.msie || $.browser.safari) then '<h6>' else 'h6'
+        tags: ['h6']
+        tooltip: 'Header 6'
+
+      cut   : { visible : false }
+      copy  : { visible : false }
+      paste : { visible : false }
+      html  : { visible: true }
+      increaseFontSize : { visible : false }
+      decreaseFontSize : { visible : false }
+          
+      #         exam_html:
+      #           exec: ->
+      #             this.insertHtml('<abbr title="exam">Jam</abbr>')
+      #             true
+      #           visible: true

@@ -1,0 +1,19 @@
+%h2 Application programming interface keys
+.box
+  %table.table.data.prefs
+    %tbody
+      - @api_keys.each do |api_key|
+        %tr
+          %td
+            %span{ class: "shared #{api_key.title}"}
+          %td
+            %span.small.gray.domen
+              = api_key.shard_language.domain
+              %span.badge.default= api_key.shard_language.language.name.downcase
+          %td
+            .actions.visible
+              = link_to t('global.edit'), edit_author_api_key_path(api_key), class: %w(link) 
+              = link_to(author_api_key_path(api_key), :confirm => 'Are you sure?', class: %w(link delete), :method => :delete) do
+                = t('global.destroy')
+                %span.badge.badge-important !
+  .addbox= link_to t('author.api_key.form_legend.new'), new_author_api_key_path, class: %w(biglink create)

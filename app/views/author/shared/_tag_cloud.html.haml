@@ -1,7 +1,0 @@
-- unless tags.empty?
-  %span{ class:'tag-label'}
-    = t('front.matsuev.tag.tags') + ":"
-  %ul.content-tags
-    - tags.each do |tag|
-      %li{ class: (@tag && tag==@tag) ? 'active' : '' }
-        = link_to tag.name, blog_tagged_by_path(tag)

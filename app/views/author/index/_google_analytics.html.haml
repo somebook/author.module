@@ -1,0 +1,58 @@
+%h2= t('author.dashboard.ga.ga')
+%ul.nav.nav-tabs
+  - @domains.each_with_index do |domain, i|
+    %li{ class: ("active" if i.zero?) }
+      %a{ href: "##{domain[:name].delete('.')}", :"data-toggle" => "tab" }= domain[:name]
+.tab-content
+  - @domains.each_with_index do |domain, i|
+    .tab-pane{ 'id' => domain[:name].delete('.'), class: ("active" if i.zero?) }
+      - if domain[:account].nil?
+        = "For displaying #{domain[:name]} Google Analytics - visit"
+        = link_to "this", author_shard_languages_path
+        page and connect account.
+      - elsif domain[:profiles]
+        = "Choose one of these profiles:"
+        - domain[:profiles].each do |profile|
+          = link_to profile[:name], ga_author_shard_language_account_path(domain[:account].shard_language, domain[:account], code: profile[:code])
+      - else
+        %div{ id: "chart#{domain[:account].id}", style: "width: 530px;"}
+        :javascript
+          $(function() {
+            new Highcharts.Chart({
+              chart: {
+                renderTo: 'chart#{domain[:account].id}'
+              },
+              title: {
+                text: '#{t("author.dashboard.ga.desc")}'
+              },
+              xAxis: {
+                type: "datetime"
+              },
+              yAxis: {
+                type: "linear",
+                title: "pew",
+                min: 0,
+                labels: {
+                  enabled: false
+                }
+              },
+              tooltip: {
+                formatter: function() {
+                  return this.series.name +':<b>'+ Highcharts.numberFormat(this.y, 0, null, ' ')+'</b>';
+                }
+              },
+              plotOptions: {
+                series: {
+                  pointStart: Date.UTC('#{(Date.today - 31).strftime("%Y").to_s}', '#{(Date.today - 31).strftime("%m").to_i - 1}', '#{(Date.today - 31).strftime("%d").to_s}'),
+                  pointInterval: 24 * 3600 * 1000, // one day
+                }
+              },
+              series: [{
+                name: '#{t("author.dashboard.ga.views")}',
+                data: [#{domain[:report].pageviews_arr.join(',')}]
+              }, {
+                name: '#{t("author.dashboard.ga.visits")}',
+                data: [#{domain[:report].visits_arr.join(',')}]
+              }]
+            });
+          });

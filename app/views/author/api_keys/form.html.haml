@@ -1,0 +1,11 @@
+= form_for [:author, @api_key], html: { class: %w(form-horizontal) } do |api_key_form|
+  %fieldset
+    %legend= @form_legend
+    = present @api_key, :api_key_form_presenter, api_key_form do |p|
+      = p.errors
+      = p.title
+      = p.shard_language_id @current_shard.shard_languages
+      = p.app_id
+      = p.key
+      = p.secret
+      = p.actions back: author_albums_path

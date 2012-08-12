@@ -1,0 +1,22 @@
+.row
+  .span12
+    = render partial: "shared/flash_messages"
+    %ul.breadcrumb
+      %li
+        = link_to t('author.album.listing'), author_albums_path
+        %span.divider /
+      %li= @album.title
+%header
+  %a{ href: sync_author_album_photos_path(@album), class: %w(btn btn-info pull-right)}
+    %i.icon-white.icon-refresh
+    = t('author.album.photo.synchronize')
+  %a{ href: new_author_album_photo_path(@album), class: %w(btn btn-inverse pull-right)}
+    %i.icon-white.icon-plus
+    = t('author.album.photo.new')
+  %h2= t('author.album.photo.listing')
+%content
+  %ul.thumbnails
+    - @photos.each do |photo|
+      %li.thumbnail
+        = link_to image_tag(photo.link('160c'), title: photo.title), "#"
+        = link_to 'X', [:author, @album, photo], confirm: 'Are you sure?', method: :delete, class: %w(btn btn-small btn-danger x), title: t('global.destroy')

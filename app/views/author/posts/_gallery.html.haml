@@ -1,0 +1,37 @@
+.tabbable.tabs.gallery
+  %ul.nav.nav-tabs
+    %li{ class: "#{'active' if content.new_record? || content.videos.empty?}" }
+      %a{ href: "#gallery-photos-#{content.tmp_id}", :"data-toggle" => "tab" }
+        Photo Gallery
+        = radio_button_tag "post[contents_attributes][#{content.tmp_id}][gallery]", "photos", (content.new_record? ? true : content.videos.empty?)
+    %li{ class: "#{'active' if !content.new_record? && !content.videos.empty?}" }
+      %a{ href: "#gallery-videos-#{content.tmp_id}", :"data-toggle" => "tab" }
+        Video Gallery
+        = radio_button_tag "post[contents_attributes][#{content.tmp_id}][gallery]", "videos", (content.new_record? ? false : !content.videos.empty?)
+  .tab-content
+    %div.tab-pane.photos{ id: "gallery-photos-#{content.tmp_id}", class: "#{'active' if content.new_record? || content.videos.empty?}" }
+      .tmp{ style: "display: none;" }
+        = check_box_tag "post[contents_attributes][#{content.tmp_id}][photo_ids][]", 0, false
+      - if content.photos.empty?
+        %p.empty Drop photos here.
+      - else
+        %ul.thumbnails
+          - content.photos.each do |photo|
+            %li.span1
+              %i.icon-remove.icon-white{ title: "remove"}
+              %a.thumbnail{ href: "#" }
+                = image_tag photo.link('64c')
+              = check_box_tag "post[contents_attributes][#{content.tmp_id}][photo_ids][]", photo.id, content.photos.include?(photo)
+    %div.tab-pane.videos{ id: "gallery-videos-#{content.tmp_id}", class: "#{'active' if !content.new_record? && !content.videos.empty?}" }
+      .tmp{ style: "display: none;" }
+        = check_box_tag "post[contents_attributes][#{content.tmp_id}][video_ids][]", 0, false
+      - if content.videos.empty?
+        %p.empty Drop videos here.
+      - else
+        %ul.thumbnails
+          - content.videos.each do |video|
+            %li.span1
+              %i.icon-remove.icon-white{ title: "remove"}
+              %a.thumbnail{ href: "#" }
+                = image_tag video.preview
+              = check_box_tag "post[contents_attributes][#{content.tmp_id}][video_ids][]", video.id, content.videos.include?(video)

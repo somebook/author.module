@@ -1,0 +1,7 @@
+= widget_div(class: [:list, :media, :videos]) do
+  %ul
+    - @videos.each do |video|
+      %li= image_tag video.preview, title: video.title, class: "video", "data-youtube-id" => video.youtube_id, "data-id" => video.id, "data-bucket" => Video.bucket(@shard)
+:coffeescript
+  $("##{widget_id} .video").draggable
+    helper: "clone"

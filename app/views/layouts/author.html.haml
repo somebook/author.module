@@ -1,84 +1,32 @@
 !!!
-:erb
-  <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-  <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
-  <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-  <!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
-  <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-%head
-  %meta{ charset: "utf-8" }
-  %meta{ :"http-equiv" => "X-UA-Compatible", content: "IE=edge,chrome=1" }
-  %meta{ name: "description", content: "" }
-  %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0"}
-  = favicon_link_tag '/ico/shard/favicon.ico', rel: "shortcut icon"
+%html
+  %head
+    %meta{ charset: "utf-8" }
+    %meta{ :"http-equiv" => "X-UA-Compatible", content: "IE=edge,chrome=1" }
+    %meta{ name: "description", content: "" }
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0"}
+    %title Somebook Author
+    = stylesheet_link_tag    "author"
+    = javascript_include_tag "author"
+    %link{ href: "http://vjs.zencdn.net/c/video-js.css", rel: "stylesheet" }
+    
+    %script{ src: "http://vjs.zencdn.net/c/video.js" }
+    = csrf_meta_tags
+  %body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          = link_to "#{@current_shard.name.capitalize}", author_root_path, class: "brand"
+          = render :partial => "layouts/nav"
 
-  %title= t('front.shard_title')
-  = stylesheet_link_tag "demo"
-  %link{ href: "http://vjs.zencdn.net/c/video-js.css", rel: "stylesheet" }
-  :erb
-    <!--[if IE 8]>  <%= stylesheet_link_tag("ie/ie.css") %> <![endif]-->
-  = javascript_include_tag "demo"
-  %script{ src: "http://vjs.zencdn.net/c/video.js" }
-  = yield :head
-%body
-  = render partial: "shared/outdated_browser_body"
-  .watermark{ class: lang_code }
-  %div{ role: "main", class: index_page? ? "page index" : "page inner #{@static_page_class}" }
-    %header
-      %nav
-        %ul.menu
-          = render "demo/shared/navigation", { part: :top }
-        %ul.language
-          - if @current_shard_language
-            - @current_shard.shard_languages.each do |lang|
-              %li{ class: @current_shard_language.language.code == lang.language.code ? "active" : nil }
-                %a{ href: this_url_for_language(lang) } #{lang.language.name[0..2]}
-          %li.bookmark
-            %a.add_to_bookmarks{ href: "#" }
-              %b
-                %em= t('front.demo.bookmarks')
-      %h1{ class: lang_code }
-        = link_to t('front.demo.title'), root_path
-        .light
-    %section.social
-      %div
-        %h4= t('front.demo.social.title')
-        %ul
-          = render "demo/shared/social_accounts"
-    - if index_page?
-      %section.photo
-        = # render "demo/shared/photos_widget"
-    %section{ class: @unsticked ? "center-section unsticked" : "center-section"}
-      %ul.breadcrumbs
-        = render_breadcrumbs separator: "&nbsp;/&nbsp;", tag: "li"
-      = yield
-    %aside
-      - unless index_page? || @current_shard_language.nil?
-        = # render "demo/shared/left_nav"
-      %section.next-event
-        = # render "demo/shared/event_widget"
-      - unless events_page?
-        %section.calendar
-          = # render "demo/shared/calend_widget", count: 4
-    %footer
-      .copy
-        .title
-          = t('front.demo.denis_demo')
-          %br
-        .right
-          &copy;
-          = t('front.demo.copy') + " 2011."
-      %nav
-        %ul.language
-          %li.bookmark
-            %a.add_to_bookmarks{ href: "" }
-              %b
-                %em= t('front.demo.bookmarks')
-        .search
-          = form_tag(search_path) do
-            = hidden_field_tag :search_input_prompt, t('front.demo.search.prompt'), {:class => "search-input-prompt"}
-            = text_field_tag :search, t('front.demo.search.prompt'), {:class => "search-input"}
-        %ul.menu
-          = render "shared/navigation", { part: :bottom }
-:erb
-  </html>
+    -if @pending_social_contents && @pending_social_contents.size > 0 && @pending_social_contents.first && @pending_social_contents.first.terminal && @pending_social_contents.first.terminal.account
+      .pending_content
+        -if Rails.env.test? 
+          = link_to  t("author.you_have_pending_social_contents"),@pending_social_contents.first.terminal.account.ext_url
+        -else
+          = link_to  t("author.you_have_pending_social_contents"),@pending_social_contents.first.terminal.account.ext_url, target: "blank"
+    .container= yield
