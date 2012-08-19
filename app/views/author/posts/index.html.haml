@@ -19,7 +19,7 @@
     .alert.alert-warning.clearfix= translate('author.post.no_languages_alert')
   - else
   %div.pull-right
-    %a{ href: new_author_post_path(:stream => Account::STREAMS.invert[params[:stream].to_sym]), class: %w(btn btn-inverse)}
+    %a{ href: new_post_path(:stream => Account::STREAMS.invert[params[:stream].to_sym]), class: %w(btn btn-inverse)}
       %i.icon-white.icon-plus
       = t('author.post.new')
   %h1

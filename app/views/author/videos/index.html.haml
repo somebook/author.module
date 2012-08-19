@@ -4,15 +4,15 @@
     .alert.alert-warning.clearfix= translate('author.post.no_languages_alert')
   - else
     %div.pull-right
-      %a{ href: new_author_video_path(:stream => Account::STREAMS.invert[:official]),class: %w(btn btn-inverse)}
+      %a{ href: new_video_path(:stream => Account::STREAMS.invert[:official]),class: %w(btn btn-inverse)}
         %i.icon-white.icon-plus
         = translate('author.video.new_official')
 
-      %a{ href:  new_author_video_path(:stream => Account::STREAMS.invert[:personal]),class: %w(btn btn-inverse)}
+      %a{ href:  new_video_path(:stream => Account::STREAMS.invert[:personal]),class: %w(btn btn-inverse)}
         %i.icon-white.icon-plus
         = translate('author.video.new_personal')
 
-      %a{ href: syncronize_author_videos_path, confirm: 'Are you sure?', class: %w(btn btn-info pull-right)}
+      %a{ href: syncronize_videos_path, confirm: 'Are you sure?', class: %w(btn btn-info pull-right)}
         %i.icon-white.icon-refresh
         = translate('author.video.syncronize')
 
@@ -26,7 +26,7 @@
         %th= t('author.video.title')
         %th= t('author.video.created_at')
         %th= t('author.video.youtube')
-  
+
     %tbody
       - @videos.each do |video|
         %tr
@@ -36,11 +36,11 @@
             - else
               in progress
             %p
-              = link_to "#{video.title} (#{video.length})", edit_author_video_path(video), class: %w(biglink)
+              = link_to "#{video.title} (#{video.length})", edit_video_path(video), class: %w(biglink)
             - video.categories.each do |cat|
               %span.badge.badge-info= cat.to_s
             %span.actions
-              = link_to translate('global.edit'), edit_author_video_path(video), class: %w(graylink)
+              = link_to translate('global.edit'), edit_video_path(video), class: %w(graylink)
               = link_to translate('global.destroy'), [:author, video], :confirm => 'Are you sure?', :method => :delete, class: %w(graylink)
           %td
             %span.small.light-gray

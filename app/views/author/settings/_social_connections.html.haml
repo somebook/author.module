@@ -30,8 +30,8 @@
                 %span{ class: "shared #{service.code}"}
                 %span.badge{class: (stream == :personal ? "badge-success" : "badge-info")}= stream
               %td
-                = link_to("connect", author_shard_language_link_service_path({shard_language_id: language.id,
-                                                                      stream: Account::STREAMS.invert[stream], 
+                = link_to("connect", shard_language_link_service_path({shard_language_id: language.id,
+                                                                      stream: Account::STREAMS.invert[stream],
                                                                       code: service.code}), class: service.password_auth ? "password_auth link create" : "link create")
                 = render('author/shard_languages/form', account: Account.new(service_id: service.id, stream: Account::STREAMS.invert[stream], shard_language_id: language.id, provider: service.code), language: language) if service.password_auth
               %td

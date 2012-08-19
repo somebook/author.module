@@ -1,7 +1,7 @@
 = javascript_include_tag "posts"
 = stylesheet_link_tag "posts"
 = stylesheet_link_tag "jquery-ui"
-= form_for [:author, @post], html: { class: %w(form-stacked) } do |f|
+= form_for @post, html: { class: %w(form-stacked) } do |f|
   %fieldset
     %legend= @form_legend
     - unless @post.published?
@@ -33,7 +33,7 @@
           = p.archive
         .form-actions
           = submit_tag translate('global.save'), class: %w(btn btn-primary)
-          = link_to translate('global.cancel'), author_posts_path, class: %w(btn)
+          = link_to translate('global.cancel'), posts_path, class: %w(btn)
       .span4
         %ul.nav.nav-tabs.media
           %li.photo.active

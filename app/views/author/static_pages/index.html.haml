@@ -4,7 +4,7 @@
     .alert.alert-warning= translate('author.static_page.no_languages_alert')
   - else
     %div.pull-right
-      %a{ href: new_author_static_page_path, class: %w(btn btn-inverse)}
+      %a{ href: new_static_page_path, class: %w(btn btn-inverse)}
         %i.icon-white.icon-plus
         = translate('author.static_page.new')
   %h1
@@ -18,13 +18,13 @@
       %th= Language.model_name.human
       %th= StaticPage.human_attribute_name(:created_at)
       %th= translate('global.actions')
-  
+
     - @static_pages.each do |page|
       %tr
         %td.operation
-          = link_to page.default_content_for_shard(@current_shard).title, edit_author_static_page_path(page)
+          = link_to page.default_content_for_shard(@current_shard).title, edit_static_page_path(page)
           %span.actions
-            = link_to translate('global.edit'), edit_author_static_page_path(page)
+            = link_to translate('global.edit'), edit_static_page_path(page)
             = link_to translate('global.destroy'), [:author, page], :confirm => 'Are you sure?', :method => :delete
         %td
           - page.contents.each do |content|
@@ -40,4 +40,4 @@
             %a{ href: ('http://'+cnt.shard_language.domain+(([80,443].include?(request.port)) ? '':':'+request.port.to_s)+static_page_path(page.permalink)), class: %w(blacklink) }
               = t("author.post.preview")
               %i.icon.icon-share
-         
+

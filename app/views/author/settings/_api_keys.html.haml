@@ -12,8 +12,8 @@
               %span.badge.default= api_key.shard_language.language.name.downcase
           %td
             .actions.visible
-              = link_to t('global.edit'), edit_author_api_key_path(api_key), class: %w(link) 
-              = link_to(author_api_key_path(api_key), :confirm => 'Are you sure?', class: %w(link delete), :method => :delete) do
+              = link_to t('global.edit'), edit_api_key_path(api_key), class: %w(link)
+              = link_to(api_key_path(api_key), :confirm => 'Are you sure?', class: %w(link delete), :method => :delete) do
                 = t('global.destroy')
                 %span.badge.badge-important !
-  .addbox= link_to t('author.api_key.form_legend.new'), new_author_api_key_path, class: %w(biglink create)
+  .addbox= link_to t('author.api_key.form_legend.new'), new_api_key_path, class: %w(biglink create)

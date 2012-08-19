@@ -22,16 +22,16 @@
           %td
             = draft.title
           %td
-            = link_to t(draft.body) 
+            = link_to t(draft.body)
           %td
             %span.small.light-gray
               = draft.created_at.to_s(:long)
           %td
             %span{ class: "shared #{draft.terminal.account.service.name}"}
-           
+
           %td
             - if can? :news, Post.new(shard_id: @current_shard.id)
-              = link_to raw(t('author.social_draft.import_to_news')), import_author_social_draft_path(draft, stream: Account::STREAMS.invert[:official]), class: %w(btn btn-small)
+              = link_to raw(t('author.social_draft.import_to_news')), import_social_draft_path(draft, stream: Account::STREAMS.invert[:official]), class: %w(btn btn-small)
             - if can? :blog, Post.new(shard_id: @current_shard.id)
-              = link_to raw(t('author.social_draft.import_to_blog')), import_author_social_draft_path(draft, stream: Account::STREAMS.invert[:personal]), class: %w(btn btn-small)
+              = link_to raw(t('author.social_draft.import_to_blog')), import_social_draft_path(draft, stream: Account::STREAMS.invert[:personal]), class: %w(btn btn-small)
             = link_to t('author.social_draft.do_not_import'), [:author, draft], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)

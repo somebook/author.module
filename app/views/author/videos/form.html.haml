@@ -7,7 +7,7 @@
         %source{ src: @video.url(false, "mp4"), type: 'video/mp4' }
         %source{ src: @video.url(false, "webm"), type: 'video/webm' }
 = render partial: "shared/flash_messages"
-= form_for [:author, @video], html: { class: %w(form-horizontal), multipart: true } do |f|
+= form_for @video, html: { class: %w(form-horizontal), multipart: true } do |f|
   %fieldset
     %legend= @form_legend
     = present @video, :video_form_presenter, f do |p|
@@ -16,4 +16,4 @@
       = p.desc
       = p.youtube
       = p.categories
-      = p.actions back: author_videos_path
+      = p.actions back: videos_path

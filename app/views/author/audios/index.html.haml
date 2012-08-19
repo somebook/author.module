@@ -8,7 +8,7 @@
 - if @shard_languages.empty?
   .alert.alert-warning= translate('author.post.no_languages_alert')
 - else
-  = link_to translate('author.audio.new'), new_author_audio_album_audio_path(@audio_album), class: %w(btn)
+  = link_to translate('author.audio.new'), new_audio_album_audio_path(@audio_album), class: %w(btn)
 %br
 %br
 :javascript
@@ -30,6 +30,6 @@
       %td
         %audio{class: "player", src: audio.sample.url, preload: "auto"}
       %td
-        = link_to translate('global.edit'), edit_author_audio_album_audio_path(@audio_album,audio), class: %w(btn btn-small)
+        = link_to translate('global.edit'), edit_audio_album_audio_path(@audio_album,audio), class: %w(btn btn-small)
         = link_to translate('global.destroy'), [:author,@audio_album, audio], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)
-  
+

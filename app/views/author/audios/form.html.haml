@@ -1,5 +1,5 @@
 = render partial: "shared/flash_messages"
-= form_for [:author, @audio_album, @audio], html: { class: %w(form-horizontal), multipart: true } do |f|
+= form_for [@audio_album, @audio], html: { class: %w(form-horizontal), multipart: true } do |f|
   %fieldset
     %legend= @form_legend
     = present @audio, :audio_form_presenter, f do |p|
@@ -10,4 +10,4 @@
             = builder.label :name, "Name (#{lang.shard_language.language.code})"
             .controls= builder.text_field :name, value: lang.name
       = p.sample
-      = p.actions back: author_audio_album_audios_path(@audio_album)
+      = p.actions back: audio_album_audios_path(@audio_album)

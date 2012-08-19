@@ -5,7 +5,7 @@
   %input{type: :hidden, name: :acl, value: "public-read"}
   %input{type: :hidden, name: :success_action_status, value: "200"}
   %input{type: :hidden, name: :policy, value: @policy}
-  %input{type: :hidden, name: :redirect, value: uploaded_author_video_url(@video) }
+  %input{type: :hidden, name: :redirect, value: uploaded_video_url(@video) }
   %input{type: :hidden, name: :signature, value: @signature}
 
   .fileupload-content

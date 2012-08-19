@@ -1,9 +1,9 @@
 = render partial: "shared/flash_messages"
-= form_for [:author, @audio_album], html: { class: %w(form-horizontal), multipart: true } do |f|
+= form_for @audio_album, html: { class: %w(form-horizontal), multipart: true } do |f|
   %fieldset
     %legend= @form_legend
     = present @audio_album, :audio_album_form_presenter, f do |p|
       = p.name
       = p.cover
       = p.description
-      = p.actions back: author_audio_albums_path
+      = p.actions back: audio_albums_path

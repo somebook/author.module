@@ -1,7 +1,7 @@
 = javascript_include_tag "posts"
 = stylesheet_link_tag "posts"
 
-= form_for [:author, @static_page], html: { class: %w(form-stacked) } do |f|
+= form_for @static_page, html: { class: %w(form-stacked) } do |f|
   %fieldset
     %legend= @form_legend
     %ul.langs.nav.nav-pills
@@ -40,7 +40,7 @@
             .input= f.text_field :created_at
         .form-actions
           = submit_tag translate('global.save'), class: %w(btn btn-primary)
-          = link_to translate('global.cancel'), author_static_pages_path, class: %w(btn)
+          = link_to translate('global.cancel'), static_pages_path, class: %w(btn)
       .span4
         %ul.nav.nav-tabs.media
           %li.photo.active

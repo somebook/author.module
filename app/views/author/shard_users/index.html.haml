@@ -2,7 +2,7 @@
 
 = render partial: "shared/flash_messages"
 
-= form_tag(add_author_shard_users_path(@shard)) do
+= form_tag(add_shard_users_path(@shard)) do
   = label_tag :user_email, 'Add user by email'
   = text_field_tag :user_email
   %br
@@ -22,4 +22,4 @@
         as
         %strong= a.role.name
       %td{:class => "operations"}
-        = link_to t('global.revoke'),  revoke_author_shard_user_path(a), :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)
+        = link_to t('global.revoke'),  revoke_shard_user_path(a), :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)

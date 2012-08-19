@@ -1,4 +1,4 @@
-= form_for [:author, :album, @photo], html: { class: %w(form-horizontal) }, multipart: true do |photo_form|
+= form_for [:album, @photo], html: { class: %w(form-horizontal) }, multipart: true do |photo_form|
   %fieldset
     %legend= @form_legend
     = present @photo, :photo_form_presenter, photo_form do |p|
@@ -7,4 +7,4 @@
       = p.summary
       = p.file
       = p.album_id @album.id
-      = p.actions back: author_album_photos_path(@album)
+      = p.actions back: album_photos_path(@album)

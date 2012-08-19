@@ -2,7 +2,7 @@
 
 = render partial: "shared/flash_messages"
 
-= link_to t('author.api_key.form_legend.new'), new_author_api_key_path, class: %w(btn)
+= link_to t('author.api_key.form_legend.new'), new_api_key_path, class: %w(btn)
 %br
 %br
 
@@ -16,5 +16,5 @@
       %td= api_key.title
       %td= api_key.shard_language.domain
       %td
-        = link_to t('global.edit'), edit_author_api_key_path(api_key), class: %w(btn btn-small)
+        = link_to t('global.edit'), edit_api_key_path(api_key), class: %w(btn btn-small)
         = link_to t('global.destroy'), [:author, api_key], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)

@@ -3,14 +3,14 @@
     = render partial: "shared/flash_messages"
     %ul.breadcrumb
       %li
-        = link_to t('author.album.listing'), author_albums_path
+        = link_to t('author.album.listing'), albums_path
         %span.divider /
       %li= @album.title
 %header
-  %a{ href: sync_author_album_photos_path(@album), class: %w(btn btn-info pull-right)}
+  %a{ href: sync_album_photos_path(@album), class: %w(btn btn-info pull-right)}
     %i.icon-white.icon-refresh
     = t('author.album.photo.synchronize')
-  %a{ href: new_author_album_photo_path(@album), class: %w(btn btn-inverse pull-right)}
+  %a{ href: new_album_photo_path(@album), class: %w(btn btn-inverse pull-right)}
     %i.icon-white.icon-plus
     = t('author.album.photo.new')
   %h2= t('author.album.photo.listing')

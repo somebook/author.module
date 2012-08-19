@@ -1,9 +1,9 @@
 - if @shard_languages.empty?
   .alert.alert-warning= translate('author.post.no_languages_alert')
 - else
-  = link_to translate('author.video.new_official'), new_author_video_path(:stream => Account::STREAMS.invert[:official], youtube: youtube), class: %w(btn)
-  = link_to translate('author.video.new_personal'), new_author_video_path(:stream => Account::STREAMS.invert[:personal], youtube: youtube), class: %w(btn)
-= link_to(translate('author.video.syncronize'), syncronize_author_videos_path(youtube: youtube), confirm: 'Are you sure?', class: %w(btn btn-info)) if youtube
+  = link_to translate('author.video.new_official'), new_video_path(:stream => Account::STREAMS.invert[:official], youtube: youtube), class: %w(btn)
+  = link_to translate('author.video.new_personal'), new_video_path(:stream => Account::STREAMS.invert[:personal], youtube: youtube), class: %w(btn)
+= link_to(translate('author.video.syncronize'), syncronize_videos_path(youtube: youtube), confirm: 'Are you sure?', class: %w(btn btn-info)) if youtube
 %br
 %br
 
@@ -35,7 +35,7 @@
         =# "#{Language.model_name.human}: #{video.shard_language.name}"
       %td= video.created_at.to_s(:long)
       %td
-        = link_to translate('global.edit'), edit_author_video_path(video), class: %w(btn btn-small)
+        = link_to translate('global.edit'), edit_video_path(video), class: %w(btn btn-small)
         - if video.youtube_id.nil? && video.youtube?
-          = link_to translate('author.video.upload'), upload_author_video_path(video), class: %w(btn btn-primary btn-small)
+          = link_to translate('author.video.upload'), upload_video_path(video), class: %w(btn btn-primary btn-small)
         = link_to translate('global.destroy'), [:author, video], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)
