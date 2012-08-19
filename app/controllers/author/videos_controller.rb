@@ -39,7 +39,7 @@ class VideosController < SpaceController
   def uploaded
     @video = @current_shard.videos.find(params[:id])
     formats = %w[ .mp4 .m4v .avi .mpeg4 .webm .jpg ]
-    if params[:key] && !formats.include? params[:key].gsub(/^.*(\.[^\.]+)$/,'\\1')
+    if params[:key] && !formats.include?(params[:key].gsub(/^.*(\.[^\.]+)$/,'\\1'))
       flash[:notice] = t("author.video.notice.bad_format", good_formats: formats.join(", "))
       return render :upload
     end
@@ -126,7 +126,7 @@ private
         { "success_action_status" => "200" },
         [ "content-length-range", 0, 2.gigabytes ]
       ]
-    }).to_json).gsub(/\n/,'').gsub(/\r/,'')
+    }).to_json.gsub(/\n/,'').gsub(/\r/,'')
   end
 
   # Sign our request by Base64 encoding the policy document.
