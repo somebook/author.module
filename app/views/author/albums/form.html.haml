@@ -1,0 +1,9 @@
+= form_for [:author, @album], html: { class: %w(form-horizontal) } do |album_form|
+  %fieldset
+    %legend= @form_legend
+    = present @album, :album_form_presenter, album_form do |p|
+      = p.errors
+      = p.title
+      = p.summary
+      = p.access
+      = p.actions back: author_albums_path

@@ -1,0 +1,9 @@
+= widget_div(class: [:list, :media, :photos]) do
+  - @albums.each do |album|
+    %span.album= album.title
+    %ul
+      - album.photos.each do |photo|
+        %li= image_tag photo.link("800"), title: photo.title, class: "photo", "data-id" => photo.id
+:coffeescript
+  $("##{widget_id} .photo").draggable
+    helper: "clone"

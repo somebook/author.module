@@ -1,0 +1,29 @@
+= javascript_include_tag "events"
+= stylesheet_link_tag "posts"
+
+= form_for [:author, @event], html: { class: %w(form-stacked) } do |f|
+  %fieldset
+    %legend= @form_legend
+    .row
+      .span8
+        = present @event, :event_form_presenter, f do |p|
+          = p.errors
+          .clearfix
+            = f.label :starts_at
+            .input
+              = text_field_tag :starts_at_date, (@event.starts_at.strftime("%d.%m.%Y") if @event.starts_at), style: "width: 67px", class: %{date-input}
+              = text_field_tag :starts_at_time, (@event.starts_at.strftime("%H:%M") if (@event.starts_at && !@event.without_time)), style: "width: 35px", class: %{time-input}
+        .control-group
+          = render_widget :media_bucket, :gallery, :event, {video_gallery: @event.videos, photo_gallery: @event.photos, audio_gallery: @event.audios}
+        %ul.nav.nav-pills
+          - @shard_languages.each_with_index do |language, i|
+            %li{ class: i.zero? ? "active" : nil, 'data-language-id' => language.id }
+              %a{ href: "#" }= language.name
+        - @event.infos.each do |info|
+          = render "info", event: @post, info: info
+
+        .form-actions
+          = submit_tag translate('global.save'), class: %w(btn btn-primary)
+          = link_to translate('global.cancel'), author_events_path, class: %w(btn)
+      .span4
+        = render_widget :media_bucket, :display, {videos: @videos, albums: @albums, audios: @audio_albums}, @current_shard

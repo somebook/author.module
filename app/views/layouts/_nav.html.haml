@@ -1,0 +1,46 @@
+%div.nav-collapse
+  %ul.nav
+    - if author_signed_in?
+      %li{ class: (params[:controller] == "author/posts" && params[:stream] == 'official') ? "active" : nil }
+        = link_to t('author.post.list_official'), news_posts_path if can? :news, Post.new(shard_id: @current_shard.id)
+      %li{ class: (params[:controller] == "author/posts" && params[:stream] == 'personal') ? "active" : nil }
+        = link_to t('author.post.list_personal'), blog_posts_path if can? :blog, Post.new(shard_id: @current_shard.id)
+      -# %li= link_to "Comments"
+      %li{ class: params[:controller] == "author/events" ? "active" : nil }= link_to Event.model_name.human, events_path if can? :manage, Event.new(shard_id: @current_shard.id)
+      %li{ class: params[:controller] == "author/photos" ? "active" : nil }= link_to t('author.album.albums'), albums_path if can? :manage, Album.new(shard_id: @current_shard.id)
+      %li{ class: params[:controller] == "author/videos" ? "active" : nil }= link_to t('author.video.videos'), videos_path if can? :manage, Video.new(shard_id: @current_shard.id)
+      %li{ class: params[:controller] == "author/audio_albums" ? "active" : nil }= link_to t('author.audio_album.audio_albums'), audio_albums_path if can? :manage, AudioAlbum.new(shard_id: @current_shard.id)
+      %li{ class: params[:controller] == "author/static_pages" ? "active" : nil }= link_to t('author.static_page.static_pages'), static_pages_path if can? :manage, StaticPage.new(shard_id: @current_shard.id)
+      %li.dropdown
+        %a.dropdown-toggle{ :href => "#", :'data-toggle' => "dropdown" }
+          =t('author.settings')
+          %b.caret
+        %ul.dropdown-menu
+          %li{ class: params[:controller] == "author/picasa" ? "active" : nil }= link_to t('picasa'), picasa_path
+          %li{ class: params[:controller] == "author/api_keys" ? "active" : nil }= link_to t('api_keys'), api_keys_path if can? :manage, ApiKey
+          %li{ class: params[:controller] == "author/shard_users" ? "active" : nil }= link_to Assignment.model_name.human, shard_users_path if can? :index, Assignment.new(shard_id: @current_shard.id)
+          %li{ class: params[:controller] == "author/shard_languages" ? "active" : nil }= link_to ShardLanguage.model_name.human,shard_languages_path if can? :manage, ShardLanguage.new(shard_id: @current_shard.id)
+
+  %ul.nav.secondary-nav.pull-right
+    %li{ style: "margin-top: 5px" }
+      .btn-group
+        - [:ru, :en].each do |lang|
+          %a.btn.btn-mini{ class: (lang.to_s == I18n.locale.to_s ? "disabled" : ""), href: "?locale=#{lang}" }= lang
+    -if author_signed_in?
+      %li.dropdown
+        %a.dropdown-toggle{ :href => "#", :'data-toggle' => "dropdown" }
+          = current_user.email
+          %b.caret
+        %ul.dropdown-menu
+          - if @accessible_shards.size > 1
+            - @accessible_shards.each do |s|
+              %li
+                -if(s==@current_shard)
+                  = "*   "+s.name.capitalize
+                -else
+                  = link_to s.name.capitalize, author_set_my_shard_path(s.id)
+          %li
+            = link_to translate('global.sign_out'), destroy_user_session_path, :method => :delete
+    - else
+      %li
+        = link_to translate('global.sign_in'), new_user_session_path

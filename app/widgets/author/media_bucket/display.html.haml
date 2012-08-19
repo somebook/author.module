@@ -1,0 +1,22 @@
+= widget_div do
+  %ul.nav.nav-tabs.media
+    %li.photo.active
+      %a{ href: "#", "data-list" => "photos" }= t('author.album.photo.listing')
+    %li.video
+      %a{ href: "#", "data-list" => "videos" }= t('author.video.listing')
+    %li.audio
+      %a{ href: "#", "data-list" => "audios" }= t('author.audio.listing')
+  = render_widget :album_bucket, :display, @albums
+  = render_widget :video_bucket, :display, @videos, @shard
+  = render_widget :audio_bucket, :display, @audios
+  / this switches tabs
+  :coffeescript
+
+    $("div##{widget_id} > .nav-tabs.media > li > a").live 'click', (e) ->
+      $(this).parent().siblings().removeClass("active")
+      $(this).parent().addClass("active")
+      $(".list.media").hide()
+      $(".list.\#{$(this).data('list')}").show()
+      false
+
+

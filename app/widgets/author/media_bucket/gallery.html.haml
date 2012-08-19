@@ -1,0 +1,89 @@
+= widget_div do
+  .tabbable.tabs.gallery
+    %ul.nav.nav-tabs
+      %li{ class: "active" }
+        %a{ href: "#gallery-photos-#{@pprefix}-#{widget_id}", :"data-toggle" => "tab" }
+          Photo Gallery
+      %li
+        %a{ href: "#gallery-videos-#{@pprefix}-#{widget_id}", :"data-toggle" => "tab" }
+          Video Gallery
+      %li
+        %a{ href: "#gallery-audios-#{@pprefix}-#{widget_id}", :"data-toggle" => "tab" }
+          Audio Gallery
+    .tab-content
+      %div.tab-pane.photos{ id: "gallery-photos-#{@pprefix}-#{widget_id}", class: "active" }
+        .tmp{ style: "display: none;" }
+          = check_box_tag "#{@prefix}[photo_ids][]", 0, false
+        - if @photo_gallery.nil? || @photo_gallery.empty?
+          %p.empty Drop photos here.
+        - else
+          %ul.thumbnails
+            - @photo_gallery.each do |photo|
+              %li.span1
+                %i.icon-remove.icon-white{ title: "remove"}
+                %a.thumbnail{ href: "#" }
+                  = image_tag photo.link('64c')
+                = check_box_tag "#{@prefix}[photo_ids][]", photo.id
+      %div.tab-pane.videos{ id: "gallery-videos-#{@pprefix}-#{widget_id}"}
+        .tmp{ style: "display: none;" }
+          = check_box_tag "#{@prefix}[video_ids][]", 0, false
+        - if @video_gallery.nil? || @video_gallery.empty?
+          %p.empty Drop videos here.
+        - else
+          %ul.thumbnails
+            - @video_gallery.each do |video|
+              %li.span1
+                %i.icon-remove.icon-white{ title: "remove"}
+                %a.thumbnail{ href: "#" }
+                  = image_tag video.preview
+                = check_box_tag "#{@prefix}[video_ids][]", video.id 
+
+      %div.tab-pane.audios{ id: "gallery-audios-#{@pprefix}-#{widget_id}"}
+        .tmp{ style: "display: none;" }
+          = check_box_tag "#{@prefix}[audio_ids][]", 0, false
+        - if @video_gallery.nil? || @audio_gallery.empty?
+          %p.empty Drop audios here.
+        - else
+          %ul.thumbnails
+            - @audio_gallery.each do |audio|
+              %li.span1
+                %i.icon-remove.icon-black{ title: "remove"}
+                %a.thumbnail{ href: "#" }
+                  %span.audio= audio.name
+                = check_box_tag "#{@prefix}[audio_ids][]", audio.id 
+  :coffeescript
+    $(".tab-pane").droppable
+      drop: (e, ui) ->
+        if ($(this).is(".photos") and $(e.target).hasClass("photo")) or ($(this).is(".videos") and $(e.target).hasClass("video")) or ($(this).is(".audios") and $(e.target).hasClass("audio"))
+
+          unless ($(this).is(".audios"))
+            img_src = $(e.target).attr("src").replace("s800", "s64-c")
+            html = '<li class="span1"><i class="icon-remove icon-white" title="remove"></i><a href="#" class="thumbnail"><img class="photo" src="'+img_src+'"/></a></li>'
+          else
+            html = '<li class="span1"><i class="icon-remove icon-black" title="remove"></i><a href="#" class="thumbnail"><div class="audio">'+$(e.target).text()+'</div></a></li>'
+          tmp_chkbx = $(this).find(".tmp input").clone()
+          $(tmp_chkbx).prop("checked", true).attr("value", $(e.target).data("id"))
+          if $(this).find("p").hasClass("empty")
+            $(this).find("p.empty").remove()
+            $(this).append('<ul class="thumbnails"></ul>')
+          if $(this).is(".photos")
+            $(this).find(".thumbnails").append(html)
+            $(this).find(".thumbnails .thumbnail").last().parent().append(tmp_chkbx)
+          else if $(this).is(".videos")
+            $(this).find(".thumbnails").append(html)
+            $(this).find(".thumbnails .thumbnail").last().parent().append(tmp_chkbx)
+          else if $(this).is(".audios")
+            $(this).find(".thumbnails").append(html)
+            $(this).find(".thumbnails .thumbnail").last().parent().append(tmp_chkbx)
+          true
+        else
+          false
+      true
+    $(".gallery .icon-remove").live 'click', (e) ->
+      if $(this).parent().parent().find(".thumbnail").size() > 1
+        $(this).parent().remove()
+      else
+        $(this).parent().parent().parent().prepend('<p class="empty">Drop media here.</p>')
+        $(this).parent().parent().remove()
+      false
+

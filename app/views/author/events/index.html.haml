@@ -1,0 +1,30 @@
+%header
+  
+  = render partial: "shared/flash_messages"
+  %div.pull-right
+    %a{ href: new_author_event_path , class: %w(btn btn-inverse)}
+      %i.icon-white.icon-plus
+      = translate('author.event.new')
+
+    
+  %h1
+    %i.icon48-event
+    = translate('author.event.listing')
+%section.content
+  %table.table.table-striped.data
+    %tr
+      %th= EventInfo.human_attribute_name(:title)
+      %th= EventInfo.human_attribute_name(:city)
+      %th= EventInfo.human_attribute_name(:place)
+      %th= Event.human_attribute_name(:starts_at)
+      %th= translate('global.actions')
+  
+    - @events.each do |event|
+      %tr
+        %td= event.infos.first.title
+        %td= event.infos.first.city
+        %td= event.infos.first.place
+        %td= event.starts_at.to_s(:long) if event.starts_at
+        %td
+          = link_to translate('global.edit'), edit_author_event_path(event), class: %w(btn btn-small)
+          = link_to translate('global.destroy'), [:author, event], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)

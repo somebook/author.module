@@ -1,0 +1,21 @@
+%h2 Other connections
+.box
+  %table.table.data.prefs
+    %tbody
+      - @connections.each do |connection|
+        %tr
+          %td
+            %span{ class: "shared #{connection[:name]}"}
+          %td
+            - if connection[:connect_url]
+              = link_to "connect", connection[:connect_url]
+            - elsif connection[:account_url]
+              = link_to("account", connection[:account_url], class: %w(small dotted graylink))
+            - if connection[:additional]
+              %span.badge= connection[:additional]
+          %td
+            - if connection[:destroy_url]
+              %div.actions.visible
+                = link_to(connection[:destroy_url], confirm: 'Are you sure?', class: %w(link delete), method: :delete) do
+                  = t('global.destroy')
+                  %span.badge.badge-important !

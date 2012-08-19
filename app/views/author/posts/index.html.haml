@@ -1,0 +1,40 @@
+:coffeescript
+  jQuery ->
+    $(".sticky a").bind 'ajax:before', (e) ->
+      if $(this).parent().hasClass("sticked")
+        # $(this).parent().removeClass("sticked")
+        #         $(this).text("#{t('author.post.stick')}")
+      else
+        $(".sticky").removeClass("sticked")
+        $(this).parent().addClass("sticked")
+        $(this).text("#{t('author.post.sticked')}")
+    $(".btn-publish").bind 'ajax:before', (e) ->
+      $(this).button('loading')
+    $(".btn-publish").bind 'ajax:success', (evt, data, status, xhr) ->
+      st = $(this).parent().parent()
+      $(st).html($(xhr.responseText).html())
+%header
+
+  - if @shard_languages.empty?
+    .alert.alert-warning.clearfix= translate('author.post.no_languages_alert')
+  - else
+  %div.pull-right
+    %a{ href: new_author_post_path(:stream => Account::STREAMS.invert[params[:stream].to_sym]), class: %w(btn btn-inverse)}
+      %i.icon-white.icon-plus
+      = t('author.post.new')
+  %h1
+    %i{ class: "icon48-#{params[:stream] == 'personal' ? 'blog' : 'news'}"}
+    = translate("author.post.list_#{params[:stream]}")
+  = render partial: "shared/flash_messages"
+%section.content
+  %table.table.table-striped.data
+    %tr
+      %th= t("author.post.posts.title")
+      %th= t("author.post.posts.domain")
+      %th= t("author.post.posts.created_at")
+      %th= t("author.post.posts.status")
+      %th
+      %th
+    - @posts.each do |post|
+      = render 'post', post: post
+  = will_paginate(@posts)

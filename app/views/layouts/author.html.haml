@@ -1,0 +1,32 @@
+!!!
+%html
+  %head
+    %meta{ charset: "utf-8" }
+    %meta{ :"http-equiv" => "X-UA-Compatible", content: "IE=edge,chrome=1" }
+    %meta{ name: "description", content: "" }
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0"}
+    %title Somebook Author
+    = stylesheet_link_tag    "author"
+    = javascript_include_tag "author"
+    %link{ href: "http://vjs.zencdn.net/c/video-js.css", rel: "stylesheet" }
+
+    %script{ src: "http://vjs.zencdn.net/c/video.js" }
+    = csrf_meta_tags
+  %body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          = link_to "#{@current_shard.name.capitalize}", root_path, class: "brand"
+          = render :partial => "layouts/nav"
+
+    -if @pending_social_contents && @pending_social_contents.size > 0 && @pending_social_contents.first && @pending_social_contents.first.terminal && @pending_social_contents.first.terminal.account
+      .pending_content
+        -if Rails.env.test?
+          = link_to  t("author.you_have_pending_social_contents"),@pending_social_contents.first.terminal.account.ext_url
+        -else
+          = link_to  t("author.you_have_pending_social_contents"),@pending_social_contents.first.terminal.account.ext_url, target: "blank"
+    .container= yield
