@@ -65,7 +65,7 @@ private
 
     respond_to do |format|
       format.html {
-        redirect_to(author_post_content_comments_path(params[:post_id], params[:content_id]),
+        redirect_to(post_content_comments_path(params[:post_id], params[:content_id]),
         response.body && response.code == 200 && response.body.success == true ?
           { notice: translate("author.comments.notice.#{action}.success") } :
           { flash: { error: translate("author.comments.notice.#{action}.failed") } }

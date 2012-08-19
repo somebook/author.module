@@ -140,7 +140,7 @@ class PostsController < SpaceController
           @post.draft! unless @post.published?
           @post.update_attribute(:job_id, nil)
         end
-        format.html { redirect_to (@post.stream_name == :personal ? blog_author_posts_path : news_author_posts_path), notice: 'Post was successfully updated.' }
+        format.html { redirect_to (@post.stream_name == :personal ? blog_posts_path : news_posts_path), notice: 'Post was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render :form }
@@ -159,7 +159,7 @@ class PostsController < SpaceController
     @post.destroy
 
     respond_to do |format|
-      format.html { redirect_to (stream == :personal ? blog_author_posts_path : news_author_posts_path), notice: 'Post was successfully deleted.' }
+      format.html { redirect_to (stream == :personal ? blog_posts_path : news_posts_path), notice: 'Post was successfully deleted.' }
       format.json { head :ok }
     end
   end
@@ -200,7 +200,7 @@ class PostsController < SpaceController
       @current_shard.posts.where('sticky = ?', true).each{ |post| post.update_attribute(:sticky, false) }
       @post.update_attribute(:sticky, true)
     end
-    # redirect_to author_posts_path, notice: "Post was succesfully #{'un' unless @post.sticky}sticked."
+    # redirect_to posts_path, notice: "Post was succesfully #{'un' unless @post.sticky}sticked."
     render nothing: true
   end
 

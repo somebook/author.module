@@ -49,7 +49,7 @@ class EventsController < SpaceController
     @form_legend = t("author.event.form_legend.new")
 
     if @event.save
-      redirect_to author_events_url, notice: t("author.event.notice.create_success")
+      redirect_to events_path, notice: t("author.event.notice.create_success")
     else
       render :form
     end
@@ -67,7 +67,7 @@ class EventsController < SpaceController
     @form_legend = t("author.event.form_legend.edit")
 
     if @event.update_attributes(params[:event])
-      redirect_to author_events_url, notice: t("author.event.notice.update_success")
+      redirect_to events_path, notice: t("author.event.notice.update_success")
     else
       render :form
     end
@@ -77,7 +77,7 @@ class EventsController < SpaceController
     @event = @current_shard.events.find(params[:id]) || not_found
     @event.destroy
 
-    redirect_to author_events_url, notice: t("author.event.notice.delete_success")
+    redirect_to events_path, notice: t("author.event.notice.delete_success")
   end
 
   private

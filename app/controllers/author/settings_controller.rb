@@ -17,10 +17,10 @@ class SettingsController < SpaceController
       picasa = Picasa.new(picasa_account.token)
       unless picasa.nil?
         account_url = "https://profiles.google.com/#{picasa.user.user}/photos"
-        destroy_url = author_picasa_destroy_path
+        destroy_url = picasa_destroy_path
       end
     else
-      connect_url = Picasa.authorization_url(authorize_author_albums_url)
+      connect_url = Picasa.authorization_url(authorize_albums_url)
     end
     @connections = [{
       name: :picasa,
@@ -34,9 +34,9 @@ class SettingsController < SpaceController
       ga_account = Account.where(provider: "google_analytics", shard_language_id: shard_language.id).first
       connect_url = destroy_url = nil
       if ga_account.nil?
-        connect_url = author_shard_language_link_service_path(shard_language_id: shard_language.id, code: :google_analytics)
+        connect_url = shard_language_link_service_path(shard_language_id: shard_language.id, code: :google_analytics)
       else
-        destroy_url = author_shard_language_account_path(shard_language, ga_account)
+        destroy_url = shard_language_account_path(shard_language, ga_account)
       end
       @connections << {
         name: :google_analytics,

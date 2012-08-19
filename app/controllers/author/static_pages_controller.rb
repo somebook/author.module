@@ -28,7 +28,7 @@ class StaticPagesController < SpaceController
     @static_page.user = current_user
 
     if @static_page.save
-      redirect_to author_static_pages_path, notice: t("author.static_page.notice.create_success")
+      redirect_to static_pages_path, notice: t("author.static_page.notice.create_success")
     else
       render :form
     end
@@ -38,9 +38,9 @@ class StaticPagesController < SpaceController
     @static_page = StaticPage.find_by_id(params[:id]) || not_found
 
     if @static_page.destroy
-      redirect_to author_static_pages_path, notice: t("author.static_page.notice.delete_success")
+      redirect_to static_pages_path, notice: t("author.static_page.notice.delete_success")
     else
-      redirect_to author_static_pages_path, error: t("author.static_page.notice.delete_fail")
+      redirect_to static_pages_path, error: t("author.static_page.notice.delete_fail")
     end
   end
 
@@ -59,7 +59,7 @@ class StaticPagesController < SpaceController
     @form_legend = t("author.static_page.form_legend.edit")
 
     if @static_page.update_attributes(static_page_params[:static_page])
-      redirect_to author_static_pages_path, notice: t("author.static_page.notice.update_success")
+      redirect_to static_pages_path, notice: t("author.static_page.notice.update_success")
     else
       render :form
     end

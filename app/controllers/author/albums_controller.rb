@@ -4,7 +4,7 @@ class AlbumsController < PicasaController
   before_filter :check_picasa_auth, except: [:index, :authorize]
 
   def index
-  	@url = Picasa.authorization_url(authorize_author_albums_url) if @picasa.nil?
+  	@url = Picasa.authorization_url(authorize_albums_url) if @picasa.nil?
     @albums = current_user.albums.order('id DESC')
   end
 

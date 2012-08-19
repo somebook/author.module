@@ -11,7 +11,7 @@ class SpaceController < ::ApplicationController
       cookies[:current_shard_id] = s.id
     end
 
-    redirect_to author_root_path
+    redirect_to root_path
   end
 
 private

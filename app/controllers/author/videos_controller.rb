@@ -72,7 +72,7 @@ class VideosController < SpaceController
     params[:video][:categories] = [params[:video][:categories].to_sym] unless params[:video][:categories].nil?
 
     if @video.errors.empty? && @video.save
-      redirect_to upload_author_video_path(@video)
+      redirect_to upload_video_path(@video)
     else
       render :form
     end
@@ -122,7 +122,7 @@ private
         { "bucket" => amazon[:videos_bucket] },
         { "acl" => "public-read" },
         [ "starts-with", "$key", "videos/" ],
-        { "redirect" => uploaded_author_video_url(@video) },
+        { "redirect" => uploaded_video_url(@video) },
         { "success_action_status" => "200" },
         [ "content-length-range", 0, 2.gigabytes ]
       ]

@@ -17,7 +17,7 @@ class ShardUsersController < SpaceController
     assignment = @current_shard.assignments.for_role(:author).find(params[:id]) || not_found
     assignment.destroy
 
-    redirect_to author_shard_users_path, notice: t("author.shard_user.notice.delete_success")
+    redirect_to shard_users_path, notice: t("author.shard_user.notice.delete_success")
   end
 
 end

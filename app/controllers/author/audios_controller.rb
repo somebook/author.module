@@ -39,7 +39,7 @@ class AudiosController < SpaceController
     end
 
     if @audio.errors.empty? && @audio.save
-      redirect_to author_audio_album_audios_path(audio_album), notice: t("author.audio.notice.create_success")
+      redirect_to audio_album_audios_path(audio_album), notice: t("author.audio.notice.create_success")
     else
       render :form
     end
@@ -51,7 +51,7 @@ class AudiosController < SpaceController
     @form_legend = t("author.audio.form_legend.edit")
 
     if @audio.update_attributes(params[:audio])
-      redirect_to author_audio_album_audios_path(audio_album), notice: t("author.audio.notice.update_success")
+      redirect_to audio_album_audios_path(audio_album), notice: t("author.audio.notice.update_success")
     else
       render :form
     end
