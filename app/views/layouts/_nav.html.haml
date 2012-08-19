@@ -38,7 +38,7 @@
                 -if(s==@current_shard)
                   = "*   "+s.name.capitalize
                 -else
-                  = link_to s.name.capitalize, author_set_my_shard_path(s.id)
+                  = link_to s.name.capitalize, set_my_shard_path(s.id)
           %li
             = link_to translate('global.sign_out'), destroy_user_session_path, :method => :delete
     - else
