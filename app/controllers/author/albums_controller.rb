@@ -5,7 +5,7 @@ class AlbumsController < PicasaController
 
   def index
   	@url = Picasa.authorization_url(authorize_albums_url) if @picasa.nil?
-    @albums = current_user.albums.order('id DESC')
+    @albums = @current_shard.albums.order('id DESC')
   end
 
   def show
