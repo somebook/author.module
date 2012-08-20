@@ -40,7 +40,7 @@
                 -else
                   = link_to s.name.capitalize, set_my_shard_path(s.id)
           %li
-            = link_to translate('global.sign_out'), destroy_user_session_path, :method => :delete
+            = link_to translate('global.sign_out'), "/users/logout/", :method => :delete
     - else
       %li
-        = link_to translate('global.sign_in'), new_user_session_path
+        = link_to translate('global.sign_in'), "/users/login/"

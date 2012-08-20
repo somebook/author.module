@@ -26,7 +26,7 @@ private
 
     raise unless im_author? or im_master?
   rescue
-    redirect_to new_user_session_path
+    redirect_to "/users/login/"
   end
 
   def set_shard

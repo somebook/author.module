@@ -75,9 +75,4 @@ Author::Engine.routes.draw do
   match 'picasa/destroy' => 'picasa#destroy', as: :picasa_destroy
   match 'set_my_shard/:shard_id' => 'space#set_my_shard', as: :set_my_shard
   root to: 'index#index'
-
-  devise_for :users,
-    path_names: { sign_in: "login", sign_out: "logout", sign_up: "signup" },
-    sign_out_via: [:post, :delete, :get],
-    controllers: { omniauth_callbacks: "users/omniauth_callbacks", registrations: "users/registrations" }
 end
