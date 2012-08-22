@@ -27,4 +27,4 @@
         %td= event.starts_at.to_s(:long) if event.starts_at
         %td
           = link_to translate('global.edit'), edit_event_path(event), class: %w(btn btn-small)
-          = link_to translate('global.destroy'), [:author, event], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)
+          = link_to translate('global.destroy'), [event], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)

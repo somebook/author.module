@@ -8,12 +8,12 @@
     .tab-pane{ 'id' => domain[:name].delete('.'), class: ("active" if i.zero?) }
       - if domain[:account].nil?
         = "For displaying #{domain[:name]} Google Analytics - visit"
-        = link_to "this", shard_languages_path
+        = link_to "this", settings_path
         page and connect account.
       - elsif domain[:profiles]
         = "Choose one of these profiles:"
         - domain[:profiles].each do |profile|
-          = link_to profile[:name], ga_shard_language_account_path(domain[:account].shard_language, domain[:account], code: profile[:code])
+          = link_to profile[:name], ga_settings_shard_language_account_path(domain[:account].shard_language, domain[:account], code: profile[:code])
       - else
         %div{ id: "chart#{domain[:account].id}", style: "width: 530px;"}
         :javascript

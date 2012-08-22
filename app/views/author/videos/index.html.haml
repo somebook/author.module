@@ -41,7 +41,7 @@
               %span.badge.badge-info= cat.to_s
             %span.actions
               = link_to translate('global.edit'), edit_video_path(video), class: %w(graylink)
-              = link_to translate('global.destroy'), [:author, video], :confirm => 'Are you sure?', :method => :delete, class: %w(graylink)
+              = link_to translate('global.destroy'), [video], :confirm => 'Are you sure?', :method => :delete, class: %w(graylink)
           %td
             %span.small.light-gray
               = video.created_at.to_s(:long)

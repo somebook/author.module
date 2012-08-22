@@ -75,5 +75,9 @@ Author::Engine.routes.draw do
 
   match 'settings' => 'settings#index', as: :settings
   match 'set_my_shard/:shard_id' => 'space#set_my_shard', as: :set_my_shard
+  # devise_for :users,
+  #   path_names: { sign_in: "login", sign_out: "logout", sign_up: "signup" },
+  #   sign_out_via: [:post, :delete, :get],
+  #   controllers: { omniauth_callbacks: "users/omniauth_callbacks", registrations: "users/registrations" }
   root to: 'index#index'
 end

@@ -25,7 +25,7 @@
           = link_to page.default_content_for_shard(@current_shard).title, edit_static_page_path(page)
           %span.actions
             = link_to translate('global.edit'), edit_static_page_path(page)
-            = link_to translate('global.destroy'), [:author, page], :confirm => 'Are you sure?', :method => :delete
+            = link_to translate('global.destroy'), [page], :confirm => 'Are you sure?', :method => :delete
         %td
           - page.contents.each do |content|
             %span.small.gray.domen
