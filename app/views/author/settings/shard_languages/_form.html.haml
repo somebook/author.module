@@ -1,5 +1,5 @@
 .password_auth_form{ style: "display: none;" }
-  = form_for [language, account], html: { class: %w(form-horizontal) } do |f|
+  = form_for [:settings, language, account], html: { class: %w(form-horizontal) } do |f|
     = f.hidden_field :service_id
     = f.hidden_field :stream
     = f.hidden_field :shard_language_id

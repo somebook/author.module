@@ -10,12 +10,12 @@
           %td
             - if can? :manage, ass
               .actions.visible
-                = link_to(revoke_shard_user_path(ass), :confirm => 'Are you sure?', class: %w(link delete), :method => :delete) do
+                = link_to(revoke_settings_shard_user_path(ass), :confirm => 'Are you sure?', class: %w(link delete), :method => :delete) do
                   = t('global.destroy')
                   %span.badge.badge-important !
   .addbox
     - if can? :manage, Assignment.new(shard_id: @current_shard.id)
-      = form_tag(add_shard_users_path(@current_shard), class: %w(form-inline well)) do
+      = form_tag(add_settings_shard_users_path(@current_shard), class: %w(form-inline well)) do
         = label_tag :user_email, 'Add user as author by email:', class: %w(control-label)
         = text_field_tag :user_email
         = submit_tag "Add", class: %w(btn)

@@ -1,22 +1,4 @@
 Author::Engine.routes.draw do
-  resources :shard_users do
-    collection do
-      post 'add'
-    end
-    member do
-      delete 'revoke'
-    end
-  end
-  resources :shard_languages do
-    resources :accounts do
-      resources :terminals
-      member do
-        get 'ga'
-      end
-    end
-
-    get 'link_service'
-  end
   resources :posts, except: [:index] do
     collection do
       get 'blog', as: :blog
@@ -68,11 +50,30 @@ Author::Engine.routes.draw do
       get 'import'
     end
   end
-  resources :api_keys
+  namespace :settings do
+    resources :api_keys, except: [:index]
+    resources :shard_languages do
+      resources :accounts do
+        resources :terminals
+        member do
+          get 'ga'
+        end
+      end
+
+      get 'link_service'
+    end
+    resources :shard_users do
+      collection do
+        post 'add'
+      end
+      member do
+        delete 'revoke'
+      end
+    end
+    match 'picasa/destroy' => 'picasa#destroy', as: :picasa_destroy
+  end
 
   match 'settings' => 'settings#index', as: :settings
-  match 'picasa' => 'picasa#index', as: :picasa
-  match 'picasa/destroy' => 'picasa#destroy', as: :picasa_destroy
   match 'set_my_shard/:shard_id' => 'space#set_my_shard', as: :set_my_shard
   root to: 'index#index'
 end

@@ -1,7 +1,8 @@
 module Author
-class AlbumsController < PicasaController
+class AlbumsController < SpaceController
   load_and_authorize_resource
   before_filter :check_picasa_auth, except: [:index, :authorize]
+  before_filter :init_picasa
 
   def index
   	@url = Picasa.authorization_url(authorize_albums_url) if @picasa.nil?
@@ -93,6 +94,11 @@ private
 
   def check_picasa_auth
     redirect_to albums_path if @picasa.nil?
+  end
+  
+  def init_picasa
+    picasa_acc = Account.where(provider: "picasa", shard_id: @current_shard.id).first
+    @picasa = picasa_acc.nil? ? nil : Picasa.new(picasa_acc.token)
   end
 
 end

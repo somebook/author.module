@@ -26,7 +26,7 @@
         %td= link_to album.title, album_photos_path(album.id)
         %td= "#{album.photos.count} photos"
         %td
-          = link_to t('global.destroy'), [:author, album], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)
+          = link_to t('global.destroy'), [album], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)
           - if album.hidden
             = link_to t('author.album.show'), album_hidden_path(album), class: %w(btn btn-small btn-primary)
           - else
