@@ -1,5 +1,6 @@
 module Author
-class PhotosController < PicasaController
+class PhotosController < SpaceController
+  before_filter :init_picasa
 
   def index
     @photos = album.photos
@@ -47,6 +48,11 @@ private
 
   def album
     @album ||= Album.find_by_id(params[:album_id])
+  end
+  
+  def init_picasa
+    picasa_acc = Account.where(provider: "picasa", shard_id: @current_shard.id).first
+    @picasa = picasa_acc.nil? ? nil : Picasa.new(picasa_acc.token)
   end
 
 end
