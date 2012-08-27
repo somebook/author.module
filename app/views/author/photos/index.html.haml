@@ -19,4 +19,4 @@
     - @photos.each do |photo|
       %li.thumbnail
         = link_to image_tag(photo.link('160c'), title: photo.title), "#"
-        = link_to 'X', [:author, @album, photo], confirm: 'Are you sure?', method: :delete, class: %w(btn btn-small btn-danger x), title: t('global.destroy')
+        = link_to 'X', [@album, photo], confirm: 'Are you sure?', method: :delete, class: %w(btn btn-small btn-danger x), title: t('global.destroy')
