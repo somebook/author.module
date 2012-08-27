@@ -1,4 +1,4 @@
-#= require wysiwyg
+#= require author/wysiwyg
 
 jQuery ->
   $("ul.langs.nav-pills > li").bind 'click', (e) ->

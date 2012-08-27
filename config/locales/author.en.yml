@@ -1,4 +1,6 @@
 en:
-  front:
-    author:
-      foo: bar
+  author:
+    event:
+      notice:
+        update_success: Event was successfully updated
+        delete_success: Event was successfully deleted

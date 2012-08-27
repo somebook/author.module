@@ -1,4 +1,6 @@
 ru:
-  front:
-    author:
-      foo: bar
+  author:
+    event:
+      notice:
+        update_success: Событие было успешно изменено
+        delete_success: Событие было успешно удалено

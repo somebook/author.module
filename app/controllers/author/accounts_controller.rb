@@ -7,14 +7,14 @@ class AccountsController < SpaceController
     account.shard = @current_shard
     account.save!
 
-    redirect_to shard_languages_path, notice: t("author.account.notice.create_success")
+    redirect_to settings_path, notice: t("author.account.notice.create_success")
   end
 
   def destroy
     @account = Account.find(params[:id])
     @account.destroy
 
-    redirect_to shard_languages_path, notice: t("author.account.notice.delete_success")
+    redirect_to settings_path, notice: t("author.account.notice.delete_success")
   end
 
   def ga

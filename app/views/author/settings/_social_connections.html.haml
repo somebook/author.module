@@ -18,7 +18,7 @@
               -# = account.provider + "(#{account.service.name})"
               %td
                 -# = link_to 'terminals', [:author, language, account, :terminals], class: %w(small dotted graylink)
-              %td
+              %td{ class: "#{account.provider} #{stream} #{language.language.name.downcase}"}
                 %div.actions.visible
                   = link_to 'terminals', [:settings, language, account, :terminals], class: %w(link)
                   = link_to([:settings, language, account], :confirm => 'Are you sure?', class: %w(link delete), :method => :delete) do
@@ -29,7 +29,7 @@
               %td
                 %span{ class: "shared #{service.code}"}
                 %span.badge{class: (stream == :personal ? "badge-success" : "badge-info")}= stream
-              %td
+              %td{ class: "#{service.code} #{stream} #{language.language.name.downcase}"}
                 = link_to("connect", settings_shard_language_link_service_path({shard_language_id: language.id,
                                                                       stream: Account::STREAMS.invert[stream],
                                                                       code: service.code}), class: service.password_auth ? "password_auth link create" : "link create")

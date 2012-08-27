@@ -51,13 +51,12 @@ private
   def form_field(method, input)
     if method.is_a?(String)
       label = label_tag(method, class: %w(control-label))
-      ap "#{method} - #{label}"
     else
       begin
         label = t("activerecord.attributes.#{@object.class.to_s.underscore}.#{method}", raise: true)
         label = @form.label(method, label, class: %w[ control-label ])
       rescue
-        label = label_tag(method, class: %w(control-label))
+        label = @form.label(method, class: %w(control-label))
       end
     end
 
