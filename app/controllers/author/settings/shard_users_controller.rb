@@ -4,7 +4,7 @@ module Author
       load_and_authorize_resource class: "Assignment"
 
       def add
-        if user = User.find_by_email(params[:user_email]) and im_author?
+        if user = User.find_by_email(params[:user_email]) and (im_author? || im_master?)
           user.assignments.create(
             role_id: Role.find_by_name('author').id,
             shard_id: @current_shard.id

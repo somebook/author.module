@@ -65,19 +65,19 @@ class PostsController < SpaceController
     params[:post][:publish_at] = params[:publish_at_date] + " " + params[:publish_at_time]
     params[:post][:contents_attributes].each do |key, contents_attribute|
       contents_attribute[:is_enabled] = !!contents_attribute[:is_enabled]
-      unless @current_shard.shard_languages.exists?(ca[:shard_language_id].to_s)
+      unless @current_shard.shard_languages.exists?(contents_attribute[:shard_language_id].to_s)
         validated_shard_language = false
       end
     end
 
     if validated_shard_language
-      post_params = post_params.clone
-      post_params[:post][:user_id] = current_user.id
+      post_params_clone = post_params.clone
+      post_params_clone[:post][:user_id] = current_user.id
 
-      @post= Post.new(post_params[:post])
+      @post= Post.new(post_params_clone[:post])
       @post.contents.each { |contents|
-        contents.photos = [] if c.gallery == "videos"
-        contents.videos = [] if c.gallery == "photos"
+        contents.photos = [] if contents.gallery == "videos"
+        contents.videos = [] if contents.gallery == "photos"
       }
 
       @post.shard = @current_shard
