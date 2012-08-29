@@ -31,5 +31,5 @@
         %audio{class: "player", src: audio.sample.url, preload: "auto"}
       %td
         = link_to translate('global.edit'), edit_audio_album_audio_path(@audio_album,audio), class: %w(btn btn-small)
-        = link_to translate('global.destroy'), [:author,@audio_album, audio], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)
+        = link_to translate('global.destroy'), [@audio_album, audio], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)
 

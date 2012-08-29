@@ -1,4 +1,4 @@
-#= require wysiwyg
+#= require author/wysiwyg
 
 jQuery ->
   $("ul.nav-pills > li").live 'click', (e) ->

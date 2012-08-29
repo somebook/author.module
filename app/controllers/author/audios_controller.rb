@@ -10,7 +10,7 @@ class AudiosController < SpaceController
   def new
     @audio = audio_album.audios.new
     @audio_languages = @current_shard.shard_languages.map { |shard_language|
-      @AudioLanguage.new(shard_language_id: shard_language.id)
+      AudioLanguage.new(shard_language_id: shard_language.id)
     }
     @form_legend = t("author.audio.form_legend.new")
 

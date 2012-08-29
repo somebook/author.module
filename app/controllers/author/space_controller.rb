@@ -8,7 +8,7 @@ class SpaceController < ::ApplicationController
   def set_my_shard
     shard = Shard.find(params[:shard_id])
     if im_author?(shard) or im_master?(shard)
-      cookies[:current_shard_id] = s.id
+      cookies[:current_shard_id] = shard.id
     end
 
     redirect_to root_path

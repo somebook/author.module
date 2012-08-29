@@ -29,6 +29,8 @@ class AudioAlbumsController < SpaceController
 
     if @audio_album.errors.empty? && @audio_album.save
       redirect_to audio_albums_path, notice: t("author.audio_album.notice.create_success")
+    else
+      render :form
     end
   end
 
