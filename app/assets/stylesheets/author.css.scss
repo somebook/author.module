@@ -880,7 +880,14 @@ div {
     }
   }
 }
-
+.urls {
+  .input-prepend {
+  .add-on:first-child{
+  margin: -2px -4px 0 0;
+  }
+  input { margin: 0 0 2px;}
+ }
+}
 @media (min-width: 768px) and (max-width: 980px) {
 
   /* Remove any padding from the body */

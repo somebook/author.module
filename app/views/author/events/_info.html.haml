@@ -23,7 +23,7 @@
       .input= text_area_tag "event[infos_attributes][#{event_info_id}][desc]", info.desc, :cols => 10, :rows => 10, class: %w(span8 wysiwyg)
   .clearfix{ class: (info.errors.get(:tickets_url).nil? or info.errors.get(:tickets_url).empty? ? "" : "error") }
     %label{ for: "event_infos_attributes_#{event_info_id}_tickets_url"}= EventInfo.human_attribute_name(:tickets_url)
-    .input
+    .input.urls
       .input-prepend
         %label.add-on
           %input#buy_tickets{ type: "checkbox", checked: ("checked" unless info.tickets_url.to_s == "") }
