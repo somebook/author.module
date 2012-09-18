@@ -14,17 +14,27 @@
   %table.table.table-striped.data
     %tr
       %th= EventInfo.human_attribute_name(:title)
+      %th= Event.human_attribute_name(:starts_at)
       %th= EventInfo.human_attribute_name(:city)
       %th= EventInfo.human_attribute_name(:place)
-      %th= Event.human_attribute_name(:starts_at)
-      %th= translate('global.actions')
+      %th= translate('global.status')
 
     - @events.each do |event|
       %tr
-        %td= event.infos.first.title
-        %td= event.infos.first.city
-        %td= event.infos.first.place
-        %td= event.starts_at.to_s(:long) if event.starts_at
         %td
-          = link_to translate('global.edit'), edit_event_path(event), class: %w(btn btn-small)
-          = link_to translate('global.destroy'), [event], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)
+          = link_to "#{event.infos.first.title}", edit_event_path(event)
+          %span.actions
+            = link_to translate('global.edit'), edit_event_path(event)
+            = link_to translate('global.destroy'), [event], :confirm => 'Are you sure?', :method => :delete
+        
+        %td
+          %span.small
+            %strong
+              = event.starts_at.to_s(:long) if event.starts_at
+
+        %td
+          .label.label-success
+            %i.icon-white.icon-map-marker
+            = event.infos.first.city
+        %td= event.infos.first.place
+        %td
