@@ -1,5 +1,5 @@
 %header
-  = render partial: "shared/flash_messages"
+  = render partial: "author/shared/flash_messages"
   - if @shard_languages.empty?
     .alert.alert-warning.clearfix= translate('author.post.no_languages_alert')
   - else

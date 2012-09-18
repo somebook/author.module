@@ -30,7 +30,6 @@
             = f.label :created_at, class: %w(control-label)
             .controls
               = f.text_field :created_at, value: @post.created_at ? @post.created_at.strftime("%d.%m.%Y %H:%M") : nil
-          = p.archive
         .form-actions
           = submit_tag translate('global.save'), class: %w(btn btn-primary)
           = link_to translate('global.cancel'), posts_path, class: %w(btn)

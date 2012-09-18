@@ -25,7 +25,7 @@
   %h1
     %i{ class: "icon48-#{params[:stream] == 'personal' ? 'blog' : 'news'}"}
     = translate("author.post.list_#{params[:stream]}")
-  = render partial: "shared/flash_messages"
+  = render partial: "author/shared/flash_messages"
 %section.content
   %table.table.table-striped.data
     %tr

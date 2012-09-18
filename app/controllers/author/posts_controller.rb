@@ -215,7 +215,7 @@ private
 
   def post_params
     params.permit(post: %w[
-      stream publish_at created_at publish_at is_archive contents_attributes
+      stream publish_at created_at publish_at contents_attributes
     ].map(&:to_sym))
   end
 end
