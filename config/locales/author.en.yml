@@ -4,3 +4,5 @@ en:
       notice:
         update_success: Event was successfully updated
         delete_success: Event was successfully deleted
+      error:
+        fail: Check that you fill all fields in all languages

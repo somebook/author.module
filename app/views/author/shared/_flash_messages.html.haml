@@ -1,0 +1,7 @@
+= raw ap flash[:error]
+- unless notice.nil?
+  .clearfix.alert.alert-success= notice
+- unless flash[:error].nil?
+  .clearfix.alert.alert-error= flash[:error]
+- unless flash[:error_notice].nil?
+  .clearfix.alert.alert-error= flash[:error_notice]
