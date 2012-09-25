@@ -8,6 +8,7 @@ class PhotosController < SpaceController
 
   def new
     @photo = Photo.new
+    album
     @form_legend = t("author.album.photo.form_legend.new")
 
     render :form

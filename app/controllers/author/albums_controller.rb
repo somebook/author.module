@@ -1,12 +1,12 @@
 module Author
 class AlbumsController < SpaceController
   load_and_authorize_resource
-  before_filter :check_picasa_auth, except: [:index, :authorize]
   before_filter :init_picasa
+  before_filter :check_picasa_auth, except: [:index, :authorize]
 
   def index
   	@url = Picasa.authorization_url(authorize_albums_url) if @picasa.nil?
-    @albums = @current_shard.albums.order('id DESC')
+    @albums = @current_shard.albums.order('id DESC').paginate(page: params[:page], per_page: 20)
   end
 
   def show
@@ -75,6 +75,7 @@ class AlbumsController < SpaceController
           nickname: picasa.user.nickname,
           user_id: current_user.id
         )
+        current_user.sync_albums(picasa, @current_shard)
         redirect_to albums_path, notice: t("author.album.notice.picasa_auth_success")
       rescue
         redirect_to albums_path, error: t("author.album.notice.picasa_auth_fail")

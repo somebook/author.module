@@ -1,4 +1,8 @@
-= javascript_include_tag "terminals"
+:coffeescript
+  jQuery ->
+    $("a.password_auth").live 'click', (e) ->
+      $(this).siblings('.password_auth_form').toggle(50)
+      false
 %h2 Трансляции в соцсетях
 .box
   %table.table.data.prefs.feeds

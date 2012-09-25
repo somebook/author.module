@@ -39,12 +39,20 @@ jQuery ->
             ->
               if $(this).data('provider') == "twitter"
                 $(this).val(title) if $(this).val() != title
+                if $(this).val().length > 120
+                  $(this).parent().parent().parent().find(".counter").addClass("label-important")
+                else
+                  $(this).parent().parent().parent().find(".counter").removeClass("label-important")
               else
                 $(this).val(body) if $(this).val() != body
+              counter($(this))
           )
       )
     1000
   )
+  
+  counter = (el) ->
+    $(el).parent().parent().parent().find(".counter").text($(el).val().length)
 
   $("table.terminals a.edit").live 'click', (e) ->
     if $(this).text() == "Edit"

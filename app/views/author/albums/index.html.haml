@@ -31,3 +31,4 @@
             = link_to t('author.album.show'), album_hidden_path(album), class: %w(btn btn-small btn-primary)
           - else
             = link_to t('author.album.hide'), album_hidden_path(album), class: %w(btn btn-small)
+  = will_paginate(@albums)
