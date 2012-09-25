@@ -37,22 +37,20 @@ jQuery ->
           title = $("input.content-title.#{$(this).data('content-id')}").val()
           $("table.terminals .generated textarea.#{$(this).data('content-id')}").each(
             ->
+              counter = $(this).parent().parent().parent().find(".counter")
               if $(this).data('provider') == "twitter"
                 $(this).val(title) if $(this).val() != title
                 if $(this).val().length > 120
-                  $(this).parent().parent().parent().find(".counter").addClass("label-important")
+                  $(counter).addClass("label-important")
                 else
-                  $(this).parent().parent().parent().find(".counter").removeClass("label-important")
+                  $(counter).removeClass("label-important")
               else
                 $(this).val(body) if $(this).val() != body
-              counter($(this))
+              $(counter).text($(this).val().length)
           )
       )
     1000
   )
-  
-  counter = (el) ->
-    $(el).parent().parent().parent().find(".counter").text($(el).val().length)
 
   $("table.terminals a.edit").live 'click', (e) ->
     if $(this).text() == "Edit"
