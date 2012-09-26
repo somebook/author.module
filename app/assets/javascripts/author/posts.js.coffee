@@ -32,8 +32,8 @@ jQuery ->
       $("textarea.w").each(
         ->
           tmp = document.createElement("div")
-          tmp.innerHTML = $(this).val()
-          body = tmp.textContent || tmp.innerText
+          tmp.innerHTML = sanitize($(this).val())
+          body = (tmp.textContent || tmp.innerText).replace(/\[br\]/g, '\r')#.replace(/\[(\/*i|\/*p|\/*b)\]/g, '<$1>')
           title = $("input.content-title.#{$(this).data('content-id')}").val()
           $("table.terminals .generated textarea.#{$(this).data('content-id')}").each(
             ->
@@ -44,13 +44,19 @@ jQuery ->
                   $(counter).addClass("label-important")
                 else
                   $(counter).removeClass("label-important")
+                $(counter).text($(this).val().length)
               else
                 $(this).val(body) if $(this).val() != body
-              $(counter).text($(this).val().length)
           )
       )
     1000
   )
+  
+  sanitize = (str) ->
+    str.replace(/[\s\n\r]+/g, ' ')
+      .replace(/<\/p><p>/g, '</p>[br]<p>')
+      # .replace(/<iframe.*src=\"([^"]*).*iframe>/g, ' $1 ')
+      # .replace(/<(\/*i|\/*p|\/*b)>/g, '[$1]')
 
   $("table.terminals a.edit").live 'click', (e) ->
     if $(this).text() == "Edit"
