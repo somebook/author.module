@@ -50,10 +50,10 @@
         .list.photos
           - @albums.each do |album|
             %span.album= album.title
-            %ul
+            %ul.clearfix
               - album.photos.each do |photo|
                 %li= image_tag photo.url, title: photo.title, class: "photo"
         .list.videos
-          %ul
+          %ul.clearfix
             - @videos.each do |video|
               %li= image_tag video.preview, title: video.title, class: "video", "data-youtube-id" => video.youtube_id
