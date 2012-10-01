@@ -41,6 +41,6 @@
           = link_to t('author.post.stick'), post_sticky_path(post), remote: true
     - if post.contents.size > 0
       - cnt=post.default_content_for_shard(@current_shard)
-      %a{ href: ('http://'+cnt.shard_language.domain+(([80,443].include?(request.port)) ? '':':'+request.port.to_s)+post_path(post)), class: %w(blacklink) }
+      %a{ href: ('http://'+cnt.shard_language.domain+(([80,443].include?(request.port)) ? '':':'+request.port.to_s)+main_app.blog_path(post)), class: %w(blacklink) }
         = t("author.post.preview")
         %i.icon.icon-share

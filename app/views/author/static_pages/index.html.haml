@@ -37,7 +37,7 @@
         %td{class: "operations"}
           - if page.contents.size > 0
             - cnt=page.default_content_for_shard(@current_shard)
-            %a{ href: ('http://'+cnt.shard_language.domain+(([80,443].include?(request.port)) ? '':':'+request.port.to_s)+static_page_path(page.permalink)), class: %w(blacklink) }
+            %a{ href: ('http://'+cnt.shard_language.domain+(([80,443].include?(request.port)) ? '':':'+request.port.to_s)+main_app.static_page_path(page.permalink)), class: %w(blacklink) }
               = t("author.post.preview")
               %i.icon.icon-share
 
