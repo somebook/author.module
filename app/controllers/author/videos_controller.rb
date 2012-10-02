@@ -48,7 +48,7 @@ class VideosController < SpaceController
     @video.update_attributes(filename: file)
 
     if @video.youtube
-      video = @video.client.video_upload(@video.url(false),
+      video = @video.youtube_client.video_upload(RestClient.get(@video.url(false)),
         title: @video.title,
         description: @video.desc
       )
@@ -126,7 +126,7 @@ private
         { "success_action_status" => "200" },
         [ "content-length-range", 0, 2.gigabytes ]
       ]
-    }).to_json.gsub(/\n/,'').gsub(/\r/,'')
+    }.to_json).gsub(/\n/,'').gsub(/\r/,'')
   end
 
   # Sign our request by Base64 encoding the policy document.

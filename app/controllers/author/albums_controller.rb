@@ -73,7 +73,8 @@ class AlbumsController < SpaceController
           provider: "picasa",
           token: picasa.token,
           nickname: picasa.user.nickname,
-          user_id: current_user.id
+          user_id: current_user.id,
+          service_id: Service.find_by_code("picasa")
         )
         current_user.sync_albums(picasa, @current_shard)
         redirect_to albums_path, notice: t("author.album.notice.picasa_auth_success")

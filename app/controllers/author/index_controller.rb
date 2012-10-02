@@ -24,7 +24,7 @@ class IndexController < SpaceController
     @domains.each{ |domain|
       next if domain[:account].nil?
 
-      Garb::Session.access_token = domain[:account].ga_access_token
+      Garb::Session.access_token = domain[:account].google_access_token
       profiles = Rails.cache.fetch("ga_profiles#{domain[:account].id}", expires_in: 5.hours) {
         Garb::Management::Profile.all
       }

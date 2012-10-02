@@ -9,39 +9,43 @@ module Author
       # Social Connections
       @languages = @current_shard.shard_languages
 
-      # Other Connections - Picasa
-      account_url = connect_url = destroy_url = nil
-      picasa_account = Account.where(provider: "picasa", shard_id: @current_shard.id).first
-      if !picasa_account.nil?
-        picasa = Picasa.new(picasa_account.token)
-        unless picasa.nil?
-          account_url = "https://profiles.google.com/#{picasa.user.user}/photos"
-          destroy_url = settings_picasa_destroy_path
-        end
-      else
-        connect_url = Picasa.authorization_url(authorize_albums_url)
-      end
-      @connections = [{
-        name: :picasa,
-        account_url: account_url,
-        connect_url: connect_url,
-        destroy_url: destroy_url
-      }]
-
-      # Other Connections - Google Analytics
-      @current_shard.shard_languages.each{ |shard_language|
-        ga_account = Account.where(provider: "google_analytics", shard_language_id: shard_language.id).first
-        connect_url = destroy_url = nil
-        if ga_account.nil?
-          connect_url = settings_shard_language_link_service_path(shard_language_id: shard_language.id, code: :google_analytics)
+      # Other Connections - Picasa, YouTube
+      @connections = []
+      [:picasa, :youtube].each{ |provider|
+        account_url = connect_url = destroy_url = nil
+        acc = Account.where(provider: provider, shard_id: @current_shard.id).first
+        if !acc.nil?
+          account_url = acc.ext_url
+          destroy_url = settings_shard_language_account_path(@current_shard.shard_languages.first, acc)
+        elsif provider == :picasa
+          connect_url = Picasa.authorization_url(authorize_albums_url)
         else
-          destroy_url = settings_shard_language_account_path(shard_language, ga_account)
+          connect_url = settings_shard_language_link_service_path(shard_language_id: @current_shard.shard_languages.first.id, code: provider)
         end
         @connections << {
-          name: :google_analytics,
+          name: provider,
+          account_url: account_url,
           connect_url: connect_url,
-          destroy_url: destroy_url,
-          additional: shard_language.domain
+          destroy_url: destroy_url
+        }
+      }
+
+      # Other Connections - Google Analytics
+      [:google_analytics].each{ |provider|
+        @current_shard.shard_languages.each{ |shard_language|
+          acc = Account.where(provider: provider, shard_language_id: shard_language.id).first
+          connect_url = destroy_url = nil
+          if acc.nil?
+            connect_url = settings_shard_language_link_service_path(shard_language_id: shard_language.id, code: provider)
+          else
+            destroy_url = settings_shard_language_account_path(shard_language, acc)
+          end
+          @connections << {
+            name: provider,
+            connect_url: connect_url,
+            destroy_url: destroy_url,
+            additional: shard_language.domain
+          }
         }
       }
 
