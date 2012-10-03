@@ -7,6 +7,9 @@ module Author
       @api_keys = @current_shard.shard_languages.map{ |shard_language| shard_language.api_keys }.flatten
 
       # Social Connections
+      @streams = []
+      @streams << :personal if can? :blog, Post.new(shard_id: @current_shard.id)
+      @streams << :official if can? :news, Post.new(shard_id: @current_shard.id)
       @languages = @current_shard.shard_languages
 
       # Other Connections - Picasa, YouTube

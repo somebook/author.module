@@ -13,7 +13,7 @@
             %h3
               = language.domain
               %span.badge.default= language.language.name.downcase
-        - [:personal,:official].each do |stream|
+        - @streams.each do |stream|
           - language.accounts.stream(stream).each do |account|
             %tr
               %td
