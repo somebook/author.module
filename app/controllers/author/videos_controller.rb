@@ -10,12 +10,12 @@ class VideosController < SpaceController
   end
 
   def new
-    youtube = Somebook::Application.config.social_app_accounts[@current_shard.name.to_sym][:youtube]
+    # youtube = Somebook::Application.config.social_app_accounts[@current_shard.name.to_sym][:youtube]
     @video = Video.new(
       stream: params[:stream] || params[:video][:stream],
       categories: [:people],
       shard: @current_shard,
-      youtube: (youtube && youtube[:username] && youtube[:password])
+      youtube: true#(youtube && youtube[:username] && youtube[:password])
     )
     @form_legend = t("author.video.form_legend.new")
 
