@@ -39,14 +39,12 @@ jQuery ->
             ->
               counter = $(this).parent().parent().parent().find(".counter")
               if $(this).data('provider') == "twitter"
-                $(this).val(title) if $(this).val() != title
                 if $(this).val().length > 120
                   $(counter).addClass("label-important")
                 else
                   $(counter).removeClass("label-important")
-                $(counter).text($(this).val().length)
-              else
-                $(this).val(body) if $(this).val() != body
+                $(counter).text(120 - $(this).val().length)
+              $(this).val(body) if $(this).val() != body
           )
       )
     1000
