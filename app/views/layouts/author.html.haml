@@ -9,7 +9,7 @@
     = stylesheet_link_tag    "author"
     = javascript_include_tag "author"
     %link{ href: "http://vjs.zencdn.net/c/video-js.css", rel: "stylesheet" }
-
+    %link{ href: "http://fonts.googleapis.com/css?family=PT+Serif+Caption|PT+Sans+Narrow|PT+Sans&subset=latin,cyrillic", :rel => "stylesheet", :type => "text/css" }
     %script{ src: "http://vjs.zencdn.net/c/video.js" }
     = csrf_meta_tags
   %body
@@ -29,4 +29,5 @@
           = link_to  t("author.you_have_pending_social_contents"),@pending_social_contents.first.terminal.account.ext_url
         -else
           = link_to  t("author.you_have_pending_social_contents"),@pending_social_contents.first.terminal.account.ext_url, target: "blank"
-    .container= yield
+    .header-bar
+    .container.page= yield

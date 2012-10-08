@@ -19,20 +19,27 @@ table.terminals {
     float: left;
   }
 }
-.nav-tabs > .active > a,
-.nav-tabs > .active > a:hover {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
-  background: rgba(0,0,0, .02)
+.nav-tabs.media > li > a { color: #666; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);}
+.nav-tabs.media > li > a:hover { background: #fff;}
+.nav-tabs.media > .active > a,
+.nav-tabs.media > .active > a:hover {
+  border:none;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6);
 }
+
 .list {
-    border-bottom: 1px solid #DDDDDD;
-    border-left: 1px solid #DDDDDD;
+    background:rgba(0, 0, 0, 0.03);
+    border-left: 1px solid rgba(0, 0, 0, 0.07);
+    border-bottom:1px solid rgba(255, 255, 255, 0.6);
     border-radius: 0 0 4px 4px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
-    max-height: 800px;
-    min-height: 576px;
+    max-height:732px;
+    min-height:600px;
     overflow-y: scroll;
-    padding: 15px 0;  
+    padding: 15px 0;
+     
+     
   &.photos {
     .album {
       display: block;
@@ -46,12 +53,17 @@ table.terminals {
       max-width: 140px;
       vertical-align: middle;
       
+      
       img.photo {
-        border: #def 4px solid;
         border-radius: 4px;
         cursor: move;
         width: 140px;
         max-width: 140px;
+        position: relative;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        border:solid 3px rgba(0,0,0, .001);
+        &:hover { border:solid 3px #cdf859; 
+       }
       }
     }
   }
@@ -63,10 +75,15 @@ table.terminals {
       margin: 5px 0;
       
       img.video {
-        border: #def 4px solid;
+        position: relative;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        border:solid 3px rgba(0,0,0, .001);
         border-radius: 4px;
         cursor: move;
         width: 170px;
+       &:hover { border:solid 3px #cdf859; 
+       }
+
       }
     }
   }
@@ -98,7 +115,7 @@ table.terminals {
 
 .tagSelector input {
 	width: auto;
-	min-width: 50px;
+	min-width: 100%;
 	float: left;
   padding: 4px 0;
 	white-space: nowrap
@@ -123,3 +140,66 @@ table.terminals {
 	color: #0099CC;
 	text-decoration: none;
 }
+
+
+.form-stacked {
+   min-width: 1100px; 
+   .content { padding:20px 20px 0;}
+  .controls { margin-left: 0;}
+  .control-label { 
+    float: none;
+    text-align: left;
+    width: auto;
+  }
+}
+input.span8, textarea.span8,
+.uneditable-input.span8 {
+width: 720px;
+}
+.form-top,
+.form-bottom 
+ { background:rgba(0, 0, 0, 0.03);  border-bottom: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06) inset;   }
+.form-top {border-radius: 8px 8px 0 0; margin: -20px -20px 30px;padding: 10px 10px 0;}
+.form-bottom { border-radius: 0 0 8px 8px; margin: 30px -20px 0; padding: 10px 10px 10px 20px; }
+.thick { height: 4px;}
+.publish-date { margin:0;}
+.publish-date label { display: inline-block;text-shadow: 0 1px #F3F3F3; text-transform:uppercase; color: #AAAAAA; font-weight:bold; font-size:11px;}
+
+.langs { 
+margin: 0 0 -10px;
+}
+.nav-pills.langs > li > a { position: relative;margin-bottom: 10px;border-radius: 4px 4px 0 0; background:rgba(0, 0, 0, 0.07); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6); color: #666666; font-weight: bold;}
+.nav-pills.langs > li > a:hover { background: #fff; box-shadow: none;}
+.nav-pills.langs > li > a i.arrow { display: none;}
+.nav-pills.langs > li.active > a i.arrow { display: block;}
+.nav-pills.langs > li.active > a  { background: #B33333; color: #fff; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6)}
+.nav-pills.langs > li.active > a i.arrow { display: block;}
+
+i.arrow, i.arrow:after {
+    border-color: transparent;
+    border-style: solid;
+    display: inline-block;
+    height: 0;
+    position: absolute;
+    width: 0;
+}
+i.arrow:after {
+    content: "";
+    z-index: -1;
+}
+
+
+
+
+i.arrow { border-top-color: #B33333;
+    border-width: 10px 10px 0;
+    bottom: -10px;
+    left: 50%;
+    margin-left: -10px;}
+    
+i.arrow:after {border-top-color: rgba(0, 0, 0, 0.25);
+    border-width: 11px 11px 0;
+    bottom: -1px;
+    left: -11px;}
+    
+.tags { background: #f5f5f5;}
