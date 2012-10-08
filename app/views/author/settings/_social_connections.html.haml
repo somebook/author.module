@@ -11,8 +11,8 @@
         %tr.table-header
           %td{ colspan: 3 }
             %h3
-              = language.domain
-              %span.badge.default= language.language.name.downcase
+              = language.name
+              -# %span.badge.default= language.language.name.downcase
         - @streams.each do |stream|
           - language.accounts.stream(stream).each do |account|
             %tr

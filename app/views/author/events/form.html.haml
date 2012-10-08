@@ -7,7 +7,8 @@
     .row
       .span8
         = present @event, :event_form_presenter, f do |p|
-          .clearfix.alert.alert-error= t("author.event.error.fail") unless @event.errors.count.zero?
+          - unless @event.errors.count.zero?
+            .clearfix.alert.alert-error= t("author.event.error.fail") 
           .clearfix
             = f.label :starts_at
             .input

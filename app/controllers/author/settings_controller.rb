@@ -47,7 +47,7 @@ module Author
             name: provider,
             connect_url: connect_url,
             destroy_url: destroy_url,
-            additional: shard_language.domain
+            additional: shard_language.name
           }
         }
       }

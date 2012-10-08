@@ -18,6 +18,6 @@ class ApiKeyFormPresenter < BasePresenter
   end
   
   def shard_language_id languages
-    form_field(:shard_language_id, f.select(:shard_language_id, languages.collect{ |l| [ l.domain, l.id ] }))
+    form_field(:shard_language_id, f.select(:shard_language_id, languages.collect{ |l| [ l.name, l.id ] }))
   end
 end

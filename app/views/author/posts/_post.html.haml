@@ -17,7 +17,8 @@
       %span.small.gray.domen
         = content.shard_language.domain unless content.shard_language.nil?
         %span.badge= content.shard_language.language.code
-        = link_to "comments", post_content_comments_path(post, content)
+        - if @current_shard.settings.has_site
+          = link_to "comments", post_content_comments_path(post, content)
   %td
     %span.small.light-gray
       = post.created_at.strftime("%b %-d, %H:%M")
@@ -41,6 +42,7 @@
           = link_to t('author.post.stick'), post_sticky_path(post), remote: true
     - if post.contents.size > 0
       - cnt=post.default_content_for_shard(@current_shard)
-      %a{ href: ('http://'+cnt.shard_language.domain+(([80,443].include?(request.port)) ? '':':'+request.port.to_s)+main_app.blog_path(post)), class: %w(blacklink) }
-        = t("author.post.preview")
-        %i.icon.icon-share
+      - if @current_shard.settings.has_site
+        %a{ href: ('http://'+cnt.shard_language.domain+(([80,443].include?(request.port)) ? '':':'+request.port.to_s)+main_app.blog_path(post)), class: %w(blacklink) }
+          = t("author.post.preview")
+          %i.icon.icon-share

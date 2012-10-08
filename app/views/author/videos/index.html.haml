@@ -4,15 +4,17 @@
     .alert.alert-warning.clearfix= translate('author.post.no_languages_alert')
   - else
     %div.pull-right
-      %a{ href: new_video_path(:stream => Account::STREAMS.invert[:official]),class: %w(btn btn-inverse)}
-        %i.icon-white.icon-plus
-        = translate('author.video.new_official')
+      - if can? :news, Post.new(shard_id: @current_shard.id)
+        %a{ href: new_video_path(:stream => Account::STREAMS.invert[:official]),class: %w(btn btn-inverse)}
+          %i.icon-white.icon-plus
+          = translate('author.video.new_official')
 
-      %a{ href:  new_video_path(:stream => Account::STREAMS.invert[:personal]),class: %w(btn btn-inverse)}
-        %i.icon-white.icon-plus
-        = translate('author.video.new_personal')
+      - if can? :blog, Post.new(shard_id: @current_shard.id)
+        %a{ href:  new_video_path(:stream => Account::STREAMS.invert[:personal]),class: %w(btn btn-inverse)}
+          %i.icon-white.icon-plus
+          = translate('author.video.new_personal')
 
-      %a{ href: syncronize_videos_path, confirm: 'Are you sure?', class: %w(btn btn-info pull-right)}
+      %a{ href: syncronize_videos_path, confirm: 'Are you sure?', class: %w(btn btn-info)}
         %i.icon-white.icon-refresh
         = translate('author.video.syncronize')
 
