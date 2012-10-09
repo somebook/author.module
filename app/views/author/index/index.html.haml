@@ -1,14 +1,15 @@
-%section.content.dashboard
+%header
   %h1= t('author.dashboard.dashboard')
-  .row
+%section.content.dashboard
+  .row-fluid
     .span6
-      .row
-        .span6
+      .row-fluid
+        .span12
           = render partial: "statistics", statistics: @statistics
-        -# .span3
+        -# .span6
         -#   = render partial: "comments"
-      .row
-        .span6
+      .row-fluid
+        .span12
           = render partial: "drafts", drafts: @drafts
           -# = render partial: "last_comments"
     .span6.analitics

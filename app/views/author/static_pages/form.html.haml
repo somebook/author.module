@@ -1,59 +1,62 @@
 = javascript_include_tag "author/posts"
 = stylesheet_link_tag "author/posts"
 
-= form_for @static_page, html: { class: %w(form-stacked) } do |f|
+= form_for @static_page, html: { class: %w(form-horizontal form-stacked) } do |f|
   %fieldset
-    %legend= @form_legend
-    %ul.langs.nav.nav-pills
-      - @shard_languages.each_with_index do |language, i|
-        %li{ class: i.zero? ? "active" : nil, 'data-language-id' => language.id }
-          - content = nil; @static_page.contents.each{|c| content = c if c.shard_language_id == language.id}
-          - if content
-            %a{ href: "#", class: (content.is_enabled ? nil : "dont_publish") }
-              = language.name
-              = label_tag "static_page[contents_attributes][#{content.tmp_id}][is_enabled]", language.name, style: "display: none;"
-              = check_box_tag "static_page[contents_attributes][#{content.tmp_id}][is_enabled]", :publish, (content.is_enabled?), class: "publish_checkbox"
-    .row
-      .span8
-        .clearfix
-          = f.label :permalink
-          .input= f.text_field :permalink
-      .span8
-        .clearfix
-          = f.label :section
-          .input= f.collection_select :section, StaticPage::SECTIONS,:to_s ,:to_s , {},{multiple: true}
-      - if current_user.has_role? :master
+    %header
+      %h1= @form_legend
+    .content
+      .form-top
+        %ul.langs.nav.nav-pills
+          - @shard_languages.each_with_index do |language, i|
+            %li{ class: i.zero? ? "active" : nil, 'data-language-id' => language.id }
+              - content = nil; @static_page.contents.each{|c| content = c if c.shard_language_id == language.id}
+              - if content
+                %a{ href: "#", class: (content.is_enabled ? nil : "dont_publish") }
+                  %i.arrow
+                  = language.name
+                  = label_tag "static_page[contents_attributes][#{content.tmp_id}][is_enabled]", language.name, style: "display: none;"
+                  = check_box_tag "static_page[contents_attributes][#{content.tmp_id}][is_enabled]", :publish, (content.is_enabled?), class: "publish_checkbox"
+      .form-options
+        .row-fluid
+          .span3
+            = f.label :permalink
+            .input= f.text_field :permalink
+          .span3
+            = f.label :section
+            .input= f.collection_select :section, StaticPage::SECTIONS,:to_s ,:to_s , {},{multiple: true}
+          - if current_user.has_role? :master
+            .span3
+              = f.label :layout
+              .input= f.text_field :layout
+            .span3
+              = f.label :page_class
+              .input= f.text_field :page_class
+      .row-fluid
         .span8
-          .clearfix
-            = f.label :layout
-            .input= f.text_field :layout
-      .span8
-        .clearfix
-          = f.label :page_class
-          .input= f.text_field :page_class
-      .span8
-        - @static_page.contents.each do |content|
-          = render "/author/posts/content", container: @static_page, as: "static_page", content: content
-        = present @static_page, :static_page_form_presenter, f do |p|
-          .clearfix
-            = f.label :created_at
-            .input= f.text_field :created_at
-        .form-actions
-          = submit_tag translate('global.save'), class: %w(btn btn-primary)
-          = link_to translate('global.cancel'), static_pages_path, class: %w(btn)
-      .span4
-        %ul.nav.nav-tabs.media
-          %li.photo.active
-            %a{ href: "#", "data-list" => "photos" }= t('author.album.photo.listing')
-          %li.video
-            %a{ href: "#", "data-list" => "videos" }= t('author.video.listing')
-        .list.photos
-          - @albums.each do |album|
-            %span.album= album.title
+          - @static_page.contents.each do |content|
+            = render "/author/posts/content", container: @static_page, as: "static_page", content: content
+        .span4
+          %ul.nav.nav-tabs.media
+            %li.photo.active
+              %a{ href: "#", "data-list" => "photos" }= t('author.album.photo.listing')
+            %li.video
+              %a{ href: "#", "data-list" => "videos" }= t('author.video.listing')
+          .list.photos
+            - @albums.each do |album|
+              %span.album= album.title
+              %ul.clearfix
+                - album.photos.each do |photo|
+                  %li= image_tag photo.url, title: photo.title, class: "photo"
+          .list.videos
             %ul.clearfix
-              - album.photos.each do |photo|
-                %li= image_tag photo.url, title: photo.title, class: "photo"
-        .list.videos
-          %ul.clearfix
-            - @videos.each do |video|
-              %li= image_tag video.preview, title: video.title, class: "video", "data-youtube-id" => video.youtube_id
+              - @videos.each do |video|
+                %li= image_tag video.preview, title: video.title, class: "video", "data-youtube-id" => video.youtube_id
+      .clearfix.form-bottom
+        .pull-right.publish-date
+          = present @static_page, :static_page_form_presenter, f do |p|
+            = f.label :created_at
+            = f.text_field :created_at
+
+        = submit_tag translate('global.save'), class: %w(btn btn-large btn-primary)
+        = link_to translate('global.cancel'), static_pages_path, class: %w(btn btn-large)

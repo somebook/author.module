@@ -22,31 +22,32 @@
     %i.icon48-video
     = translate('author.video.listing')
 %section.content
-  %table.table.table-striped.data.videos
-    %thead
-      %tr
-        %th= t('author.video.title')
-        %th= t('author.video.created_at')
-        %th= t('author.video.youtube')
-
-    %tbody
-      - @videos.each do |video|
+  %div.block
+    %table.table.table-striped.data.videos
+      %thead
         %tr
-          %td
-            - if video.job_ids.nil?
-              = image_tag video.preview, width: 120, height: 90
-            - else
-              in progress
-            %p
-              = link_to "#{video.title} (#{video.length})", edit_video_path(video), class: %w(biglink)
-            - video.categories.each do |cat|
-              %span.badge.badge-info= cat.to_s
-            %span.actions
-              = link_to translate('global.edit'), edit_video_path(video), class: %w(graylink)
-              = link_to translate('global.destroy'), [video], :confirm => 'Are you sure?', :method => :delete, class: %w(graylink)
-          %td
-            %span.small.light-gray
-              = video.created_at.to_s(:long)
-          %td
-            - if video.youtube?
-              = link_to t('author.video.watch_on_youtube'), video.url, class: %w(small gray)
+          %th= t('author.video.title')
+          %th= t('author.video.created_at')
+          %th= t('author.video.youtube')
+  
+      %tbody
+        - @videos.each do |video|
+          %tr
+            %td
+              - if video.job_ids.nil?
+                = image_tag video.preview, width: 120, height: 90
+              - else
+                in progress
+              %p
+                = link_to "#{video.title} (#{video.length})", edit_video_path(video), class: %w(biglink)
+              - video.categories.each do |cat|
+                %span.badge.badge-info= cat.to_s
+              %span.actions
+                = link_to translate('global.edit'), edit_video_path(video), class: %w(graylink)
+                = link_to translate('global.destroy'), [video], :confirm => 'Are you sure?', :method => :delete, class: %w(graylink)
+            %td
+              %span.small.light-gray
+                = video.created_at.to_s(:long)
+            %td
+              - if video.youtube?
+                = link_to t('author.video.watch_on_youtube'), video.url, class: %w(small gray)

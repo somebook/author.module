@@ -13,20 +13,21 @@
     %i.icon48-audio
     = translate('author.audio_album.listing')
 %section.content
-  %table.table.table-striped.data
-    %tr
-      %th Name
-      %th Img
-      %th Uploaded
-      %th= translate('global.actions')
-
-    - @audio_albums.each do |audio_album|
+  %div.block
+    %table.table.table-striped.data
       %tr
-        %td= audio_album.name
-        %td
-          %img{ src: audio_album.cover.url }
-        %td= audio_album.created_at.to_s(:long)
-        %td{class: :operations}
-          = link_to translate('author.audio_album.audios'), audio_album_audios_path(audio_album.id), class: %w(btn btn-small)
-          = link_to translate('global.edit'), edit_audio_album_path(audio_album), class: %w(btn btn-small)
-          = link_to translate('global.destroy'), [audio_album], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)
+        %th Name
+        %th Img
+        %th Uploaded
+        %th= translate('global.actions')
+  
+      - @audio_albums.each do |audio_album|
+        %tr
+          %td= audio_album.name
+          %td
+            %img{ src: audio_album.cover.url }
+          %td= audio_album.created_at.to_s(:long)
+          %td{class: :operations}
+            = link_to translate('author.audio_album.audios'), audio_album_audios_path(audio_album.id), class: %w(btn btn-small)
+            = link_to translate('global.edit'), edit_audio_album_path(audio_album), class: %w(btn btn-small)
+            = link_to translate('global.destroy'), [audio_album], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)

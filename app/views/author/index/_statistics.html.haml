@@ -1,5 +1,5 @@
 %h2= t('author.dashboard.statistics.statistics')
-.box
+.block
   %table.table
     %tbody
       - if can? :blog, Post.new(shard_id: @current_shard.id)

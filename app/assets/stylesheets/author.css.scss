@@ -82,7 +82,6 @@ ul {
     background:  #FFFFFF;
     border-radius: 4px 4px 4px 4px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    min-height: 600px;
     padding: 20px;
     box-sizing:padding-box;
    -moz-box-sizing:padding-box;
@@ -312,7 +311,12 @@ div {
     background: #f2f2f2;
   }
   tr {
+          .btns { vertical-align: bottom;
+         .btn { display: block; margin: 0 0 5px;}
+        }
+
     td {
+
       vertical-align: middle;
       border-color: #F5F5F5;
       &:last-child {
@@ -334,6 +338,7 @@ div {
               text-align: center;
             }
           }
+
         }
       }
       .actions {
@@ -455,6 +460,16 @@ div {
       }
     }
   }
+}
+.data.social {
+tr{
+th {
+background: #80d480!important;
+border-bottom-color: #80d480;
+color:#fff;
+text-shadow: none;
+}
+}
 }
 .actions {
   font-size: .88em;
@@ -777,10 +792,13 @@ div {
     margin-bottom: 0;
   }
   .tab-content {
-    border: solid 1px #ddd;
-    min-height: 150px;
-    padding: 20px;
-    margin: -1px 0 0;
+    background:rgba(0, 0, 0, 0.03);
+    border-left: 1px solid rgba(0, 0, 0, 0.07);
+    border-bottom:1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 0 0 4px 4px;
+    min-height:200px;
+    .tab-pane {  padding: 15px 20px; }
+     
   }
 }
 .settings {
@@ -934,6 +952,7 @@ div {
     }
   }
 }
+.video-preview { margin: 0 0 20px;}
 .urls {
   .input-prepend {
   .add-on:first-child{
@@ -943,6 +962,19 @@ div {
  }
 }
 
+.nav-tabs.media {
+  margin: 0;
+}
+
+.nav-tabs.media > li > a { color: #666; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);}
+.nav-tabs.media > li > a:hover { background: #fff;}
+.nav-tabs.media > .active > a,
+.nav-tabs.media > .active > a:hover {
+  border:none;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6);
+}
 
 
 

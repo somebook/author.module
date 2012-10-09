@@ -16,7 +16,7 @@
         = text_area_tag "#{as}[contents_attributes][#{content.tmp_id}][body]", content.body, cols: 10, rows: 10, class: %w(span8 wysiwyg w), 'data-content-id' => "#{content.tmp_id}"
   - unless content.social_contents.empty?
     .control-group
-      %table.table.table-striped.data
+      %table.table.table-striped.data.social
         %thead
           %th Social Networks:
           %th{ style: "width: 60px" }
