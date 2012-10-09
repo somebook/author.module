@@ -12,32 +12,33 @@
     = translate('author.static_page.listing')
 
 %section.content
-  %table.table.table-striped.data
-    %tr
-      %th= Content.human_attribute_name(:title)
-      %th= Language.model_name.human
-      %th= StaticPage.human_attribute_name(:created_at)
-      %th= translate('global.actions')
-
-    - @static_pages.each do |page|
+  %div.block
+    %table.table.table-striped.data
       %tr
-        %td.operation
-          = link_to page.default_content_for_shard(@current_shard).title, edit_static_page_path(page)
-          %span.actions
-            = link_to translate('global.edit'), edit_static_page_path(page)
-            = link_to translate('global.destroy'), [page], :confirm => 'Are you sure?', :method => :delete
-        %td
-          - page.contents.each do |content|
-            %span.small.gray.domen
-              = content.shard_language.domain unless content.shard_language.nil?
-              %span.badge= content.shard_language.language.code
-        %td
-          %span.small.light-gray
-            = page.created_at.to_s(:long)
-        %td{class: "operations"}
-          - if page.contents.size > 0
-            - cnt=page.default_content_for_shard(@current_shard)
-            %a{ href: ('http://'+cnt.shard_language.domain+(([80,443].include?(request.port)) ? '':':'+request.port.to_s)+main_app.static_page_path(page.permalink)), class: %w(blacklink) }
-              = t("author.post.preview")
-              %i.icon.icon-share
-
+        %th= Content.human_attribute_name(:title)
+        %th= Language.model_name.human
+        %th.nowrap= StaticPage.human_attribute_name(:created_at)
+        %th= translate('global.actions')
+  
+      - @static_pages.each do |page|
+        %tr
+          %td.operation
+            = link_to page.default_content_for_shard(@current_shard).title, edit_static_page_path(page)
+            %span.actions
+              = link_to translate('global.edit'), edit_static_page_path(page)
+              = link_to translate('global.destroy'), [page], :confirm => 'Are you sure?', :method => :delete
+          %td
+            - page.contents.each do |content|
+              %span.small.gray.domen
+                = content.shard_language.domain unless content.shard_language.nil?
+                %span.badge= content.shard_language.language.code
+          %td
+            %span.small.light-gray
+              = page.created_at.to_s(:long)
+          %td{class: "operations"}
+            - if page.contents.size > 0
+              - cnt=page.default_content_for_shard(@current_shard)
+              %a{ href: ('http://'+cnt.shard_language.domain+(([80,443].include?(request.port)) ? '':':'+request.port.to_s)+main_app.static_page_path(page.permalink)), class: %w(blacklink) }
+                = t("author.post.preview")
+                %i.icon.icon-share
+  

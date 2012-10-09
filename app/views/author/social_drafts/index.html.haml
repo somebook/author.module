@@ -5,33 +5,34 @@
     %i.icon48-draft
     = translate('author.social_draft.listing')
 %section.content
-  %table.table.table-striped.data.social_drafts
-    %thead
-      %tr
-        %th= t('author.social_draft.title')
-        %th= t('author.social_draft.body')
-        %th
-          %span.nowrap
-            = t('author.social_draft.created_at')
-        %th= t('author.social_draft.service')
-        %th= t('global.actions')
-
-    %tbody
-      - @social_drafts.each do |draft|
+  %div.block
+    %table.table.table-striped.data.social_drafts
+      %thead
         %tr
-          %td
-            = draft.title
-          %td
-            = draft.body
-          %td
-            %span.small.light-gray
-              = draft.created_at.to_s(:long)
-          %td
-            %span{ class: "shared #{draft.terminal.account.service.name}"}
-
-          %td
-            - if can? :news, Post.new(shard_id: @current_shard.id)
-              = link_to raw(t('author.social_draft.import_to_news')), import_social_draft_path(draft, stream: Account::STREAMS.invert[:official]), class: %w(btn btn-small)
-            - if can? :blog, Post.new(shard_id: @current_shard.id)
-              = link_to raw(t('author.social_draft.import_to_blog')), import_social_draft_path(draft, stream: Account::STREAMS.invert[:personal]), class: %w(btn btn-small)
-            = link_to t('author.social_draft.do_not_import'), [draft], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)
+          %th= t('author.social_draft.title')
+          %th= t('author.social_draft.body')
+          %th
+            %span.nowrap
+              = t('author.social_draft.created_at')
+          %th= t('author.social_draft.service')
+          %th= t('global.actions')
+  
+      %tbody
+        - @social_drafts.each do |draft|
+          %tr
+            %td
+              = draft.title
+            %td
+              = draft.body
+            %td
+              %span.small.light-gray
+                = draft.created_at.to_s(:long)
+            %td
+              %span{ class: "shared #{draft.terminal.account.service.name}"}
+  
+            %td
+              - if can? :news, Post.new(shard_id: @current_shard.id)
+                = link_to raw(t('author.social_draft.import_to_news')), import_social_draft_path(draft, stream: Account::STREAMS.invert[:official]), class: %w(btn btn-small)
+              - if can? :blog, Post.new(shard_id: @current_shard.id)
+                = link_to raw(t('author.social_draft.import_to_blog')), import_social_draft_path(draft, stream: Account::STREAMS.invert[:personal]), class: %w(btn btn-small)
+              = link_to t('author.social_draft.do_not_import'), [draft], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)

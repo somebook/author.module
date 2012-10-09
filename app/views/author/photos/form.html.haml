@@ -1,10 +1,13 @@
 = form_for [:album, @photo], html: { class: %w(form-horizontal) }, multipart: true do |photo_form|
   %fieldset
-    %legend= @form_legend
-    = present @photo, :photo_form_presenter, photo_form do |p|
-      = p.errors
-      = p.title
-      = p.summary
-      = p.file
-      = p.album_id @album.id
-      = p.actions back: album_photos_path(@album)
+    %header
+      %h1= @form_legend
+    .content
+      = present @photo, :photo_form_presenter, photo_form do |p|
+        = p.errors
+        = p.title
+        = p.summary
+        = p.file
+        = p.album_id @album.id
+        .clearfix.form-bottom
+          = p.actions back: album_photos_path(@album)

@@ -27,14 +27,15 @@
     = translate("author.post.list_#{params[:stream]}")
   = render partial: "author/shared/flash_messages"
 %section.content
-  %table.table.table-striped.data
-    %tr
-      %th= t("author.post.posts.title")
-      %th= t("author.post.posts.domain")
-      %th= t("author.post.posts.created_at")
-      %th= t("author.post.posts.status")
-      %th
-      %th
-    - @posts.each do |post|
-      = render 'post', post: post
-  = will_paginate(@posts)
+  %div.block
+    %table.table.table-striped.data
+      %tr
+        %th= t("author.post.posts.title")
+        %th= t("author.post.posts.domain")
+        %th= t("author.post.posts.created_at")
+        %th= t("author.post.posts.status")
+        %th
+        %th
+      - @posts.each do |post|
+        = render 'post', post: post
+    = will_paginate(@posts)

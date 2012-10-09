@@ -1,10 +1,10 @@
-%div{ class: "content_form content_form_#{content.shard_language_id} #{content.is_enabled? ? '' : 'dont-publish'}" }
+%div{ class: "content_form content_form_#{content.shard_language_id} #{content.is_enabled? ? '' : 'dont-publish'} block" }
   .form-disabler
     = hidden_field_tag "#{as}[contents_attributes][#{content.tmp_id}][id]", content.id
   = hidden_field_tag "#{as}[contents_attributes][#{content.tmp_id}][shard_language_id]", content.shard_language_id
   .control-group
     %label{ for: "#{as}_contents_attributes_#{content.tmp_id}_title" }= Content.human_attribute_name(:title)
-    .input= text_field_tag "#{as}[contents_attributes][#{content.tmp_id}][title]", content.title, class: "span8 #{content.tmp_id} content-title"
+    .input= text_field_tag "#{as}[contents_attributes][#{content.tmp_id}][title]", content.title, class: "span12 #{content.tmp_id} content-title"
   .control-group
     = render("gallery", content: content, f: f) if as == 'post'
   .control-group
@@ -16,7 +16,7 @@
         = text_area_tag "#{as}[contents_attributes][#{content.tmp_id}][body]", content.body, cols: 10, rows: 10, class: %w(span8 wysiwyg w), 'data-content-id' => "#{content.tmp_id}"
   - unless content.social_contents.empty?
     .control-group
-      %table.table.terminals.table-striped
+      %table.table.table-striped.data.social
         %thead
           %th Social Networks:
           %th{ style: "width: 60px" }
@@ -24,7 +24,7 @@
           - content.social_contents.each do |social_content|
             = render "social_content", content: content, social_content: social_content, as: as
    
-  .control-group{ style: "height: 57px" }
+  .control-group
     :javascript
       $(function() {
         var tags#{content.tmp_id} = [

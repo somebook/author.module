@@ -1,20 +1,21 @@
-.video-preview
-  -unless @video.new_record?
-    - unless @video.youtube_id.blank?
-      %iframe.video{ width: "390", height: "300", src: "http://www.youtube.com/embed/#{@video.youtube_id}", frameborder: "0", allowfullscreen: true }
-    - else
-      %video{ id: "video_#{@video.id}", class: "video-js vjs-default-skin", controls: true, preload: "auto", width: "390", height: "300", :"data-setup" => '{}' }
-        %source{ src: @video.url(false, "mp4"), type: 'video/mp4' }
-        %source{ src: @video.url(false, "webm"), type: 'video/webm' }
 = render partial: "shared/flash_messages"
 = form_for @video, html: { class: %w(form-horizontal), multipart: true } do |f|
   %fieldset
-    %legend= @form_legend
-    = present @video, :video_form_presenter, f do |p|
-      = p.stream
-      = p.title
-      = p.desc
-      = p.youtube if @youtube
-      = p.amazon if @amazon
-      = p.categories
-      = p.actions back: videos_path
+    %header
+      %h1= @form_legend
+    .content
+      .video-preview
+        -unless @video.new_record?
+          - unless @video.youtube_id.blank?
+            %iframe.video{ width: "390", height: "300", src: "http://www.youtube.com/embed/#{@video.youtube_id}", frameborder: "0", allowfullscreen: true }
+          - else
+            %video{ id: "video_#{@video.id}", class: "video-js vjs-default-skin", controls: true, preload: "auto", width: "390", height: "300", :"data-setup" => '{}' }
+              %source{ src: @video.url(false, "mp4"), type: 'video/mp4' }
+              %source{ src: @video.url(false, "webm"), type: 'video/webm' }
+      = present @video, :video_form_presenter, f do |p|
+        = p.stream
+        = p.title
+        = p.desc
+        = p.youtube if @youtube
+        = p.categories if @amazon
+        = p.actions back: videos_path

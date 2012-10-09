@@ -1,32 +1,40 @@
 = javascript_include_tag "author/events"
 = stylesheet_link_tag "author/posts"
 
-= form_for @event, html: { class: %w(form-stacked) } do |f|
+= form_for @event, html: { class: %w(form-horizontal form-stacked) } do |f|
   %fieldset
-    %legend= @form_legend
-    .row
-      .span8
-        = present @event, :event_form_presenter, f do |p|
-          - unless @event.errors.count.zero?
-            .clearfix.alert.alert-error= t("author.event.error.fail") 
-          .clearfix
-            = f.label :starts_at
-            .input
-              = text_field_tag :starts_at_date, (@event.starts_at.strftime("%d.%m.%Y") if @event.starts_at), style: "width: 67px", class: %{date-input}
-              = text_field_tag :starts_at_time, (@event.starts_at.strftime("%H:%M") if (@event.starts_at && !@event.without_time)), style: "width: 35px", class: %{time-input}
-        .control-group
-          - # TODO: Fix broken widget
-          = # render_widget :media_bucket, :gallery, :event, {video_gallery: @event.videos, photo_gallery: @event.photos, audio_gallery: @event.audios}
-        %ul.nav.nav-pills
+    %header
+      %h1= @form_legend
+    .content
+      .form-top
+        .pull-right.publish-date
+          = present @event, :event_form_presenter, f do |p|
+            - unless @event.errors.count.zero?
+              .alert.alert-error= t("author.event.error.fail") 
+          = f.label :starts_at
+          = text_field_tag :starts_at_date, (@event.starts_at.strftime("%d.%m.%Y") if @event.starts_at), style: "width: 67px", class: %{date-input}
+          = text_field_tag :starts_at_time, (@event.starts_at.strftime("%H:%M") if (@event.starts_at && !@event.without_time)), style: "width: 35px", class: %{time-input}
+        %ul.nav.nav-pills.langs
           - @shard_languages.each_with_index do |language, i|
             %li{ class: i.zero? ? "active" : nil, 'data-language-id' => language.id }
-              %a{ href: "#" }= language.name
-        - @event.infos.each do |info|
-          = render "info", event: @post, info: info
+              %a{ href: "#" }
+                %i.arrow
+                = language.name
 
-        .form-actions
-          = submit_tag translate('global.save'), class: %w(btn btn-primary)
-          = link_to translate('global.cancel'), events_path, class: %w(btn)
-      .span4
-        - # TODO: Fix broken widget
-        = # render_widget :media_bucket, :display, {videos: @videos, albums: @albums, audios: @audio_albums}, @current_shard
+
+
+      .row-fluid
+        .span8
+          .block
+            - @event.infos.each do |info|
+              = render "info", event: @post, info: info
+
+            .control-group
+              - # TODO: Fix broken widget
+              = # render_widget :media_bucket, :gallery, :event, {video_gallery: @event.videos, photo_gallery: @event.photos, audio_gallery: @event.audios}
+        .span4
+          - # TODO: Fix broken widget
+          = # render_widget :media_bucket, :display, {videos: @videos, albums: @albums, audios: @audio_albums}, @current_shard
+      .clearfix.form-bottom
+        = submit_tag translate('global.save'), class: %w(btn btn-large btn-primary)
+        = link_to translate('global.cancel'), events_path, class: %w(btn btn-large)

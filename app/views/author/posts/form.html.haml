@@ -1,51 +1,55 @@
 = javascript_include_tag "author/posts"
 = stylesheet_link_tag "author/posts"
 = stylesheet_link_tag "jquery-ui"
-= form_for @post, html: { class: %w(form-stacked) } do |f|
+= form_for @post, html: { class: %w(form-horizontal form-stacked) } do |f|
   %fieldset
-    %legend= @form_legend
-    - unless @post.published?
-      .control-group
-        = f.label :publish_at, class: %w(control-label)
-        .controls.form-actions
-          = text_field_tag :publish_at_date, (@post.publish_at.strftime("%d.%m.%Y") if @post.publish_at), style: "width: 67px", class: %(datepicker)
-          = text_field_tag :publish_at_time, (@post.publish_at.strftime("%H:%M") if @post.publish_at), style: "width: 35px"
-    %ul.langs.nav.nav-pills
-      - @shard_languages.each_with_index do |language, i|
-        %li{ class: i.zero? ? "active" : nil, 'data-language-id' => language.id }
-          - content = nil; @post.contents.each{|c| content = c if c.shard_language_id == language.id}
-          - if content
-            %a{ href: "#", class: (content.is_enabled? ? nil : "dont_publish") }
-              = language.name
-              = label_tag "post[contents_attributes][#{content.tmp_id}][is_enabled]", language.name, style: "display: none;"
-              = check_box_tag "post[contents_attributes][#{content.tmp_id}][is_enabled]", :publish, content.is_enabled?, class: "publish_checkbox"
+    %header
+      %h1= @form_legend
+    .content
+      .form-top
+        - unless @post.published?
+          .pull-right.publish-date
+            = f.label :publish_at, class: %w()
+            = text_field_tag :publish_at_date, (@post.publish_at.strftime("%d.%m.%Y") if @post.publish_at), style: "width: 67px", class: %(datepicker)
+            = text_field_tag :publish_at_time, (@post.publish_at.strftime("%H:%M") if @post.publish_at), style: "width: 35px"
+  
+        %ul.nav.nav-pills.langs
+          - @shard_languages.each_with_index do |language, i|
+            %li{ class: i.zero? ? "active" : nil, 'data-language-id' => language.id }
+              - content = nil; @post.contents.each{|c| content = c if c.shard_language_id == language.id}
+              - if content
+                %a{ href: "#", class: (content.is_enabled? ? nil : "dont_publish") }
+                  %i.arrow
+                  = language.name
+                  = label_tag "post[contents_attributes][#{content.tmp_id}][is_enabled]", language.name, style: "display: none;"
+                  = check_box_tag "post[contents_attributes][#{content.tmp_id}][is_enabled]", :publish, content.is_enabled?, class: "publish_checkbox"
+       
 
-    .row
-      .span8
-        - @post.contents.each do |content|
-          = render "content", container: @post, as: 'post', content: content, f: f
-        = present @post, :post_form_presenter, f do |p|
-          = p.stream
-          .control-group
-            = f.label :created_at, class: %w(control-label)
-            .controls
-              = f.text_field :created_at, value: @post.created_at ? @post.created_at.strftime("%d.%m.%Y %H:%M") : nil
-        .form-actions
-          = submit_tag translate('global.save'), class: %w(btn btn-primary)
-          = link_to translate('global.cancel'), posts_path, class: %w(btn)
-      .span4
-        %ul.nav.nav-tabs.media
-          %li.photo.active
-            %a{ href: "#", "data-list" => "photos" }= t('author.album.photo.listing')
-          %li.video
-            %a{ href: "#", "data-list" => "videos" }= t('author.video.listing')
-        .list.media.photos
-          - @albums.each do |album|
-            %span.album= album.title
+      .row-fluid
+        .span8
+          - @post.contents.each do |content|
+            = render "content", container: @post, as: 'post', content: content, f: f
+          = present @post, :post_form_presenter, f do |p|
+            = p.stream
+        .span4
+          %ul.nav.nav-tabs.media
+            %li.photo.active
+              %a{ href: "#", "data-list" => "photos" }= t('author.album.photo.listing')
+            %li.video
+              %a{ href: "#", "data-list" => "videos" }= t('author.video.listing')
+          .list.media.photos
+            - @albums.each do |album|
+              %span.album= album.title
+              %ul
+                - album.photos.each do |photo|
+                  %li= image_tag photo.link("800"), title: photo.title, class: "photo", "data-id" => photo.id
+          .list.media.videos
             %ul
-              - album.photos.each do |photo|
-                %li= image_tag photo.link("800"), title: photo.title, class: "photo", "data-id" => photo.id
-        .list.media.videos
-          %ul
-            - @videos.each do |video|
-              %li= image_tag video.preview, title: video.title, class: "video", "data-youtube-id" => video.youtube_id, "data-id" => video.id, "data-bucket" => Video.bucket(@current_shard)
+              - @videos.each do |video|
+                %li= image_tag video.preview, title: video.title, class: "video", "data-youtube-id" => video.youtube_id, "data-id" => video.id, "data-bucket" => Video.bucket(@current_shard)
+      .clearfix.form-bottom
+        .pull-right.publish-date
+          = f.label :created_at, class: %w(control-label)
+          = f.text_field :created_at, value: @post.created_at ? @post.created_at.strftime("%d.%m.%Y %H:%M") : nil
+        = submit_tag translate('global.save'), class: %w(btn btn-large btn-primary)
+        = link_to translate('global.cancel'), posts_path, class: %w(btn btn-large)

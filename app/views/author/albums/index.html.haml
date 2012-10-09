@@ -14,21 +14,22 @@
     = link_to t('author.album.visit_site'), "https://profiles.google.com/#{@picasa.user.user}/photos", :target => :blank, :class => %w(blacklink external)
 
 %section.content
-  %table.table.table-striped.data
-    %tr
-      %th= Album.model_name.human#attribute_name(:name)
-      %th
-        %span.nowrap
-          = t('author.album.photo.count')
-      %th= t('global.actions')
-    - @albums.each do |album|
+  %div.block
+    %table.table.table-striped.data
       %tr
-        %td= link_to album.title, album_photos_path(album.id)
-        %td= "#{album.photos.count} photos"
-        %td
-          = link_to t('global.destroy'), [album], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)
-          - if album.hidden
-            = link_to t('author.album.show'), album_hidden_path(album), class: %w(btn btn-small btn-primary)
-          - else
-            = link_to t('author.album.hide'), album_hidden_path(album), class: %w(btn btn-small)
-  = will_paginate(@albums)
+        %th= Album.model_name.human#attribute_name(:name)
+        %th
+          %span.nowrap
+            = t('author.album.photo.count')
+        %th= t('global.actions')
+      - @albums.each do |album|
+        %tr
+          %td= link_to album.title, album_photos_path(album.id)
+          %td= "#{album.photos.count} photos"
+          %td
+            = link_to t('global.destroy'), [album], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)
+            - if album.hidden
+              = link_to t('author.album.show'), album_hidden_path(album), class: %w(btn btn-small btn-primary)
+            - else
+              = link_to t('author.album.hide'), album_hidden_path(album), class: %w(btn btn-small)
+    = will_paginate(@albums)

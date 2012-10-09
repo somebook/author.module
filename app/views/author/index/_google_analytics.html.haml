@@ -1,5 +1,5 @@
 %h2= t('author.dashboard.ga.ga')
-%ul.nav.nav-tabs
+%ul.nav.nav-tabs.media
   - @domains.each_with_index do |domain, i|
     %li{ class: ("active" if i.zero?) }
       %a{ href: "##{domain[:name].delete('.')}", :"data-toggle" => "tab" }= domain[:name]

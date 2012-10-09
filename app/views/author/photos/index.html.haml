@@ -1,11 +1,3 @@
-.row
-  .span12
-    = render partial: "author/shared/flash_messages"
-    %ul.breadcrumb
-      %li
-        = link_to t('author.album.listing'), albums_path
-        %span.divider /
-      %li= @album.title
 %header
   %a{ href: sync_album_photos_path(@album), class: %w(btn btn-info pull-right)}
     %i.icon-white.icon-refresh
@@ -13,8 +5,17 @@
   %a{ href: new_album_photo_path(@album), class: %w(btn btn-inverse pull-right)}
     %i.icon-white.icon-plus
     = t('author.album.photo.new')
-  %h2= t('author.album.photo.listing')
-%content
+  %h1= t('author.album.photo.listing')
+.row-fluid
+  .span12
+    = render partial: "author/shared/flash_messages"
+    %ul.breadcrumb
+      %li
+        = link_to t('author.album.listing'), albums_path
+        %span.divider /
+      %li= @album.title
+
+.content
   %ul.thumbnails
     - @photos.each do |photo|
       %li.thumbnail

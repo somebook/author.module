@@ -1,22 +1,22 @@
 = javascript_include_tag "admin/commentatr_live"
+%header
+  %h1= translate('author.comments.listing')
+.clearfix
+  - unless @commentatr_token_set
+    .clearfix.alert.alert-error= translate('author.comments.no_token_warning')
+  - if @commentatr_unavailable
+    .clearfix.alert.alert-error= translate('author.comments.commentatr_unavailable')
 
-%h1= translate('author.comments.listing')
-
-- unless @commentatr_token_set
-  .clearfix.alert.alert-error= translate('author.comments.no_token_warning')
-- if @commentatr_unavailable
-  .clearfix.alert.alert-error= translate('author.comments.commentatr_unavailable')
-
-= render partial: "author/shared/flash_messages"
-
-%br
-
-%table.table.table-striped.data
-  %thead
-    %tr
-      %th= translate('author.comments.comment')
-      %th= translate('author.comments.author')
-      %th= translate('author.comments.date')
-      %th= translate('author.comments.status')
-      %th
-  %tbody#comments
+  = render partial: "author/shared/flash_messages"
+  
+.content
+  .block
+    %table.table.table-striped.data
+      %thead
+        %tr
+          %th= translate('author.comments.comment')
+          %th= translate('author.comments.author')
+          %th= translate('author.comments.date')
+          %th= translate('author.comments.status')
+          %th
+      %tbody#comments
