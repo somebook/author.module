@@ -51,6 +51,12 @@ module Author
           }
         }
       }
+      
+      # Other Connections - Amazon
+      @amazon_settings = @current_shard.amazon_setting
+      @connections << {
+        name: :amazon
+      }
 
       # Users
       @assignments = @current_shard.assignments

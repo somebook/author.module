@@ -1,22 +1,25 @@
 %header
   = render partial: "author/shared/flash_messages"
   - if @shard_languages.empty?
-    .alert.alert-warning.clearfix= translate('author.post.no_languages_alert')
+    .alert.alert-warning.clearfix= t('author.post.no_languages_alert')
   - else
     %div.pull-right
-      - if can? :news, Post.new(shard_id: @current_shard.id)
-        %a{ href: new_video_path(:stream => Account::STREAMS.invert[:official]),class: %w(btn btn-inverse)}
-          %i.icon-white.icon-plus
-          = translate('author.video.new_official')
+      - if @amazon || @youtube
+        - if can? :news, Post.new(shard_id: @current_shard.id)
+          %a{ href: new_video_path(:stream => Account::STREAMS.invert[:official]),class: %w(btn btn-inverse)}
+            %i.icon-white.icon-plus
+            = t('author.video.new_official')
 
-      - if can? :blog, Post.new(shard_id: @current_shard.id)
-        %a{ href:  new_video_path(:stream => Account::STREAMS.invert[:personal]),class: %w(btn btn-inverse)}
-          %i.icon-white.icon-plus
-          = translate('author.video.new_personal')
+        - if can? :blog, Post.new(shard_id: @current_shard.id)
+          %a{ href:  new_video_path(:stream => Account::STREAMS.invert[:personal]),class: %w(btn btn-inverse)}
+            %i.icon-white.icon-plus
+            = t('author.video.new_personal')
 
-      %a{ href: syncronize_videos_path, confirm: 'Are you sure?', class: %w(btn btn-info)}
-        %i.icon-white.icon-refresh
-        = translate('author.video.syncronize')
+        %a{ href: syncronize_videos_path, confirm: 'Are you sure?', class: %w(btn btn-info)}
+          %i.icon-white.icon-refresh
+          = t('author.video.syncronize')
+      - else
+        .clearfix.alert.alert-error= raw t('author.video.connect_youtube_or_amazon')
 
   %h1
     %i.icon48-video

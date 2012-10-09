@@ -70,6 +70,7 @@ Author::Engine.routes.draw do
         delete 'revoke'
       end
     end
+    resource :amazon_setting
     match 'picasa/destroy' => 'picasa#destroy', as: :picasa_destroy
   end
 

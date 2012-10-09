@@ -3,6 +3,7 @@
   %table.table.data.prefs
     %tbody
       - @connections.each do |connection|
+        = render(partial: 'amazon', amazon_setting: @amazon_settings) if connection[:name] == :amazon
         %tr
           %td
             %span{ class: "shared #{connection[:name]}"}

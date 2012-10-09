@@ -1,0 +1,38 @@
+:coffeescript
+  jQuery ->
+    $("a.amazon-form").live 'click', (e) ->
+      $(this).siblings('div.amazon-form').toggle(50)
+      false
+%tr
+  %td
+    %span{ class: "shared amazon"}
+  %td
+    - if @amazon_settings
+      = link_to "edit", "#", class: %w(amazon-form)
+    - else
+      = link_to "connect", "#", class: %w(amazon-form)
+    .amazon-form{ style: "display: none" }
+      = form_for (@amazon_settings || AmazonSetting.new(shard_id: @current_shard.id)), url: settings_amazon_setting_path, html: { class: %w(form-inline) } do |f|
+        = f.hidden_field :shard_id
+        .control-group
+          = f.label :access_key, "Access Key", class: %w(control-label)
+          .controls= f.text_field :access_key
+        .control-group
+          = f.label :secret_access_key, class: %w(control-label)
+          .controls= f.text_field :secret_access_key
+        - if can? :manage, Video.new(shard_id: @current_shard.id)
+          .control-group
+            = f.label :video_bucket, class: %w(control-label)
+            .controls= f.text_field :video_bucket
+        - if can? :manage, AudioAlbum.new(shard_id: @current_shard.id)
+          .control-group
+            = f.label :audio_bucket, class: %w(control-label)
+            .controls= f.text_field :audio_bucket
+        .form-actions
+          = f.submit t('author.shard_language.form_legend.save'), class: %w(btn btn-primary)
+  %td
+    - if @amazon_settings
+      %div.actions.visible
+        = link_to(settings_amazon_setting_path, confirm: 'Are you sure?', class: %w(link delete), method: :delete) do
+          = t('global.destroy')
+          %span.badge.badge-important !

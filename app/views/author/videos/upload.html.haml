@@ -1,17 +1,22 @@
+- if @video.amazon
+  %form#file_upload(action="https://#{Somebook::Application.config.social_app_accounts[@current_shard.name.to_sym][:amazon][:videos_bucket]}.s3.amazonaws.com/" method="post" enctype="multipart/form-data")
+    %input{type: :hidden, name: :key, value: 'videos/${filename}'}
+    %input{type: :hidden, name: "AWSAccessKeyId", value: Somebook::Application.config.social_app_accounts[:amazon][:access_key_id]}
+    %input{type: :hidden, name: :acl, value: "public-read"}
+    %input{type: :hidden, name: :success_action_status, value: "200"}
+    %input{type: :hidden, name: :policy, value: @policy}
+    %input{type: :hidden, name: :redirect, value: uploaded_video_url(@video) }
+    %input{type: :hidden, name: :signature, value: @signature}
 
-%form#file_upload(action="https://#{Somebook::Application.config.social_app_accounts[@current_shard.name.to_sym][:amazon][:videos_bucket]}.s3.amazonaws.com/" method="post" enctype="multipart/form-data")
-  %input{type: :hidden, name: :key, value: 'videos/${filename}'}
-  %input{type: :hidden, name: "AWSAccessKeyId", value: Somebook::Application.config.social_app_accounts[:amazon][:access_key_id]}
-  %input{type: :hidden, name: :acl, value: "public-read"}
-  %input{type: :hidden, name: :success_action_status, value: "200"}
-  %input{type: :hidden, name: :policy, value: @policy}
-  %input{type: :hidden, name: :redirect, value: uploaded_video_url(@video) }
-  %input{type: :hidden, name: :signature, value: @signature}
-
-  .fileupload-content
-    .fileupload-progress
-  .file-upload
-    %label.fileinput-button
-      %span Upload Video
-      %input{:type => :file, :name => :file}
-  %input{type: :submit, value: t('author.video.upload')}
+    .fileupload-content
+      .fileupload-progress
+    .file-upload
+      %label.fileinput-button
+        %span Upload Video
+        %input{:type => :file, :name => :file}
+    %input{type: :submit, value: t('author.video.upload')}
+- else
+  = form_tag @upload_info[:url], :multipart => true do
+    = hidden_field_tag :token, @upload_info[:token]
+    = file_field_tag :file
+    = submit_tag "Upload video"

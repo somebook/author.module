@@ -14,6 +14,7 @@
       = p.stream
       = p.title
       = p.desc
-      = p.youtube
+      = p.youtube if @youtube
+      = p.amazon if @amazon
       = p.categories
       = p.actions back: videos_path

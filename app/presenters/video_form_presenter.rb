@@ -12,6 +12,10 @@ class VideoFormPresenter < BasePresenter
   def youtube
     form_field(:youtube, f.check_box(:youtube))
   end
+  
+  def amazon
+    form_field(:amazon, f.check_box(:amazon))
+  end
 
   def title
     form_field(:title, f.text_field(:title))

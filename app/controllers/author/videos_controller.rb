@@ -4,6 +4,7 @@ module Author
 class VideosController < SpaceController
   load_and_authorize_resource
   before_filter :shard_languages, except: [:publish, :destroy, :show]
+  before_filter :check_connects
 
   def index
     @videos = @current_shard.videos.default_order
@@ -15,7 +16,8 @@ class VideosController < SpaceController
       stream: params[:stream] || params[:video][:stream],
       categories: [:people],
       shard: @current_shard,
-      youtube: true#(youtube && youtube[:username] && youtube[:password])
+      amazon: @amazon,
+      youtube: @youtube
     )
     @form_legend = t("author.video.form_legend.new")
 
@@ -31,9 +33,12 @@ class VideosController < SpaceController
 
   def upload
     @video = @current_shard.videos.find(params[:id])
-    @key = Somebook::Application.config.social_app_accounts[:amazon][:access_key_id]
-    @policy = s3_upload_policy_document
-    @signature = s3_upload_signature
+    @upload_info = @video.youtube_client.upload_token(@video.upload_params, uploaded_video_url(@video))
+    if @video.amazon
+      @key = Somebook::Application.config.social_app_accounts[:amazon][:access_key_id]
+      @policy = s3_upload_policy_document
+      @signature = s3_upload_signature
+    end
   end
 
   def uploaded
@@ -45,9 +50,9 @@ class VideosController < SpaceController
     end
 
     file = params[:key]
-    @video.update_attributes(filename: file)
+    @video.update_attributes(filename: file, youtube_id: request.query_parameters[:id])
 
-    if @video.youtube
+    if @video.youtube && @video.amazon
       video = @video.youtube_client.video_upload(RestClient.get(@video.url(false)),
         title: @video.title,
         description: @video.desc
@@ -56,9 +61,11 @@ class VideosController < SpaceController
         youtube_id: video.video_id.match(/video:(.*)/)[1],
         youtube: true
       )
+    elsif @video.youtube
+      @video.fill_info_from_youtube
     end
 
-    @video.encode
+    @video.encode if @video.amazon
 
     redirect_to videos_path, notice: t("author.video.notice.upload_success")
   end
@@ -115,11 +122,10 @@ private
 
   # Generate the policy document that amazon is expecting.
   def s3_upload_policy_document
-    amazon = Somebook::Application.config.social_app_accounts[@current_shard.name.to_sym][:amazon]
     @policy ||= Base64.encode64({
       "expiration" => 5.minutes.from_now.utc.xmlschema,
       "conditions" => [
-        { "bucket" => amazon[:videos_bucket] },
+        { "bucket" => @current_shard.amazon_setting.video_bucket },
         { "acl" => "public-read" },
         [ "starts-with", "$key", "videos/" ],
         { "redirect" => uploaded_video_url(@video) },
@@ -133,9 +139,14 @@ private
   def s3_upload_signature
     Base64.encode64(OpenSSL::HMAC.digest(
       OpenSSL::Digest::Digest.new('sha1'),
-      Somebook::Application.config.social_app_accounts[:amazon][:secret_access_key],
+      @current_shard.amazon_setting.secret_access_key,
       s3_upload_policy_document)
     ).gsub(/\n|\r/, "")
+  end
+  
+  def check_connects
+    @amazon = @current_shard.amazon_setting && !@current_shard.amazon_setting.video_bucket.empty?
+    @youtube = !Account.find_by_shard_id_and_provider(@current_shard.id, :youtube).nil?
   end
 
 end
