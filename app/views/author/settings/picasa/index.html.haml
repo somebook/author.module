@@ -1,12 +1,12 @@
 %header
   %div.pull-right
+    %w(blacklink external)
     - if @picasa.nil?
       = link_to("Authenticate Picasa", @url, :class => %w(btn))
     - else
       = link_to "Delete connection with Picasa", picasa_destroy_path, :class => %w(btn btn-danger), confirm: 'Are you sure?'
-      %br
-      %br
-      = link_to t('author.album.visit_site'), "https://profiles.google.com/#{@picasa.user.user}/photos", :target => :blank, :class => %w(blacklink external)
+
+      = link_to t('author.album.visit_site'), "https://profiles.google.com/#{@picasa.user.user}/photos", :target => :blank, :class => 
 
   %h1
     = 'Sharing with Picasa'

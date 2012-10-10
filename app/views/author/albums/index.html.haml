@@ -3,15 +3,17 @@
     = link_to("Authenticate Picasa", @url, :class => %w(btn btn-info))
   - else
     %div.pull-right
+      - unless @picasa.nil?
+        = link_to t('author.album.visit_site'), "https://profiles.google.com/#{@picasa.user.user}/photos", :target => :blank, :class => %w(whitelink)
+
       %a{ href: new_album_path , class: %w(btn btn-inverse)}
         %i.icon-white.icon-plus
         = t('author.album.new')
-    = render partial: "shared/flash_messages"
   %h1
     %i.icon48-album
     = t('author.album.listing')
-  - unless @picasa.nil?
-    = link_to t('author.album.visit_site'), "https://profiles.google.com/#{@picasa.user.user}/photos", :target => :blank, :class => %w(blacklink external)
+.clearfix
+  = render partial: "shared/flash_messages"
 
 %section.content
   %div.block

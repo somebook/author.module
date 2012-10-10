@@ -1,8 +1,9 @@
 %header
   %h1.lightbig Настройки
+
+.clearfix
+  = render partial: "author/shared/flash_messages"
 %section.content.settings
-  .row-fluid
-    = render partial: "author/shared/flash_messages"
   .row-fluid
     .span6
       = render partial: 'api_keys', api_keys: @api_keys
