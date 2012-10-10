@@ -47,6 +47,12 @@ class IndexController < SpaceController
       end
     }
   end
+  
+  private
+  
+  def set_section_class
+    @section_class = "index"
+  end
 
 end
 end

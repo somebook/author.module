@@ -218,5 +218,9 @@ private
       stream publish_at created_at publish_at contents_attributes
     ].map(&:to_sym))
   end
+  
+  def set_section_class
+    @section_class = "posts"
+  end
 end
 end

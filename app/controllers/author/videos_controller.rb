@@ -148,6 +148,10 @@ private
     @amazon = @current_shard.amazon_setting && !@current_shard.amazon_setting.video_bucket.empty?
     @youtube = !Account.find_by_shard_id_and_provider(@current_shard.id, :youtube).nil?
   end
+  
+  def set_section_class
+    @section_class = "videos"
+  end
 
 end
 end

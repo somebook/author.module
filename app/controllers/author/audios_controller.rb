@@ -69,6 +69,10 @@ private
   def audio_album
     @audio_album ||= AudioAlbum.find_by_id(params[:audio_album_id])
   end
+  
+  def set_section_class
+    @section_class = "audios"
+  end
 
 end
 end

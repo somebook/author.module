@@ -51,6 +51,10 @@ class AudioAlbumsController < SpaceController
 
     redirect_to audio_albums_path, t("author.audio_album.notice.delete_success")
   end
+  
+  def set_section_class
+    @section_class = "audio_albums"
+  end
 
 end
 end

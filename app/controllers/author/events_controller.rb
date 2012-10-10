@@ -91,6 +91,10 @@ class EventsController < SpaceController
     @videos = @current_shard.videos.default_order
     @audio_albums = @current_shard.audio_albums.default_order
   end
+  
+  def set_section_class
+    @section_class = "events"
+  end
 
 end
 end

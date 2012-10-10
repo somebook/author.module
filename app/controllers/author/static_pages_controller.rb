@@ -77,6 +77,10 @@ private
       position created_at permalink layout section contents_attributes page_class
     ].map(&:to_sym))
   end
+  
+  def set_section_class
+    @section_class = "static_pages"
+  end
 
 end
 end

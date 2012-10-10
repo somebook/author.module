@@ -55,6 +55,10 @@ private
     picasa_acc = Account.where(provider: "picasa", shard_id: @current_shard.id).first
     @picasa = picasa_acc.nil? ? nil : Picasa.new(picasa_acc.token)
   end
+  
+  def set_section_class
+    @section_class = "albums"
+  end
 
 end
 end

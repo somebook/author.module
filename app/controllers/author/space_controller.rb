@@ -2,7 +2,7 @@ module Author
 class SpaceController < ::ApplicationController
   force_ssl if Rails.env.production?
   layout "author"
-  before_filter :authenticate_user!, :set_shard, :authenticate_author!,
+  before_filter :authenticate_user!, :set_shard, :authenticate_author!, :set_section_class,
                 :check_pending_social_contents, :set_accessible_shards
 
   def set_my_shard
@@ -69,6 +69,9 @@ private
 
   def set_accessible_shards
     @accessible_shards = current_user.all_shards_for_roles([:author, :master])
+  end
+  
+  def set_section_class    
   end
 
 end

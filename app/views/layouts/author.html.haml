@@ -12,7 +12,7 @@
     %link{ href: "http://fonts.googleapis.com/css?family=PT+Serif+Caption|PT+Sans+Narrow|PT+Sans&subset=latin,cyrillic", :rel => "stylesheet", :type => "text/css" }
     %script{ src: "http://vjs.zencdn.net/c/video.js" }
     = csrf_meta_tags
-  %body
+  %body{ class: @section_class }
     .navbar.navbar-fixed-top
       .navbar-inner
         .container

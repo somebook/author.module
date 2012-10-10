@@ -17,6 +17,12 @@ class SocialDraftsController < SpaceController
 
     redirect_to social_drafts_path, notice: t("author.social_draft.notice.delete_success")
   end
+  
+  private
+  
+  def set_section_class
+    @section_class = "social_drafts"
+  end
 
 end
 end

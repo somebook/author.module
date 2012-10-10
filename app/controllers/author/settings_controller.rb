@@ -61,6 +61,12 @@ module Author
       # Users
       @assignments = @current_shard.assignments
     end
+    
+    private
+    
+    def set_section_class
+      @section_class = "settings"
+    end
 
   end
 end
