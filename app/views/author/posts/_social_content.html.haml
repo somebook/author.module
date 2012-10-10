@@ -7,17 +7,17 @@
       = social_content.terminal.account.service.name + " (" + social_content.terminal.name + ")"
       - if social_content.terminal.account.provider == "twitter"
         %span.label.counter 0
-    .terminal-form
+    .terminal-form{ style: "display: none;" }
       .generated
         = radio_button_tag("#{as}[contents_attributes][#{content.tmp_id}][social_contents_attributes][#{social_content.tmp_id}][edited]", false, (social_content.edited.nil? || !social_content.edited), style: "float: left; margin-right: 5px", 'data-social-content-id' => social_content.tmp_id)
         %label{ for: "#{as}[contents_attributes][#{content.tmp_id}][social_contents_attributes][#{social_content.tmp_id}][edited]", style: "float: left" }= "Generated content:"
         = text_area_tag "#{as}[contents_attributes][#{content.tmp_id}][social_contents_attributes][#{social_content.tmp_id}][body]", "", cols: 10, rows: 4, disabled: social_content.edited, class: "span7 #{social_content.tmp_id} #{content.tmp_id}", readonly: true, 'data-provider' => social_content.terminal.account.provider
-      .edited
+      .edited{ style: "display: none;" }
         %button{ style: "margin: 5px 0 5px 91px;", class: %w(btn-success btn copy)}
-          &darr;Copy&darr;
+          = raw t('author.post.copy')
         = radio_button_tag("#{as}[contents_attributes][#{content.tmp_id}][social_contents_attributes][#{social_content.tmp_id}][edited]", true, (social_content.edited), style: "float: left; margin-right: 5px; margin-top: 21px;", 'data-social-content-id' => social_content.tmp_id)
         %label{ for: "#{as}[contents_attributes][#{content.tmp_id}][social_contents_attributes][#{social_content.tmp_id}][edited]", style: "float: left; margin-top: 19px;" }= "Edited content:"
         = text_area_tag "#{as}[contents_attributes][#{content.tmp_id}][social_contents_attributes][#{social_content.tmp_id}][body]", social_content.body, cols: 10, rows: 4, disabled: !social_content.edited, class: "span7 #{social_content.tmp_id}", 'data-provider' => social_content.terminal.account.provider
   %td.btns
     %a.btn.btn-small.btn-primary.show= t('author.post.show')
-    %a.btn.btn-small.edit= t('author.post.edit')
+    %a.btn.btn-small.edit{ style: "display: none;" }= t('author.post.edit')
