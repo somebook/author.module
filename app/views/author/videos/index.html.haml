@@ -1,5 +1,4 @@
 %header
-  = render partial: "author/shared/flash_messages"
   - if @shard_languages.empty?
     .alert.alert-warning.clearfix= t('author.post.no_languages_alert')
   - else
@@ -19,11 +18,13 @@
           %i.icon-white.icon-refresh
           = t('author.video.syncronize')
       - else
-        .clearfix.alert.alert-error= raw t('author.video.connect_youtube_or_amazon')
+        .alert.alert-error= raw t('author.video.connect_youtube_or_amazon')
 
   %h1
     %i.icon48-video
     = translate('author.video.listing')
+= render partial: "author/shared/flash_messages"
+
 %section.content
   %div.block
     %table.table.table-striped.data.videos

@@ -26,13 +26,6 @@ h1 {
    color: rgba(255, 255, 255, 0.9);
     font-weight: normal;
     text-shadow: 0 -1px 0 rgba(0,0,0, .3);
-   
-
-  &.lightbig {
-    font-size: 36px;
-    font-weight: 300;
-    margin: 0 0 40px;
-  }
 }
 h1 [class^="icon32-"], h1 [class*=" icon32-"] {
   margin-top: -5px;
@@ -84,10 +77,6 @@ ul {
     margin: 0 0 40px;
     padding: 20px;
     *zoom: 1;
-     &.dashboard {
-     padding-top: 12px;
-      }
-
     .block {
     background:  #FFFFFF;
     border-radius: 4px 4px 4px 4px;
@@ -128,29 +117,46 @@ ul {
     position: absolute;
     right: 0;
     top: 0;}
-.index h1 {  -moz-transition: all 0.2s linear 0s;
-    color: #000000;
-    font-weight: bold;
-    margin-left: 20px;
-    padding-left: 0;
-    padding-right: 0;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.125);}
+
 .index {
+  h1 {  -moz-transition: all 0.2s linear 0s;
+  color: #000000;
+  font-weight: bold;
+  margin-left: 20px;
+  padding-left: 0;
+  padding-right: 0;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.125);}
   .header-bar {
   background: url("application/space-img.png") no-repeat scroll 400px -69px, url("application/space.png") repeat scroll 0 0 transparent;
   box-shadow: 0 50px 20px rgba(0, 0, 0, 0.5) inset;
   -moz-box-shadow: 0 50px 20px rgba(0, 0, 0, 0.5) inset;
   -webkit-box-shadow: 0 50px 20px rgba(0, 0, 0, 0.5) inset;
   }
+  .content {
+    padding-top: 12px;
+   }
+
 }
 
 .settings {
+  h1 {  -moz-transition: all 0.2s linear 0s;
+  color: #000000;
+  font-weight: bold;
+  margin-left: 20px;
+  padding-left: 0;
+  padding-right: 0;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.125);}
+
   .header-bar {
   background: url("application/space-img.png") no-repeat scroll 400px -398px, url("application/space.png") repeat scroll 0 0 transparent;
   box-shadow: 0 50px 20px rgba(0, 0, 0, 0.5) inset;
   -moz-box-shadow: 0 50px 20px rgba(0, 0, 0, 0.5) inset;
   -webkit-box-shadow: 0 50px 20px rgba(0, 0, 0, 0.5) inset;
   }
+  .content {
+  padding-top: 12px;
+ }
+
 }
 
  
@@ -165,20 +171,6 @@ ul {
   .header-bar {	background:#468847;}
 }
 
-/*
-.header-bar.red  {
-	background:#B33333;
-}
-.header-bar.blue{
-	background:#307da0;
-}
-.header-bar.yellow  {
-	background:#e49600;
-}
-.header-bar.green  {
-	background:#33a030;
-}
-*/
 
 .page { position: relative; z-index: 1;}
 .navbar-fixed-top {
@@ -622,49 +614,6 @@ text-shadow: none;
   margin-right: -10px;
 }
 
-/*.icon48-album {
-  background-position: 0px -192px;
-}
-.icon48-comment {
-  background-position: -336px 0;
-}
-.icon48-comment-last {
-  background-position: -384px 0;
-}
-.icon48-analytic {
-  background-position: -48px -576px;
-}
-.icon48-stat {
-  background-position: -288px -624px;
-}
-.icon48-draft {
-  background-position: -432px -816px;
-}
-.icon48-feed {
-  background-position: -144px -576px;
-}
-.icon48-site {
-  background-position: -288px -480px;
-}
-.icon48-blog {
-  background-position: -384px -816px;
-}
-.icon48-news {
-  background-position: -240px -816px;
-}
-.icon48-event {
-  background-position: -96px -384px;
-}
-.icon48-video {
-  background-position: -240px -192px;
-}
-.icon48-page {
-  background-position: -432px -816px;
-}
-.icon48-audio {
-  background-position: -144px -912px;
-}
-*/
 .navbar {
   .brand {
     color: #ddd;
@@ -904,7 +853,7 @@ text-shadow: none;
     background-position: 0 -30px;
     width: 58px;
   }
-  &.amazone {
+  &.amazon {
     background-position: 0 -60px;
     width: 73px;
   }
