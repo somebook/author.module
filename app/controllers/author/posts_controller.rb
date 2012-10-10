@@ -17,15 +17,18 @@ class PostsController < SpaceController
 
   def blog
     params[:stream] = "personal"
+    @section_class = "blog"
     index
   end
 
   def news
     params[:stream] = "official"
+    @section_class = "news"
     index
   end
 
   def new
+    @section_class = params[:stream] == "1" ? "blog" : "news"
     @post = Post.new(
       stream: params[:stream],
       contents: @shard_languages.map{ |shard_language|
@@ -55,6 +58,7 @@ class PostsController < SpaceController
 
   def edit
     @post = @current_shard.posts.find(params[:id]) || not_found
+    @section_class = @post.stream == 1 ? "blog" : "news"
     @form_legend = t("author.post.form_legend.edit")
 
     render :form
