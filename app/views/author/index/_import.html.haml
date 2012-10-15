@@ -1,0 +1,38 @@
+%h2= t("author.import.caption")
+.box.block
+  %table.table.data.prefs.feeds
+    - if @streams.count == 2
+      %thead
+        %tr
+          %th
+          %th
+            %span.badge.badge-success= t("author.post.list_personal")
+          %th
+            %span.badge.badge-info= t("author.post.list_official")
+    %tbody
+      - @accounts.each do |service|
+        - service[1].each do |lang|
+          %tr
+            %td
+              %span{ class: "shared #{service[0]}"}
+              %br
+              = ShardLanguage.find_by_id(lang[0]).domain
+            - if lang[1].kind_of? Account
+              %td{ colspan: @streams.count }
+                - lang[1].stats.each do |stat|
+                  = t("author.import.params.#{stat.first}") + ": #{stat.last}"
+                  %br
+                - unless lang[1].social_drafts_count.zero?
+                  = t("author.social_draft.imported") + ":"
+                  = lang[1].social_drafts_count
+            - else
+              - @streams.each do |stream|
+                %td
+                  - puts lang[1][stream].inspect
+                  - if lang[1][stream]
+                    - lang[1][stream].stats.each do |stat|
+                      = t("author.import.params.#{stat.first}") + ": #{stat.last}"
+                      %br
+                    - unless lang[1][stream].social_drafts_count.zero?
+                      = t("author.social_draft.imported") + ":"
+                      = lang[1][stream].social_drafts_count
