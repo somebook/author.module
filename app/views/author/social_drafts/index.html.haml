@@ -36,3 +36,4 @@
               - if can? :blog, Post.new(shard_id: @current_shard.id)
                 = link_to raw(t('author.social_draft.import_to_blog')), import_social_draft_path(draft, stream: Account::STREAMS.invert[:personal]), class: %w(btn btn-small)
               = link_to t('author.social_draft.do_not_import'), [draft], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)
+    = will_paginate(@social_drafts)

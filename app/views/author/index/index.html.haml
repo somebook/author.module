@@ -12,5 +12,7 @@
         .span12
           = render partial: "drafts", drafts: @drafts
           -# = render partial: "last_comments"
+    .span6.import
+      = render partial: "import"
     .span6.analitics
       = render partial: "google_analytics", reports: @reports, accounts: @accounts if @current_shard.settings.has_site

@@ -15,6 +15,28 @@ class IndexController < SpaceController
 
     # Drafts
     @drafts = @current_shard.posts.drafted.all
+    
+    # Import
+    @streams = []
+    @streams << :personal if can?(:blog, Post.new(shard_id: @current_shard.id))
+    @streams << :official if can?(:news, Post.new(shard_id: @current_shard.id))
+    @accounts_old = []
+    Service.find_all_by_import_enabled(true).each{ |service|
+      service.accounts.where('shard_id = ?', @current_shard.id).each{ |acc|
+        @accounts_old << acc
+      }
+    }
+    @accounts = {}
+    @accounts_old.each{ |account|
+      @accounts[account.provider] = {} if @accounts[account.provider].nil?
+      if account.stream.nil?
+        @accounts[account.provider][account.shard_language_id] = account
+      else
+        @accounts[account.provider][account.shard_language_id] = {} if @accounts[account.provider][account.shard_language_id].nil?
+        @accounts[account.provider][account.shard_language_id][account.stream_name] = account
+      end
+    }
+    ap @accounts
 
     # Google Analytics
     @domains = @current_shard.shard_languages.map{ |shard_language|

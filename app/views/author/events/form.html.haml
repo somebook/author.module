@@ -34,7 +34,7 @@
               = # render_widget :media_bucket, :gallery, :event, {video_gallery: @event.videos, photo_gallery: @event.photos, audio_gallery: @event.audios}
         .span4
           - # TODO: Fix broken widget
-          = # render_widget :media_bucket, :display, {videos: @videos, albums: @albums, audios: @audio_albums}, @current_shard
+          -# = render_widget :media_bucket, :display, {videos: @videos, albums: @albums, audios: @audio_albums}, @current_shard
       .clearfix.form-bottom
         = submit_tag translate('global.save'), class: %w(btn btn-large btn-primary)
         = link_to translate('global.cancel'), events_path, class: %w(btn btn-large)

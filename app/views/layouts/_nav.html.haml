@@ -6,21 +6,13 @@
       %li{ class: (params[:controller] == "author/posts" && params[:stream] == 'personal') ? "active" : nil }
         = link_to t('author.post.list_personal'), blog_posts_path if can? :blog, Post.new(shard_id: @current_shard.id)
       -# %li= link_to "Comments"
-      %li{ class: params[:controller] == "author/events" ? "active" : nil }= link_to Event.model_name.human, events_path if can? :manage, Event.new(shard_id: @current_shard.id)
-      %li{ class: params[:controller] == "author/albums" ? "active" : nil }= link_to t('author.album.albums'), albums_path if can? :manage, Album.new(shard_id: @current_shard.id)
-      %li{ class: params[:controller] == "author/videos" ? "active" : nil }= link_to t('author.video.videos'), videos_path if can? :manage, Video.new(shard_id: @current_shard.id)
-      %li{ class: params[:controller] == "author/audio_albums" ? "active" : nil }= link_to t('author.audio_album.audio_albums'), audio_albums_path if can? :manage, AudioAlbum.new(shard_id: @current_shard.id)
-      %li{ class: params[:controller] == "author/static_pages" ? "active" : nil }= link_to t('author.static_page.static_pages'), static_pages_path if can?(:manage, StaticPage.new(shard_id: @current_shard.id)) && @current_shard.settings.has_site
-      %li{ class: params[:controller] == "author/settings" ? "active" : nil }= link_to t('author.settings'), settings_path
-      -# %li.dropdown
-      -#   %a.dropdown-toggle{ :href => "#", :'data-toggle' => "dropdown" }
-      -#     =t('author.settings')
-      -#     %b.caret
-      -#   %ul.dropdown-menu
-      -#     %li{ class: params[:controller] == "author/picasa" ? "active" : nil }= link_to t('picasa'), picasa_path
-      -#     %li{ class: params[:controller] == "author/api_keys" ? "active" : nil }= link_to t('api_keys'), api_keys_path if can? :manage, ApiKey
-      -#     %li{ class: params[:controller] == "author/shard_users" ? "active" : nil }= link_to Assignment.model_name.human, shard_users_path if can? :index, Assignment.new(shard_id: @current_shard.id)
-      -#     %li{ class: params[:controller] == "author/settings/shard_languages" ? "active" : nil }= link_to ShardLanguage.model_name.human, settings_shard_languages_path if can? :manage, ShardLanguage.new(shard_id: @current_shard.id)
+      %li{ class: page_is?("events") }= link_to t('author.event.events'), events_path if can? :manage, Event.new(shard_id: @current_shard.id)
+      %li{ class: page_is?("albums") }= link_to t('author.album.albums'), albums_path if can? :manage, Album.new(shard_id: @current_shard.id)
+      %li{ class: page_is?("videos") }= link_to t('author.video.videos'), videos_path if can? :manage, Video.new(shard_id: @current_shard.id)
+      %li{ class: page_is?("audio_albums") }= link_to t('author.audio_album.audio_albums'), audio_albums_path if can? :manage, AudioAlbum.new(shard_id: @current_shard.id)
+      %li{ class: page_is?("static_pages") }= link_to t('author.static_page.static_pages'), static_pages_path if can?(:manage, StaticPage.new(shard_id: @current_shard.id)) && @current_shard.settings.has_site
+      %li{ class: page_is?("social_drafts") }= link_to t('author.social_draft.social_drafts') + " (#{@current_shard.social_drafts.where(deleted: false).count})", social_drafts_path if can? :manage, SocialDraft.new(shard_id: @current_shard.id)
+      %li{ class: page_is?("settings") }= link_to t('author.settings'), settings_path
 
   %ul.nav.secondary-nav.pull-right
     %li{ style: "margin-top: 5px" }

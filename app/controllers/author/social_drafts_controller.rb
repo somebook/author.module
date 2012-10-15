@@ -2,7 +2,7 @@ module Author
 class SocialDraftsController < SpaceController
 
   def index
-    @social_drafts = @current_shard.social_drafts.where(deleted: false).order("created_at DESC")
+    @social_drafts = @current_shard.social_drafts.where(deleted: false).order("created_at DESC").paginate(page: params[:page], per_page: 20)
   end
 
   def import
