@@ -52,7 +52,7 @@
             %ul.clearfix
               - @videos.each do |video|
                 %li= image_tag video.preview, title: video.title, class: "video", "data-youtube-id" => video.youtube_id
-      .clearfix.form-bottom
+      .form-actions
         .pull-right.publish-date
           = present @static_page, :static_page_form_presenter, f do |p|
             = f.label :created_at

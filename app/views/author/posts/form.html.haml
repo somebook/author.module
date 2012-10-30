@@ -47,7 +47,7 @@
             %ul
               - @videos.each do |video|
                 %li= image_tag video.preview, title: video.title, class: "video", "data-youtube-id" => video.youtube_id, "data-id" => video.id, "data-bucket" => Video.bucket(@current_shard)
-      .clearfix.form-bottom
+      .clearfix.form-actions
         .pull-right.publish-date
           = f.label :created_at, class: %w(control-label)
           = f.text_field :created_at, value: @post.created_at ? @post.created_at.strftime("%d.%m.%Y %H:%M") : nil

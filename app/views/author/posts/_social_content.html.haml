@@ -19,5 +19,5 @@
         %label{ for: "#{as}[contents_attributes][#{content.tmp_id}][social_contents_attributes][#{social_content.tmp_id}][edited]", style: "float: left; margin-top: 19px;" }= "Edited content:"
         = text_area_tag "#{as}[contents_attributes][#{content.tmp_id}][social_contents_attributes][#{social_content.tmp_id}][body]", social_content.body, cols: 10, rows: 4, disabled: !social_content.edited, class: "span7 #{social_content.tmp_id}", 'data-provider' => social_content.terminal.account.provider
   %td.btns
-    %a.btn.btn-small.btn-primary.show= t('author.post.show')
+    %a.btn.btn-small.btn-info.show= t('author.post.show')
     %a.btn.btn-small.edit{ style: "display: none;" }= t('author.post.edit')

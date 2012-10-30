@@ -31,7 +31,7 @@
           %td
             = link_to t('global.destroy'), [album], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)
             - if album.hidden
-              = link_to t('author.album.show'), album_hidden_path(album), class: %w(btn btn-small btn-primary)
+              = link_to t('author.album.show'), album_hidden_path(album), class: %w(btn btn-small btn-info)
             - else
               = link_to t('author.album.hide'), album_hidden_path(album), class: %w(btn btn-small)
     = will_paginate(@albums)

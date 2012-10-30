@@ -6,9 +6,9 @@
         %tr
           %th
           %th
-            %span.badge.badge-success= t("author.post.list_personal")
+            %span.badge.badge-blog= t("author.post.list_personal")
           %th
-            %span.badge.badge-info= t("author.post.list_official")
+            %span.badge.badge-news= t("author.post.list_official")
     %tbody
       - @accounts.each do |service|
         - service[1].each do |lang|
