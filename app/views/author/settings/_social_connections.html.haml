@@ -18,7 +18,7 @@
             %tr
               %td
                 %span{ class: "shared #{account.provider}"}
-                %span.badge{class: (stream == :personal ? "badge-blog" : "badge-info")}= stream
+                %span.badge{class: (stream == :personal ? "badge-blog" : "badge-news")}= stream
               -# = account.provider + "(#{account.service.name})"
               %td
                 -# = link_to 'terminals', [:author, language, account, :terminals], class: %w(small dotted graylink)
@@ -32,7 +32,7 @@
             %tr
               %td
                 %span{ class: "shared #{service.code}"}
-                %span.badge{class: (stream == :personal ? "badge-blog" : "badge-info")}= stream
+                %span.badge{class: (stream == :personal ? "badge-blog" : "badge-news")}= stream
               %td{ class: "#{service.code} #{stream} #{language.language.name.downcase}"}
                 = link_to("connect", settings_shard_language_link_service_path({shard_language_id: language.id,
                                                                       stream: Account::STREAMS.invert[stream],

@@ -21,9 +21,11 @@
         - @social_drafts.each do |draft|
           %tr
             %td
-              = draft.title
+              %div
+                = draft.title
             %td
-              = draft.body
+              %div
+                = draft.body
             %td
               %span.small.light-gray
                 = draft.created_at.to_s(:long)
