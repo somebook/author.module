@@ -520,13 +520,26 @@ div {
     }
   }
 }
+
 .data.social {
+margin-bottom: 0;
+tbody { border:solid 1px #ddd;}
 tr{
 th {
-background: #80d480!important;
-border-bottom-color: #80d480;
+background: #3E6498 !important;
+border-bottom-color: #FFFFFF;
 color:#fff;
 text-shadow: none;
+&:first-child {
+border-radius:4px 0 0 0;
+-moz-border-radius:4px 0 0 0;
+-webkit-border-radius:4px 0 0 0;
+}
+&:last-child {
+border-radius:0 4px 0 0;
+-moz-border-radius:4px 0 0 0;
+-webkit-border-radius:4px 0 0 0;
+}
 }
 }
 }
