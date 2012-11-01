@@ -48,7 +48,7 @@ class PhotosController < SpaceController
 private
 
   def album
-    @album ||= Album.find_by_id(params[:album_id])
+    @album = Album.find_by_id(params[:album_id])
   end
   
   def init_picasa
