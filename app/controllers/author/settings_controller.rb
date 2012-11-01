@@ -7,6 +7,7 @@ module Author
       @api_keys = @current_shard.shard_languages.map{ |shard_language| shard_language.api_keys }.flatten
 
       # Social Connections
+      cookies.delete :wizard
       @streams = []
       @streams << :personal if can? :blog, Post.new(shard_id: @current_shard.id)
       @streams << :official if can? :news, Post.new(shard_id: @current_shard.id)
