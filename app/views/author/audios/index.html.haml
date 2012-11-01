@@ -1,35 +1,37 @@
-%h1
-  = translate('author.audio.listing')
-  in
-  = @audio_album.name
-%br
-
+%header
+  - if @shard_languages.empty?
+    .alert.alert-warning.pull-right= translate('author.post.no_languages_alert')
+  - else
+    %div.pull-right
+      %a{ href: new_audio_album_audio_path(@audio_album), class: %w(btn btn-inverse)}
+        %i.icon-white.icon-plus
+        = t('author.audio.new')
+  %h1
+    = translate('author.audio.listing')
+    in
+    = @audio_album.name
 = render partial: "shared/flash_messages"
-- if @shard_languages.empty?
-  .alert.alert-warning= translate('author.post.no_languages_alert')
-- else
-  = link_to translate('author.audio.new'), new_audio_album_audio_path(@audio_album), class: %w(btn)
-%br
-%br
+
 :javascript
   audiojs.events.ready(function() {
     window.audios=audiojs.createAll();
   });
-
-%table.table.table-striped.data
-  %tr
-    %th Name
-    %th Uploaded
-    %th Play
-    %th= translate('global.actions')
-
-  - @audios.each do |audio|
-    %tr
-      %td= audio.audio_languages.first.name
-      %td= audio.created_at.to_s(:long)
-      %td
-        %audio{class: "player", src: audio.sample.url, preload: "auto"}
-      %td
-        = link_to translate('global.edit'), edit_audio_album_audio_path(@audio_album,audio), class: %w(btn btn-small)
-        = link_to translate('global.destroy'), [@audio_album, audio], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)
-
+%section.content
+  %div.block
+    %table.table.table-striped.data
+      %tr
+        %th Name
+        %th Uploaded
+        %th Play
+        %th= translate('global.actions')
+    
+      - @audios.each do |audio|
+        %tr
+          %td= audio.audio_languages.first.name
+          %td= audio.created_at.to_s(:long)
+          %td
+            %audio{class: "player", src: audio.sample.url, preload: "auto"}
+          %td
+            = link_to translate('global.edit'), edit_audio_album_audio_path(@audio_album,audio), class: %w(btn btn-small)
+            = link_to translate('global.destroy'), [@audio_album, audio], :confirm => 'Are you sure?', :method => :delete, class: %w(btn btn-small btn-danger)
+    

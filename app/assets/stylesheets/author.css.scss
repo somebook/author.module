@@ -738,9 +738,9 @@ text-shadow: none;
   font-weight: bold;
 }
 .form-top,
-.form-actions { background:rgba(0, 0, 0, 0.03);  border-bottom: 1px solid rgba(255, 255, 255, 0.6); border-top:none; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06) inset;    }
-.form-top {border-radius: 8px 8px 0 0; margin: -20px -20px 30px;padding: 10px 10px 0;}
-.form-actions { border-radius: 0 0 8px 8px; margin: 30px -20px -20px; padding: 10px 10px 10px 20px;background: none;  }
+.form-actions { background:rgba(0, 0, 0, 0.03); border-bottom: 1px solid rgba(255, 255, 255, 0.6); border-top:none; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06) inset;}
+.form-top {border-radius: 8px 8px 0 0; margin: -20px -20px 30px;padding: 10px 10px 0; }
+.form-actions { border-radius: 0 0 8px 8px; margin: 30px -20px -20px; padding: 10px 10px 10px 20px; }
 .form-options {  background:rgba(0, 0, 0, 0.03);
     border-bottom:1px solid rgba(255, 255, 255, 0.6);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
@@ -1017,7 +1017,17 @@ text-shadow: none;
 }
 .badge-news { background-color: #49ABDB;}
 
+.audiojs { background:rgba(0,0,0,0.1); }
 
+.password_auth_form {  background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    position: absolute;
+    form { margin:0;}
+    .form-actions { margin:30px -10px -10px}
+    }
+    
 @media (min-width: 768px) and (max-width: 980px) {
 
   /* Remove any padding from the body */

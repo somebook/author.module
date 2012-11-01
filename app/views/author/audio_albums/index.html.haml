@@ -1,7 +1,6 @@
 %header
-  = render partial: "shared/flash_messages"
   - if @shard_languages.empty?
-    .alert.alert-warning.clerafix= translate('author.post.no_languages_alert')
+    .alert.alert-warning.pull-right= translate('author.post.no_languages_alert')
   - else
     %div.pull-right
       %a{ href: new_audio_album_path, class: %w(btn btn-inverse)}
@@ -12,6 +11,8 @@
   %h1
     %i.icon48-audio
     = translate('author.audio_album.listing')
+= render partial: "shared/flash_messages"
+
 %section.content
   %div.block
     %table.table.table-striped.data

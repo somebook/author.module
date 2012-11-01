@@ -1,6 +1,5 @@
 %header
 
-  = render partial: "author/shared/flash_messages"
   %div.pull-right
     %a{ href: new_event_path , class: %w(btn btn-inverse)}
       %i.icon-white.icon-plus
@@ -10,6 +9,8 @@
   %h1
     %i.icon48-event
     = translate('author.event.listing')
+= render partial: "author/shared/flash_messages"
+
 %section.content
   %div.block
     %table.table.table-striped.data

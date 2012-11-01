@@ -1,5 +1,4 @@
 %header
-  = render partial: "author/shared/flash_messages"
   - if @shard_languages.empty?
     .alert.alert-warning= translate('author.static_page.no_languages_alert')
   - else
@@ -10,6 +9,7 @@
   %h1
     %i.icon48-page
     = translate('author.static_page.listing')
+= render partial: "author/shared/flash_messages"
 
 %section.content
   %div.block

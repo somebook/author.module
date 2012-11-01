@@ -1,13 +1,16 @@
-= render partial: "author/shared/flash_messages"
 = form_for [@audio_album, @audio], html: { class: %w(form-horizontal), multipart: true } do |f|
   %fieldset
-    %legend= @form_legend
-    = present @audio, :audio_form_presenter, f do |p|
-      - @audio_languages.each do |lang|
-        = f.fields_for :audio_languages, @audio, child_index: rand(1000000) do |builder|
-          .clearfix.control-group
-            = builder.hidden_field :shard_language_id, value: lang.shard_language_id
-            = builder.label :name, "Name (#{lang.shard_language.language.code})"
-            .controls= builder.text_field :name, value: lang.name
-      = p.sample
-      = p.actions back: audio_album_audios_path(@audio_album)
+    %header
+      %h1= @form_legend
+    = render partial: "author/shared/flash_messages"
+
+    .content
+      = present @audio, :audio_form_presenter, f do |p|
+        - @audio_languages.each do |lang|
+          = f.fields_for :audio_languages, @audio, child_index: rand(1000000) do |builder|
+            .clearfix.control-group
+              = builder.hidden_field :shard_language_id, value: lang.shard_language_id
+              = builder.label :name, "Name (#{lang.shard_language.language.code})"
+              .controls= builder.text_field :name, value: lang.name
+        = p.sample
+        = p.actions back: audio_album_audios_path(@audio_album)

@@ -1,8 +1,8 @@
-= render partial: "shared/flash_messages"
 = form_for @video, html: { class: %w(form-horizontal), multipart: true } do |f|
   %fieldset
     %header
       %h1= @form_legend
+    = render partial: "shared/flash_messages"
     .content
       .video-preview
         -unless @video.new_record?
