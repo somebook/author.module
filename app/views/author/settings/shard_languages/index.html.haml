@@ -2,8 +2,8 @@
   %h1= translate('admin.language.listing')
 
 = render partial: "shared/flash_messages"
-.content
-  .block
+%section.content
+  %div.block
     %table.table.table-striped.data
       %tr
         %th= Language.model_name.human#attribute_name(:name)
