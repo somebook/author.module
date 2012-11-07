@@ -273,17 +273,13 @@ td {
   }
 }
 .pending_content {
-  padding: 4px 0 5px 10px;
-  -webkit-border-radius: 9px !important;
-  -moz-border-radius: 9px !important;
-  border: #000 1px solid;
-  border-radius: 9px !important;
-  background-color: #ff0;
-  font-size: 20px;
-  margin-left: 150px;
-  margin-right: 150px;
+  position: relative;
+  z-index: 100;
+  float: right;
+   margin: 0 200px -40px 0;
   a {
-    color: #000;
+    color: #C09853;
+    text-decoration: underline;
   }
 }
 .published {

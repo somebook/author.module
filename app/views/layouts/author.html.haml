@@ -24,11 +24,12 @@
           = render :partial => "layouts/nav"
 
     -if @pending_social_contents && @pending_social_contents.size > 0 && @pending_social_contents.first && @pending_social_contents.first.terminal && @pending_social_contents.first.terminal.account
-      .pending_content
-        -if Rails.env.test?
-          = link_to  t("author.you_have_pending_social_contents"),@pending_social_contents.first.terminal.account.ext_url
-        -else
-          = link_to  t("author.you_have_pending_social_contents"),@pending_social_contents.first.terminal.account.ext_url, target: "blank"
+      .container
+        .alert.alert-warning.pending_content
+          -if Rails.env.test?
+            = link_to  t("author.you_have_pending_social_contents"),@pending_social_contents.first.terminal.account.ext_url
+          -else
+            = link_to  t("author.you_have_pending_social_contents"),@pending_social_contents.first.terminal.account.ext_url, target: "blank"
     .header-bar
     .container.page= yield
 :erb
