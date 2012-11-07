@@ -1,5 +1,6 @@
 %header
   - if @picasa.nil?
+    %div.pull-right
     = link_to("Authenticate Picasa", @url, :class => %w(btn btn-info))
   - else
     %div.pull-right
