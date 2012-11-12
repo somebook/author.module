@@ -13,6 +13,14 @@ body {
 }
 header {
   margin: 0 0 35px 0;
+    .alert {
+     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+     -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+     -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    margin: 0;
+    max-width: 200px;
+    }
+
   .btn {
     margin: 5px 0 0 10px;
     .icon {
@@ -272,11 +280,13 @@ td {
     width: 420px;
   }
 }
+.pending { position: relative;}
 .pending_content {
-  position: relative;
-  z-index: 100;
-  float: right;
-   margin: 0 200px -40px 0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    max-width: 200px;
+    position: absolute;
+    right: 260px;
+    z-index: 100;
   a {
     color: #C09853;
     text-decoration: underline;
