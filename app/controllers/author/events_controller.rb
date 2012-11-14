@@ -24,6 +24,19 @@ class EventsController < SpaceController
         EventInfo.new(shard_language_id: shard_language.id)
       }
     )
+    
+    @event.infos.each do |info|
+      info.shard_language.accounts.joins(:service).where(services: { events: true }).each do |acc|
+        acc.terminals.each do |terminal|
+          cnt = SocialContent.new(
+            event_info: info,
+            terminal: terminal
+          )
+          info.social_contents << cnt
+        end
+      end
+    end
+    
     @form_legend = t("author.event.form_legend.new")
 
     render :form

@@ -5,6 +5,7 @@
     %label.checkbox
       = check_box_tag "#{as}[contents_attributes][#{content.tmp_id}][social_contents_attributes][#{social_content.tmp_id}][pending]", :pending, (social_content.publish? || social_content.published?)
       = social_content.terminal.account.service.name + " (" + social_content.terminal.name + ")"
+      = social_content.terminal.account.name || ""
       - if social_content.terminal.account.provider == "twitter"
         %span.label.counter 0
     .terminal-form{ style: "display: none;" }

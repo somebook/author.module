@@ -1,4 +1,5 @@
 #= require author/wysiwyg
+#= require author/social_contents
 
 jQuery ->
   $("ul.nav-pills > li").live 'click', (e) ->

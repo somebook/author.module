@@ -21,6 +21,7 @@
                 %span.badge{class: (stream == :personal ? "badge-blog" : "badge-news")}= stream
               -# = account.provider + "(#{account.service.name})"
               %td
+                = account.name
                 -# = link_to 'terminals', [:author, language, account, :terminals], class: %w(small dotted graylink)
               %td{ class: "#{account.provider} #{stream} #{language.language.name.downcase}"}
                 %div.actions.visible
@@ -28,7 +29,7 @@
                   = link_to([:settings, language, account], :confirm => 'Are you sure?', class: %w(link delete), :method => :delete) do
                     = t('global.destroy')
                     %span.badge.badge-important !
-          - language.virgin_services_for_stream(stream).each do |service|
+          - Service.find_all_by_social(true).each do |service|
             %tr
               %td
                 %span{ class: "shared #{service.code}"}
