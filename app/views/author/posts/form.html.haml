@@ -13,7 +13,7 @@
             = text_field_tag :publish_at_date, (@post.publish_at.strftime("%d.%m.%Y") if @post.publish_at), style: "width: 67px", class: %(datepicker)
             = text_field_tag :publish_at_time, (@post.publish_at.strftime("%H:%M") if @post.publish_at), style: "width: 35px"
   
-        %ul.nav.nav-pills.langs
+        %ul.nav.nav-pills.langs{ style: (@shard_languages.count == 1 ? "display: none" : "") }
           - @shard_languages.each_with_index do |language, i|
             %li{ class: i.zero? ? "active" : nil, 'data-language-id' => language.id }
               - content = nil; @post.contents.each{|c| content = c if c.shard_language_id == language.id}
