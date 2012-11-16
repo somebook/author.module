@@ -46,7 +46,7 @@
           .list.media.videos
             %ul
               - @videos.each do |video|
-                %li= image_tag video.preview, title: video.title, class: "video", "data-youtube-id" => video.youtube_id, "data-id" => video.id, "data-bucket" => Video.bucket(@current_shard)
+                %li= image_tag video.preview, title: video.title, class: "video", "data-youtube-id" => video.youtube_id, "data-id" => video.id, "data-bucket" => (video.amazon? ? @current_shard.amazon_setting.video_bucket : "")
       .clearfix.form-actions
         .pull-right.publish-date
           = f.label :created_at, class: %w(control-label)

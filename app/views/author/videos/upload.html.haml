@@ -1,5 +1,5 @@
 - if @video.amazon
-  %form#file_upload(action="https://#{Somebook::Application.config.social_app_accounts[@current_shard.name.to_sym][:amazon][:videos_bucket]}.s3.amazonaws.com/" method="post" enctype="multipart/form-data")
+  %form#file_upload(action="https://#{@current_shard.amazon_setting.video_bucket}.s3.amazonaws.com/" method="post" enctype="multipart/form-data")
     %input{type: :hidden, name: :key, value: 'videos/${filename}'}
     %input{type: :hidden, name: "AWSAccessKeyId", value: Somebook::Application.config.social_app_accounts[:amazon][:access_key_id]}
     %input{type: :hidden, name: :acl, value: "public-read"}
