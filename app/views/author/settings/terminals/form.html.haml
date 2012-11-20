@@ -1,8 +1,10 @@
 = form_for [:settings, @terminal.account.shard_language, @terminal.account, @terminal], html: { class: %w(form-horizontal) } do |terminal_form|
   %fieldset
-    %legend= @form_legend
-    = present @terminal, :terminal_form_presenter, terminal_form do |p|
-      = p.errors
-      = p.name
-      = p.identifier
-      = p.actions back: settings_shard_language_account_terminals_path
+    %header
+      %h1= @form_legend
+    %section.content
+      = present @terminal, :terminal_form_presenter, terminal_form do |p|
+        = p.errors
+        = p.name
+        = p.identifier
+        = p.actions back: settings_shard_language_account_terminals_path

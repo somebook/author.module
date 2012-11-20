@@ -2,7 +2,7 @@
   %fieldset
     %header
       %h1= @form_legend
-    .content
+    %section.content
       = present @photo, :photo_form_presenter, photo_form do |p|
         = p.errors
         = p.title
