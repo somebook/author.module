@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    author_somebook (0.0.1)
+    author_module (0.2.5)
 
 GEM
   remote: http://rubygems.org/
@@ -11,4 +11,4 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  author_somebook!
+  author_module!

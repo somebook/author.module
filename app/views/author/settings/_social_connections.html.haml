@@ -1,12 +1,3 @@
-:javascript
-  function loadTerminals(account) {
-    if ($("ul.terminals[data-terminal=" + account + "] > li").size() == 0) {
-      $.get('/author/settings/accounts/' + account + '/terms', function(data) {
-        $("ul.terminals[data-terminal=" + account + "]").html(data);
-        $("div#collapse" + account).css("height", "auto");
-      })
-    }
-  }
 .btn-group.pull-right.add-connect
   %button.btn.btn-inverse.dropdown-toggle{ "data-toggle" => "dropdown" }
     Добавить аккаунт в соцсети
@@ -20,34 +11,34 @@
 %h2 Мои аккаунты в соцсетях
 #accordion2.accordion.connections
 - @accounts.each do |account|
-  .accordion-group
+  .accordion-group{ "data-account" => account.id}
     .accordion-heading.btn-box.clearfix
       %ul.nav.nav-pills.actions.visible
         %li
-          %a.link{ href: "#account#{account.id}", "data-toggle" => "modal" } Параметры
+          %a.link{ href: "#account#{account.id}", "data-terminal" => account.id }= t('global.params')
         %li
-          = link_to([:settings, account], :confirm => 'Are you sure?', class: %w(link delete), :method => :delete) do
+          = link_to([:settings, account], :confirm => 'Are you sure?', class: %w(link delete), remote: true, :method => :delete) do
             = t('global.destroy')
             %span.badge.badge-important !
-      %a.accordion-toggle.btn-user.user{ "data-toggle" => "collapse", "data-parent" => "#accordion2", href: "#collapse#{account.id}" }
+      %a.accordion-toggle.btn-user.user{ href: "#collapse#{account.id}", "data-terminal" => account.id }
         = image_tag account.avatar
         %i.icon-social16{ class: account.service.code }
         %strong= account.name
-    .accordion-body.collapse{ id: "collapse#{account.id}" }
+    .accordion-body.collapse.in{ id: "collapse#{account.id}", style: "display: none;" }
       .accordion-inner
         -# %ul.options
         %ul.terminals{ "data-terminal" => account.id }
-          -# = render template: "author/settings/accounts/terms", locals: { account: account }
     :coffeescript
       jQuery ->
-        $("#collapse#{account.id}").on 'show hide', ->
+        $("#collapse#{account.id}").on 'show hide shown hidden', ->
           loadTerminals("#{account.id}")
 
 - if @account
+  = link_to "", "#account-modal#{@account.id}", "data-toggle" => "modal", style: "display: none"
   = render 'connection_modal', account: @account
   :coffeescript
     jQuery ->
-      $("a[href=#account#{@account.id}]").click()
+      $("a[href=#account-modal#{@account.id}]").click()
 
 
 -# .block{ style: "display: none"}

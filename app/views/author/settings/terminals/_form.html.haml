@@ -1,0 +1,10 @@
+.form-options.add-terminal{ style: "display: none" }
+  = form_for [:settings, terminal.account, terminal], remote: true, html: { class: %w(form-inline) } do |f|
+    .clearfix
+      = f.label :name
+      = f.text_field :name, class: %w(input-medium)
+      = f.label :identifier, "ID"
+      = f.text_field :identifier, class: %w(input-small)
+    .clearfix.save-id
+      = f.submit t('global.save'), remote: true, class: %w(btn btn-small)
+      = link_to t('global.cancel'), settings_path, class: %w(btn btn-small)

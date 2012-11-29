@@ -1,7 +1,6 @@
 module Author
   module Settings
     class TerminalsController < ::Author::SpaceController
-      before_filter :set_shard_language
 
       def index
         @account = @shard_language.accounts.find(params[:account_id]) || not_found
@@ -22,7 +21,7 @@ module Author
         @form_legend = t("author.terminal.form_legend.new")
 
         if @terminal.save
-          redirect_to settings_shard_language_account_terminals_path, notice: t("author.terminal.notice.create_success")
+          redirect_to settings_path, notice: t("author.terminal.notice.create_success")
         else
           render :form
         end
@@ -38,29 +37,29 @@ module Author
 
       def destroy
         @terminal = Terminal.find_by_id(params[:id]) || not_found
-        not_found unless im_master?(@terminal.account.shard_language.shard)
+        not_found unless im_master?(@terminal.account.shard)
 
         @terminal.destroy
-        redirect_to settings_shard_language_account_terminals_path, notice: t("author.terminal.notice.delete_success")
+        respond_to do |format|
+          format.html { redirect_to settings_path, notice: t("author.terminal.notice.delete_success") }
+          format.js
+        end
       end
 
       def update
         @terminal = Terminal.find_by_id(params[:id]) || not_found
-        not_found unless im_master?(@terminal.account.shard_language.shard)
+        not_found unless im_master?(@terminal.account.shard)
 
         @form_legend = t("author.terminal.form_legend.edit")
 
         if @terminal.update_attributes(params[:terminal])
-          redirect_to settings_shard_language_account_terminals_path, notice: t("author.terminal.notice.update_success")
+          respond_to do |format|
+            format.html { redirect_to settings_path, notice: t("author.terminal.notice.update_success") }
+            format.js
+          end
         else
           render :form
         end
-      end
-
-    private
-
-      def set_shard_language
-        @shard_language = ShardLanguage.find_by_id(params[:shard_language_id]) || not_found
       end
 
     end

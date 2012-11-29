@@ -1,0 +1,11 @@
+.clearfix
+  %ul.pull-right.nav.nav-pills.actions
+    %li= link_to t('global.params'), [:edit, :settings, terminal.account, terminal], class: %w(link terminal-params)
+    %li
+      = link_to([:settings, terminal.account, terminal], confirm: 'Are you sure?', class: %w(link delete), remote: true, method: :delete) do
+        = t('global.destroy')
+        %span.badge.badge-important !
+  %a.terminal-name
+    %i.icon @
+    = terminal.name
+= render "author/settings/terminals/form", terminal: terminal

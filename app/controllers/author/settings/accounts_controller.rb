@@ -15,8 +15,10 @@ module Author
       def destroy
         @account = Account.find(params[:id])
         @account.destroy
-
-        redirect_to settings_path, notice: t("author.account.notice.delete_success")
+        respond_to do |format|
+          format.html { redirect_to settings_path, notice: t("author.account.notice.delete_success") }
+          format.js
+        end
       end
 
       def ga
