@@ -1,0 +1,13 @@
+- account ||= @account
+- account.terminals.each do |terminal|
+  %li
+    .clearfix
+      %ul.pull-right.nav.nav-pills.actions
+        %li= link_to translate('global.settings'), [:edit, :settings, account, terminal], class: %w(link)
+        %li
+          = link_to([:settings, account, terminal], confirm: 'Are you sure?', class: %w(link delete), method: :delete) do
+            = t('global.destroy')
+            %span.badge.badge-important !
+      %a.terminal-name
+        %i.icon @
+        = terminal.name

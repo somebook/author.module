@@ -1,42 +1,88 @@
-:coffeescript
-  jQuery ->
-    $("a.password_auth").live 'click', (e) ->
-      $(this).siblings('.password_auth_form').toggle(50)
-      false
-%h2 Трансляции в соцсетях
-.block
-  %table.table.data.prefs.feeds
-    %tbody
-      - @languages.each do |language|
-        %tr.table-header
-          %td{ colspan: 3 }
-            %h3
-              = language.name
-              -# %span.badge.default= language.language.name.downcase
-        - @streams.each do |stream|
-          - language.accounts.stream(stream).each do |account|
-            %tr
-              %td
-                %span{ class: "shared #{account.provider}"}
-                %span.badge{class: (stream == :personal ? "badge-blog" : "badge-news")}= stream
-              -# = account.provider + "(#{account.service.name})"
-              %td
-                = account.name
-                -# = link_to 'terminals', [:author, language, account, :terminals], class: %w(small dotted graylink)
-              %td{ class: "#{account.provider} #{stream} #{language.language.name.downcase}"}
-                %div.actions.visible
-                  = link_to 'terminals', [:settings, language, account, :terminals], class: %w(link)
-                  = link_to([:settings, language, account], :confirm => 'Are you sure?', class: %w(link delete), :method => :delete) do
-                    = t('global.destroy')
-                    %span.badge.badge-important !
-          - Service.find_all_by_social(true).each do |service|
-            %tr
-              %td
-                %span{ class: "shared #{service.code}"}
-                %span.badge{class: (stream == :personal ? "badge-blog" : "badge-news")}= stream
-              %td{ class: "#{service.code} #{stream} #{language.language.name.downcase}"}
-                = link_to("connect", settings_shard_language_link_service_path({shard_language_id: language.id,
-                                                                      stream: Account::STREAMS.invert[stream],
-                                                                      code: service.code}), class: service.password_auth ? "password_auth link create" : "link create")
-                = render('author/settings/shard_languages/form', account: Account.new(service_id: service.id, stream: Account::STREAMS.invert[stream], shard_language_id: language.id, provider: service.code), language: language) if service.password_auth
-              %td
+:javascript
+  function loadTerminals(account) {
+    if ($("ul.terminals[data-terminal=" + account + "] > li").size() == 0) {
+      $.get('/author/settings/accounts/' + account + '/terms', function(data) {
+        $("ul.terminals[data-terminal=" + account + "]").html(data);
+        $("div#collapse" + account).css("height", "auto");
+      })
+    }
+  }
+.btn-group.pull-right.add-connect
+  %button.btn.btn-inverse.dropdown-toggle{ "data-toggle" => "dropdown" }
+    Добавить аккаунт в соцсети
+    %span.caret
+  %ul.dropdown-menu
+    - Service.all.each do |service|
+      %li
+        %a{ href: (service.password_auth ? "#" : settings_link_service_path(code: service.code) ) }
+          %i.icon-social16{ class: service.code }
+          = service.name
+%h2 Мои аккаунты в соцсетях
+#accordion2.accordion.connections
+- @accounts.each do |account|
+  .accordion-group
+    .accordion-heading.btn-box.clearfix
+      %ul.nav.nav-pills.actions.visible
+        %li
+          %a.link{ href: "#account#{account.id}", "data-toggle" => "modal" } Параметры
+        %li
+          = link_to([:settings, account], :confirm => 'Are you sure?', class: %w(link delete), :method => :delete) do
+            = t('global.destroy')
+            %span.badge.badge-important !
+      %a.accordion-toggle.btn-user.user{ "data-toggle" => "collapse", "data-parent" => "#accordion2", href: "#collapse#{account.id}" }
+        = image_tag account.avatar
+        %i.icon-social16{ class: account.service.code }
+        %strong= account.name
+    .accordion-body.collapse{ id: "collapse#{account.id}" }
+      .accordion-inner
+        -# %ul.options
+        %ul.terminals{ "data-terminal" => account.id }
+          -# = render template: "author/settings/accounts/terms", locals: { account: account }
+    :coffeescript
+      jQuery ->
+        $("#collapse#{account.id}").on 'show hide', ->
+          loadTerminals("#{account.id}")
+
+- if @account
+  = render 'connection_modal', account: @account
+  :coffeescript
+    jQuery ->
+      $("a[href=#account#{@account.id}]").click()
+
+
+-# .block{ style: "display: none"}
+-#   %table.table.data.prefs.feeds
+-#     %tbody
+-#       - @languages.each do |language|
+-#         %tr.table-header
+-#           %td{ colspan: 3 }
+-#             %h3
+-#               = language.name
+-#               -# %span.badge.default= language.language.name.downcase
+-#         - @streams.each do |stream|
+-#           - language.accounts.stream(stream).each do |account|
+-#             %tr
+-#               %td
+-#                 %span{ class: "shared #{account.provider}"}
+-#                 %span.badge{class: (stream == :personal ? "badge-blog" : "badge-news")}= stream
+-#               -# = account.provider + "(#{account.service.name})"
+-#               %td
+-#                 = account.name
+-#                 -# = link_to 'terminals', [:author, language, account, :terminals], class: %w(small dotted graylink)
+-#               %td{ class: "#{account.provider} #{stream} #{language.language.name.downcase}"}
+-#                 %div.actions.visible
+-#                   = link_to 'terminals', [:settings, account, :terminals], class: %w(link)
+-#                   = link_to([:settings, account], :confirm => 'Are you sure?', class: %w(link delete), :method => :delete) do
+-#                     = t('global.destroy')
+-#                     %span.badge.badge-important !
+-#           - Service.find_all_by_social(true).each do |service|
+-#             %tr
+-#               %td
+-#                 %span{ class: "shared #{service.code}"}
+-#                 %span.badge{class: (stream == :personal ? "badge-blog" : "badge-news")}= stream
+-#               %td{ class: "#{service.code} #{stream} #{language.language.name.downcase}"}
+-#                 = link_to("connect", settings_shard_language_link_service_path({shard_language_id: language.id,
+-#                                                                       stream: Account::STREAMS.invert[stream],
+-#                                                                       code: service.code}), class: service.password_auth ? "password_auth link create" : "link create")
+-#                 = render('author/settings/shard_languages/form', account: Account.new(service_id: service.id, stream: Account::STREAMS.invert[stream], shard_language_id: language.id, provider: service.code), language: language) if service.password_auth
+-#               %td

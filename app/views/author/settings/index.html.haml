@@ -5,8 +5,8 @@
 %section.content
   .row-fluid
     .span6
-      = render partial: 'api_keys', api_keys: @api_keys
+      -# = render partial: 'api_keys', api_keys: @api_keys
       = render partial: 'social_connections', languages: @languages
     .span6
-      = render partial: 'other_connections', connections: @other_connections
+      -# = render partial: 'other_connections', connections: @other_connections
       = render partial: 'users', assignments: @assignments

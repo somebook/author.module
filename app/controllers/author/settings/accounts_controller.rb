@@ -1,6 +1,7 @@
 module Author
   module Settings
     class AccountsController < ::Author::SpaceController
+      layout false, only: :terms
 
       def create
         account = Account.new(params[:account])
@@ -24,6 +25,10 @@ module Author
           account.update_attribute(:additional, params[:code])
         end
         redirect_to root_path
+      end
+      
+      def terms
+        @account = Account.find(params[:id])
       end
 
     end

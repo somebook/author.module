@@ -3,6 +3,7 @@ require 'ruby_picasa'
 module Author
   class SettingsController < SpaceController
     def index
+      @account = Account.find_by_id(flash[:account])
       # Api Keys
       @api_keys = @current_shard.shard_languages.map{ |shard_language| shard_language.api_keys }.flatten
 
@@ -12,6 +13,8 @@ module Author
       @streams << :personal if can? :blog, Post.new(shard_id: @current_shard.id)
       @streams << :official if can? :news, Post.new(shard_id: @current_shard.id)
       @languages = @current_shard.shard_languages
+      
+      @accounts = @current_shard.accounts
 
       # Other Connections - Picasa, YouTube
       @connections = []
@@ -20,11 +23,11 @@ module Author
         acc = Account.where(provider: provider, shard_id: @current_shard.id).first
         if !acc.nil?
           account_url = acc.ext_url
-          destroy_url = settings_shard_language_account_path(@current_shard.shard_languages.first, acc)
+          destroy_url = settings_account_path(acc)
         elsif provider == :picasa
           connect_url = Picasa.authorization_url(authorize_albums_url)
         else
-          connect_url = settings_shard_language_link_service_path(shard_language_id: @current_shard.shard_languages.first.id, code: provider)
+          connect_url = settings_link_service_path(code: provider)
         end
         @connections << {
           name: provider,
@@ -40,9 +43,9 @@ module Author
           acc = Account.where(provider: provider, shard_language_id: shard_language.id).first
           connect_url = destroy_url = nil
           if acc.nil?
-            connect_url = settings_shard_language_link_service_path(shard_language_id: shard_language.id, code: provider)
+            connect_url = settings_link_service_path(code: provider)
           else
-            destroy_url = settings_shard_language_account_path(shard_language, acc)
+            destroy_url = settings_account_path(acc)
           end
           @connections << {
             name: provider,
@@ -61,6 +64,13 @@ module Author
 
       # Users
       @assignments = @current_shard.assignments
+    end
+    
+    def link_service
+      # language = @current_shard.shard_languages.find(params[:shard_language_id])
+      # cookies[:language] = language.id
+      # cookies[:stream] = params[:stream]
+      redirect_to main_app.user_omniauth_authorize_path(params[:code].downcase.to_sym)
     end
     
     private

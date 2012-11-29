@@ -6,6 +6,7 @@
 #= require bootstrap-datepicker
 #= require bootstrap-button
 #= require bootstrap-collapse
+#= require bootstrap-modal
 #= require jquery.maskedinput.min
 #= require chosen-jquery
 #= require jquery-tagselector

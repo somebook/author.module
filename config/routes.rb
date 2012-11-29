@@ -52,16 +52,15 @@ Author::Engine.routes.draw do
   end
   namespace :settings do
     resources :api_keys, except: [:index]
-    resources :shard_languages do
-      resources :accounts do
-        resources :terminals
-        member do
-          get 'ga'
-        end
+    resources :shard_languages
+    resources :accounts do
+      resources :terminals
+      member do
+        get 'ga'
+        get 'terms'
       end
-
-      get 'link_service'
     end
+    get 'link_service'
     resources :shard_users do
       collection do
         post 'add'
