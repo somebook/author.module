@@ -11,6 +11,7 @@ body {
   background: #F8F8F8 image-url('author/stripes.png');
   padding-top: 50px;
 }
+a { color: #17317C;}
 header {
   margin: 0 0 35px 0;
     .alert {
@@ -1193,7 +1194,7 @@ border-radius:0 4px 0 0;
 .copy { margin: 0px 0 5px ; text-align: center; }
 .copy span { background: rgba(0,0,0, .1); border-radius: 0 0 4px 4px; display: inline-block; padding: 4px;margin: -5px 0 0; }
   
-.terminals { padding: 0; margin: -5px; list-style: none;  background: rgba(255, 255, 255, 0.5); box-shadow: 0 1px 0 rgba(0,0,0,0.1) inset, 0 -1px 0 rgba(255,255,255,0.1) inset ; border-radius: 4px; padding: 0 10px;  }  
+.terminals { padding: 0; margin: -5px; list-style: none;  background: rgba(255, 255, 255, 0.5); box-shadow: 0 -1px 0 rgba(0,0,0,0.1) inset, 0 1px 0 rgba(255,255,255,0.2) inset ; border-radius: 4px; padding: 0 10px;  }  
 .terminals > li { padding: 5px 0px; margin: 0; border-bottom: 1px solid #DDDDDD;
     border-top: 1px solid #FAFAFA;
 	*zoom:1
