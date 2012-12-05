@@ -11,17 +11,34 @@
 %h2 Мои аккаунты в соцсетях
 #accordion2.accordion.connections
   - @accounts.each do |account|
-    = render "author/settings/accounts/account", account: account
-
-- if @account
-  = link_to "", "#account-modal#{@account.id}", "data-toggle" => "modal", style: "display: none"
-  = render 'connection_modal', account: @account
-  :coffeescript
-    jQuery ->
-      $("a[href=#account-modal#{@account.id}]").click()
-- Service.all.each do |service|
-  - next unless service.password_auth
-  = render 'connection_modal', account: Account.new(service_id: service.id, provider: service.code)
+    .accordion-group{ "data-account" => account.id}
+      .accordion-heading.btn-box.clearfix
+        %ul.nav.nav-pills.actions.visible
+          %li
+            %a.link{ href: "#account#{account.id}", "data-terminal" => account.id }= t('global.params')
+          %li
+            = link_to([:settings, account], :confirm => 'Are you sure?', class: %w(link delete), remote: true, :method => :delete) do
+              = t('global.destroy')
+              %span.badge.badge-important !
+        %a.accordion-toggle.btn-user.user{ href: "#collapse#{account.id}", "data-terminal" => account.id }
+          = image_tag account.avatar
+          %i.icon-social16{ class: account.service.code }
+          %strong= account.name
+      .accordion-body.collapse.in{ id: "collapse#{account.id}", style: "display: none;" }
+        .accordion-inner
+          -# %ul.options
+          %ul.terminals{ "data-terminal" => account.id }
+      :coffeescript
+        jQuery ->
+          $("#collapse#{account.id}").on 'show hide shown hidden', ->
+            loadTerminals("#{account.id}")
+  
+  - if @account
+    = link_to "", "#account-modal#{@account.id}", "data-toggle" => "modal", style: "display: none"
+    = render 'connection_modal', account: @account
+    :coffeescript
+      jQuery ->
+        $("a[href=#account-modal#{@account.id}]").click()
 
 -# .block{ style: "display: none"}
 -#   %table.table.data.prefs.feeds

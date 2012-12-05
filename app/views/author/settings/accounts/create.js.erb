@@ -1,0 +1,7 @@
+<% if flash[:error] %>
+  alert("<%= j flash[:error] %>")
+<% else %>
+  $("#service-modal-<%= @account.provider %>").html("<%= j render('author/settings/accounts/account_modal', account: @account) %>")
+  $(".accordion.connections").prepend("<%= j render('author/settings/accounts/account', account:@account) %>")
+<% end %>
+$("input[type=submit]").button('reset')

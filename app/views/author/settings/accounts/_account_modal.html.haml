@@ -1,0 +1,20 @@
+.accordion-heading.modal-header
+  %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+  - unless account.new_record?
+    %a.accordion-toggle.btn-user.user{:href => ""}
+      = image_tag account.avatar
+      %i.icon-social16{ class: account.service.code }
+      %strong= account.name
+.modal-body
+  %ul.options
+    - if account.new_record?
+      %li
+        %em Ведите данные для входа в ваш аккаунт:
+        .connections
+          = render "author/settings/accounts/form", account: account
+    - unless account.new_record?
+      %li{:style => "display:_none"}
+        %em В вашем аккаунте доступны эти терминалы для публикаций:
+        .connections
+          %ul.terminals
+            = render template: "author/settings/accounts/terms", locals: { account: account }
