@@ -1,10 +1,12 @@
-.form-options.add-terminal{ style: "display: none" }
+.form-options.add-terminal{ style: "display: none", "data-terminal-id" => (terminal.new_record? ? terminal.object_id : terminal.id) }
   = form_for [:settings, terminal.account, terminal], remote: true, html: { class: %w(form-inline) } do |f|
     .clearfix
+      = f.hidden_field :account_id
       = f.label :name
       = f.text_field :name, class: %w(input-medium)
-      = f.label :identifier, "ID"
-      = f.text_field :identifier, class: %w(input-small)
+      - unless terminal.identifier == "wall"
+        = f.label :identifier, "ID"
+        = f.text_field :identifier, class: %w(input-small)
     .clearfix.save-id
       = f.submit t('global.save'), remote: true, class: %w(btn btn-small)
       = link_to t('global.cancel'), settings_path, class: %w(btn btn-small)

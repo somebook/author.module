@@ -4,12 +4,25 @@ module Author
       layout false, only: :terms
 
       def create
-        account = Account.new(params[:account])
-        account.user = @current_user
-        account.shard = @current_shard
-        account.save!
-
-        redirect_to settings_path, notice: t("author.account.notice.create_success")
+        @account = Account.new(params[:account])
+        if params[:account][:provider] == "livejournal"
+          user = LiveJournal::User.new(params[:account][:nickname], params[:account][:password])
+          begin
+            LiveJournal::Request::Login.new(user).run
+            @account.name = @account.nickname
+            @account.avatar = "http://l-stat.livejournal.com/img/ctxpopup-nopic.gif"
+            error = false
+          rescue
+            error = true
+          end
+        end
+        @account.user = @current_user
+        @account.shard = @current_shard
+        @account.save! unless error
+        respond_to do |format|
+          format.html { redirect_to settings_path, notice: t("author.account.notice.create_success") }
+          format.js { flash[:error] = (error ? "Wrong login or password." : nil) }
+        end
       end
 
       def destroy

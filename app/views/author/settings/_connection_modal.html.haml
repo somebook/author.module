@@ -1,28 +1,5 @@
-.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1", id: "account-modal#{account.id}"}
-  .accordion-heading.modal-header
-    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-    %a.accordion-toggle.btn-user.user{:href => ""}
-      = image_tag account.avatar
-      %i.icon-social16{ class: account.service.code }
-      %strong= account.name
-  .modal-body
-    %ul.options
-      - if account.new_record?
-        %li
-          %em Ведите данные для входа в ваш аккаунт:
-          .connections
-            %form.form-inline
-              <!connect to socail network -->
-              %label.control-label.wall{:for => "terminal_name"} Логин
-              %input#terminal_name.input-small{:name => "terminal[name]", :type => "text", :value => "wall"}
-                %label.control-label{:for => "terminal_identifier"} Пароль
-                %input#terminal_identifier.input-small{:name => "terminal[identifier]", :type => "text", :value => "wall"}
-                  %input.btn.btn-primary{:name => "commit", :type => "submit", :value => "Войти"}
-      %li{:style => "display:_none"}
-        %em В вашем аккаунте доступны эти терминалы для публикаций:
-        .connections
-          %ul.terminals
-            = render template: "author/settings/accounts/terms", locals: { account: account }
+.modal.hide.fade{ "aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: -1, id: (account.new_record? ? "service-modal-#{account.service.code}" : "account-modal#{account.id}")}
+  = render "author/settings/accounts/account_modal", account: account
   .modal-footer.clearfix
     %button.btn.btn-primary.pull-right Сохранить
     %button.btn.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal"} Отменить

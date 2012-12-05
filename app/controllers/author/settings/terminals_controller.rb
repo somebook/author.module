@@ -17,11 +17,13 @@ module Author
 
       def create
         @terminal = Terminal.new(params[:terminal])
-        @terminal.account = @shard_language.accounts.find(params[:account_id]) || not_found
         @form_legend = t("author.terminal.form_legend.new")
 
         if @terminal.save
-          redirect_to settings_path, notice: t("author.terminal.notice.create_success")
+          respond_to do |format|
+          format.html { redirect_to settings_path, notice: t("author.terminal.notice.create_success") }
+          format.js
+          end
         else
           render :form
         end

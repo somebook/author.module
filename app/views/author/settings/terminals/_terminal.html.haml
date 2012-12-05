@@ -1,10 +1,15 @@
 .clearfix
   %ul.pull-right.nav.nav-pills.actions
-    %li= link_to t('global.params'), [:edit, :settings, terminal.account, terminal], class: %w(link terminal-params)
     %li
-      = link_to([:settings, terminal.account, terminal], confirm: 'Are you sure?', class: %w(link delete), remote: true, method: :delete) do
-        = t('global.destroy')
-        %span.badge.badge-important !
+      - if terminal.new_record?
+        = link_to t('author.terminals.connect'), "#", class: %w(link terminal-connect), "data-terminal-id" => terminal.object_id
+      - else
+        = link_to t('global.params'), [:edit, :settings, terminal.account, terminal], class: %w(link terminal-params)
+    %li
+      - unless terminal.new_record?
+        = link_to([:settings, terminal.account, terminal], confirm: 'Are you sure?', class: %w(link delete), remote: true, method: :delete) do
+          = t('global.destroy')
+          %span.badge.badge-important !
   %a.terminal-name
     %i.icon @
     = terminal.name

@@ -1,6 +1,14 @@
 - unless notice.nil?
-  .clearfix.alert.alert-success= notice
+  .alert.alert-success
+    %button.close{ "data-dismiss" => "alert"} x
+    = notice
 - unless flash[:error].nil?
-  .clearfix.alert.alert-error= flash[:error]
+  .alert.alert-error
+    %button.close{ "data-dismiss" => "alert"} x
+    = flash[:error]
 - unless flash[:error_notice].nil?
-  .clearfix.alert.alert-error= flash[:error_notice]
+  .alert.alert-error
+    %button.close{ "data-dismiss" => "alert"} x
+    = flash[:error_notice]
+
+- flash[:error] = flash[:error_notice] = flash[:notice] = nil

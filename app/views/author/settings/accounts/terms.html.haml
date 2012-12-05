@@ -1,3 +1,4 @@
 - account ||= @account
-- account.terminals.each do |terminal|
-  %li{ "data-terminal" => terminal.id }= render partial: "author/settings/terminals/terminal", locals: { terminal: terminal }
+- (account.terminals + account.not_connected_terminals).each do |terminal|
+  %li{ "data-terminal" => (terminal.new_record? ? terminal.object_id : terminal.id) }
+    = render partial: "author/settings/terminals/terminal", locals: { terminal: terminal }
