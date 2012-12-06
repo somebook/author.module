@@ -10,9 +10,17 @@
     - if @current_shard.shard_languages.count > 1
       .clearfix.feed-attach
         - @current_shard.shard_languages.each do |sl|
-          = hidden_field_tag "terminal[shard_language_ids][]", nil
-          = check_box_tag "terminal[shard_language_ids][]", sl.id, terminal.shard_languages.include?(sl), id: "terminal_sl_#{terminal.id}_#{sl.id}"
-          = label_tag "terminal_sl_#{terminal.id}_#{sl.id}", sl.name
+          %label.label.label-input{ class: (sl.language.code == "ru" ? "label-blog" : "label-news")}
+            = hidden_field_tag "terminal[shard_language_ids][]", nil
+            = check_box_tag "terminal[shard_language_ids][]", sl.id, terminal.shard_languages.include?(sl)
+            = sl.language.name
+    - if @streams.count > 1
+      .clearfix.feed-attach
+        - @streams.each do |stream|
+          %label.label.label-input{ class: (stream == :personal ? "label-blog" : "label-news")}
+            = hidden_field_tag "terminal[streams][]", nil
+            = check_box_tag "terminal[streams][]", stream, terminal.streams.include?(stream)
+            = stream == :personal ? "Экспорт блога" : "Экспорт новостей"
     .clearfix.save-id
       = f.submit t('global.save'), remote: true, class: %w(btn btn-primary)
       = link_to t('global.cancel'), settings_path, class: %w(btn)

@@ -1,7 +1,7 @@
 module Author
   module Settings
-    class TerminalsController < ::Author::SpaceController
-
+    class TerminalsController < ::Author::SpaceController      
+      before_filter :set_streams
       def index
         @account = @shard_language.accounts.find(params[:account_id]) || not_found
         @terminals = @account.terminals
@@ -62,6 +62,12 @@ module Author
         else
           render :form
         end
+      end
+      
+      def set_streams
+        @streams = []
+        @streams << :personal if can? :blog, Post.new(shard_id: @current_shard.id)
+        @streams << :official if can? :news, Post.new(shard_id: @current_shard.id)
       end
 
     end

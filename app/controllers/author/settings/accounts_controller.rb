@@ -2,6 +2,7 @@ module Author
   module Settings
     class AccountsController < ::Author::SpaceController
       layout false, only: :terms
+      before_filter :set_streams
 
       def create
         @account = Account.new(params[:account])
@@ -44,6 +45,12 @@ module Author
       
       def terms
         @account = Account.find(params[:id])
+      end
+      
+      def set_streams
+        @streams = []
+        @streams << :personal if can? :blog, Post.new(shard_id: @current_shard.id)
+        @streams << :official if can? :news, Post.new(shard_id: @current_shard.id)
       end
 
     end
