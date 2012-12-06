@@ -1085,7 +1085,8 @@ border-radius:0 4px 0 0;
 .accordion-heading .accordion-toggle.btn-user  { padding: 8px 0 9px 36px; display: block;}
 .accordion-heading .actions { float: right; display: none;}
 .accordion-heading:hover .actions { display: block;}
-.accordion-heading .accordion-toggle.btn-user img { float: left; margin:-7px 0 -12px -35px; border-radius: 4px;}
+.accordion-heading .accordion-toggle.btn-user img { float: left; margin:-7px 0 -12px -35px; border-radius: 4px; max-height: 32px;
+    max-width: 32px;}
 .accordion-heading .accordion-toggle.btn-user strong { color: #333;}
 .connections .accordion-inner { border: none; padding: 8px 7px}
 .connections .accordion-group { background:rgba(0,0,0,0.03); border-radius: 4px;  margin: 0; padding: 4px  }
@@ -1102,7 +1103,7 @@ border-radius:0 4px 0 0;
 .icon-social16.livejournal {background-position: -48px 0;}
 .icon-social16.youtube { background-position: -64px 0;}
 .icon-social16.amazon { background-position: -80px 0;}
-.icon-social16.google{ background-position: -96px 0;}
+.icon-social16.google_analytics{ background-position: -96px 0;}
 .icon-social16.picasa { background-position: -112px 0;}
 
 
@@ -1227,7 +1228,7 @@ border-radius:0 4px 0 0;
 
 .wall { width: 70px; }
 .feed-attach { margin: 20px 20px 0px 70px }
-.save-id { margin: 0px 20px 0px 70px }
+.save-id { margin:10px 20px 0 73px }
 .actions.visible { display: block!important}
 .modal{ background:url("images/stripes.png") repeat scroll 0 0 #F8F8F8;}
 

@@ -2,11 +2,11 @@
   = form_for [:settings, terminal.account, terminal], remote: true, html: { class: %w(form-inline) } do |f|
     .clearfix
       = f.hidden_field :account_id
-      = f.label :name
-      = f.text_field :name, class: %w(input-medium)
+      = f.label :name, class: %w(control-label wall)
+      = f.text_field :name, class: %w(input-middle)
       - unless terminal.identifier == "wall"
         = f.label :identifier, "ID"
         = f.text_field :identifier, class: %w(input-small)
     .clearfix.save-id
-      = f.submit t('global.save'), remote: true, class: %w(btn btn-small)
-      = link_to t('global.cancel'), settings_path, class: %w(btn btn-small)
+      = f.submit t('global.save'), remote: true, class: %w(btn btn-primary)
+      = link_to t('global.cancel'), settings_path, class: %w(btn)
