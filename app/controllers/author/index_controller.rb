@@ -36,12 +36,13 @@ class IndexController < SpaceController
         @accounts[account.provider][account.shard_language_id][account.stream_name] = account
       end
     }
-    ap @accounts
 
     # Google Analytics
-    @domains = @current_shard.shard_languages.map{ |shard_language|
-      { name: shard_language.domain, account: shard_language.accounts.find_by_provider(:google_analytics) }
-    }
+    if @current_shard.settings.has_site
+      @domains = @current_shard.shard_languages.map{ |shard_language|
+        { name: shard_language.domain, account: @current_shard.accounts.find_by_provider(:google_analytics) }
+      }
+    end
 
     @domains.each{ |domain|
       next if domain[:account].nil?

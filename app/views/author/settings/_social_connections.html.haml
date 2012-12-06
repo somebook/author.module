@@ -15,13 +15,15 @@
 
 - if @account
   = link_to "", "#account-modal#{@account.id}", "data-toggle" => "modal", style: "display: none"
-  = render 'connection_modal', account: @account
+  - content_for :modal do
+    = render 'connection_modal', account: @account
   :coffeescript
     jQuery ->
       $("a[href=#account-modal#{@account.id}]").click()
 - Service.all.each do |service|
   - next unless service.password_auth
-  = render 'connection_modal', account: Account.new(service_id: service.id, provider: service.code)
+  - content_for :modal do
+    = render 'connection_modal', account: Account.new(service_id: service.id, provider: service.code)
 
 -# .block{ style: "display: none"}
 -#   %table.table.data.prefs.feeds

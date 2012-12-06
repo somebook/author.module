@@ -32,6 +32,7 @@
             = link_to  t("author.you_have_pending_social_contents"),@pending_social_contents.first.terminal.account.ext_url, target: "blank"
     .header-bar
     .container.page= yield
+    = yield :modal
 :erb
   <script type="text/javascript">
       var reformalOptions = {

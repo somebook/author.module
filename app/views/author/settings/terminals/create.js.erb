@@ -1,2 +1,3 @@
 $("li.removed").removeClass("removed").html("<%= j render(@terminal) %>").show().attr("data-terminal", "<%= @terminal.id %>")
 $("input[type=submit]").button('reset')
+$("li[data-terminal=<%= @terminal.id %>] .terminal-params").click()
