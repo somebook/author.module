@@ -4,8 +4,13 @@
     %span.caret
   %ul.dropdown-menu
     - Service.all.each do |service|
+      - case service.code
+      - when "picasa"
+        - url = Picasa.authorization_url(authorize_albums_url)
+      - else
+        - url = settings_link_service_path(code: service.code)
       %li
-        %a{ href: (service.password_auth ? "#service-modal-#{service.code}" : settings_link_service_path(code: service.code)), "data-toggle" => ("modal" if service.password_auth) }
+        %a{ href: (service.password_auth ? "#service-modal-#{service.code}" : url), "data-toggle" => ("modal" if service.password_auth) }
           %i.icon-social16{ class: service.code }
           = service.name
 %h2 Мои аккаунты в соцсетях
@@ -13,7 +18,7 @@
   - @accounts.each do |account|
     = render "author/settings/accounts/account", account: account
 
-- if @account
+- if @account && !%w(picasa youtube google_analytics).include?(@account.provider)
   = link_to "", "#account-modal#{@account.id}", "data-toggle" => "modal", style: "display: none"
   - content_for :modal do
     = render 'connection_modal', account: @account

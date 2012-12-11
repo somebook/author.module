@@ -38,16 +38,14 @@ class PostsController < SpaceController
         )
       }
     )
-
     @post.contents.each do |content|
-      content.shard_language.accounts.stream(Account::STREAMS[params[:stream].to_i]).each do |acc|
-        acc.terminals.each do |terminal|
-          cnt = SocialContent.new(
-            content: content,
-            terminal: terminal
-          )
-          content.social_contents << cnt
-        end
+      Terminal.joins(:shard_languages).where('shard_language_id = ?', content.shard_language.id).each do |terminal|
+        next unless terminal.streams.include? Account::STREAMS[params[:stream].to_i]
+        cnt = SocialContent.new(
+          content: content,
+          terminal: terminal
+        )
+        content.social_contents << cnt
       end
     end
 
@@ -58,6 +56,7 @@ class PostsController < SpaceController
 
   def edit
     @post = @current_shard.posts.find(params[:id]) || not_found
+    params[:stream] = @post.stream
     @section_class = @post.stream == 1 ? "blog" : "news"
     @form_legend = t("author.post.form_legend.edit")
 
@@ -79,9 +78,10 @@ class PostsController < SpaceController
       post_params_clone[:post][:user_id] = current_user.id
 
       @post= Post.new(post_params_clone[:post])
-      @post.contents.each { |contents|
-        contents.photos = [] if contents.gallery == "videos"
-        contents.videos = [] if contents.gallery == "photos"
+      @post.contents.each { |content|
+        content.photos = [] if content.gallery == "videos"
+        content.videos = [] if content.gallery == "photos"
+        ap content.social_contents
       }
 
       @post.shard = @current_shard
@@ -97,7 +97,6 @@ class PostsController < SpaceController
 
       @form_legend = t("author.post.form_legend.new")
       redirect_path = @post.stream_name == :personal ? blog_posts_path : news_posts_path
-
       if @post.save
         redirect_to redirect_path, notice: t("author.post.notice.create_success")
       else
@@ -107,6 +106,7 @@ class PostsController < SpaceController
   end
 
   def update
+    ap params
     if params[:publish_at_date]
       params[:post][:publish_at] = params[:publish_at_date] + " " + params[:publish_at_time]
     end

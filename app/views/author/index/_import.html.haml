@@ -16,7 +16,8 @@
             %td
               %span{ class: "shared #{service[0]}"}
               %br
-              = ShardLanguage.find_by_id(lang[0]).domain
+              - sl = ShardLanguage.find_by_id(lang[0])
+              = sl.domain if sl
             - if lang[1].kind_of? Account
               %td{ colspan: @streams.count }
                 - lang[1].stats.each do |stat|

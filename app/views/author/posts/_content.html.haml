@@ -6,23 +6,27 @@
     %label{ for: "#{as}_contents_attributes_#{content.tmp_id}_title" }= Content.human_attribute_name(:title)
     .input= text_field_tag "#{as}[contents_attributes][#{content.tmp_id}][title]", content.title, class: "span12 #{content.tmp_id} content-title"
   .control-group
-    = render("gallery", content: content, f: f) if as == 'post'
-  .control-group
     %label{ for: "#{as}_contents_attributes_#{content.tmp_id}_body" }= Content.human_attribute_name(:body)
     - if Rails.env.test? || Rails.env.cucumber?
       .input= text_area_tag "#{as}[contents_attributes][#{content.tmp_id}][body]", content.body, class: %w(w), 'data-content-id' => "#{content.tmp_id}"
     - else
       .input
-        = text_area_tag "#{as}[contents_attributes][#{content.tmp_id}][body]", content.body, cols: 10, rows: 10, class: %w(span8 wysiwyg w), 'data-content-id' => "#{content.tmp_id}"
-  - unless content.social_contents.empty?
-    .control-group.social-edit
-      %table.table.data.social
-        %thead
-          %th Social Networks:
-          %th{ style: "width: 60px" }
-        %tbody
-          - content.social_contents.each do |social_content|
-            = render "social_content", content: content, social_content: social_content, as: as
+        = text_area_tag "#{as}[contents_attributes][#{content.tmp_id}][body]", content.body, cols: 10, rows: 10, class: "span8 w #{'wysiwyg' if @current_shard.name != 'matsuev'}", 'data-content-id' => "#{content.tmp_id}"
+  -# - unless content.social_contents.empty?
+  -#   .control-group.social-edit
+  -#     %table.table.data.social
+  -#       %thead
+  -#         %th Social Networks:
+  -#         %th{ style: "width: 60px" }
+  -#       %tbody
+  -#         - content.social_contents.each do |social_content|
+  -#           = render "social_content", content: content, social_content: social_content, as: as
+  - unless content.accounts_for_stream(params[:stream]).empty?
+    .accordion.connections#accordion2
+      - content.accounts_for_stream(params[:stream]).each do |account|
+        = render "account", account: account, content: content, as: as
+  .control-group
+    = render("gallery", content: content, f: f) if as == 'post'
    
   .control-group
     :javascript

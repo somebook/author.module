@@ -39,6 +39,7 @@
               %a{ href: "#", "data-list" => "videos" }= t('author.video.listing')
           .list.media.photos
             - @albums.each do |album|
+              - next if album.photos.empty?
               %span.album= album.title
               %ul
                 - album.photos.each do |photo|

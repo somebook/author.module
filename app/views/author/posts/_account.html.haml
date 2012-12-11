@@ -1,0 +1,15 @@
+.accordion-group
+  .accordion-heading.btn-box.clearfix
+    -# %ul.nav.nav-pills.actions.visible
+    -#   %li.active
+    -#     %input{ checked: "checked", type: "checkbox" }
+    %a.accordion-toggle.btn-user.user{ href: "#content_account_#{content.tmp_id}_#{account.id}" }
+      = image_tag account.avatar
+      %i.icon-social16{ class: account.provider }
+      %strong= account.name
+  .accordion-body.collapse.in{ id: "content_account_#{content.tmp_id}_#{account.id}", style: "display: none" }
+    .accordion-inner
+      %ul.terminals
+        - content.social_contents.each do |social_content|
+          - next unless account.terminals.include? social_content.terminal
+          = render "social_content", social_content: social_content, content: content, as: as
