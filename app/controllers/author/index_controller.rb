@@ -38,6 +38,7 @@ class IndexController < SpaceController
     }
 
     # Google Analytics
+    @domains = []
     if @current_shard.settings.has_site
       @domains = @current_shard.shard_languages.map{ |shard_language|
         { name: shard_language.domain, account: @current_shard.accounts.find_by_provider(:google_analytics) }
