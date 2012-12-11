@@ -11,7 +11,7 @@
       .input= text_area_tag "#{as}[contents_attributes][#{content.tmp_id}][body]", content.body, class: %w(w), 'data-content-id' => "#{content.tmp_id}"
     - else
       .input
-        = text_area_tag "#{as}[contents_attributes][#{content.tmp_id}][body]", content.body, cols: 10, rows: 10, class: "span8 w #{'wysiwyg' if @current_shard.name != 'matsuev'}", 'data-content-id' => "#{content.tmp_id}"
+        = text_area_tag "#{as}[contents_attributes][#{content.tmp_id}][body]", content.body, cols: 10, rows: 10, class: "span8 w #{'wysiwyg' if @current_shard.name == 'matsuev'}", 'data-content-id' => "#{content.tmp_id}"
   -# - unless content.social_contents.empty?
   -#   .control-group.social-edit
   -#     %table.table.data.social
