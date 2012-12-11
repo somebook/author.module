@@ -1,4 +1,4 @@
-%div{ class: "content_form content_form_#{content.shard_language_id} #{content.is_enabled? ? '' : 'dont-publish'} block" }
+%div{ class: "content_form content_form_#{content.shard_language_id} #{content.is_enabled? ? '' : 'dont-publish'} form-options" }
   .form-disabler
     = hidden_field_tag "#{as}[contents_attributes][#{content.tmp_id}][id]", content.id
   = hidden_field_tag "#{as}[contents_attributes][#{content.tmp_id}][shard_language_id]", content.shard_language_id
@@ -11,7 +11,7 @@
       .input= text_area_tag "#{as}[contents_attributes][#{content.tmp_id}][body]", content.body, class: %w(w), 'data-content-id' => "#{content.tmp_id}"
     - else
       .input
-        = text_area_tag "#{as}[contents_attributes][#{content.tmp_id}][body]", content.body, cols: 10, rows: 10, class: "span8 w #{'wysiwyg' if @current_shard.name == 'matsuev'}", 'data-content-id' => "#{content.tmp_id}"
+        = text_area_tag "#{as}[contents_attributes][#{content.tmp_id}][body]", content.body, cols: 10, rows: 10, class: "span12 w #{'wysiwyg' if @current_shard.name == 'matsuev'}", 'data-content-id' => "#{content.tmp_id}"
   -# - unless content.social_contents.empty?
   -#   .control-group.social-edit
   -#     %table.table.data.social
