@@ -37,7 +37,12 @@ module Author
     end
     
     def destroy
-      
+      @pattern = @current_shard.publication_patterns.find(params[:id])
+      @pattern.destroy if @pattern
+      respond_to do |format|
+        format.html
+        format.js
+      end
     end
   end
 end

@@ -1,2 +1,2 @@
-$("#patterns.modal ul.patterns li[data-pattern-id=<%= @pattern.id %>]").replaceWith("<%= j render('author/posts/pattern', pattern: @pattern) %>")
+$("#patterns.modal ul.patterns li[data-pattern-id=<%= @pattern.id %>]").replaceWith("<%= j render('author/publication_patterns/pattern', pattern: @pattern) %>")
 $(".post-settings li[data-pattern-id=<%= @pattern.id %>]").replaceWith("<%= j render('author/posts/pattern', pattern: @pattern) %>")

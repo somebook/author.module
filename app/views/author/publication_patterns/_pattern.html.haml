@@ -1,0 +1,5 @@
+%li{ "data-pattern-id" => pattern.id }
+  %a.pattern{ href: "#", "data-terminals" => pattern.terminals }
+    %strong= pattern.name
+  = link_to(pattern, :confirm => 'Are you sure?', class: %w(link delete), remote: true, :method => :delete) do
+    x

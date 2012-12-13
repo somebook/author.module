@@ -44,9 +44,7 @@
           %label Шаблоны настроек публикации
           %ul.nav.nav-list.patterns
             - @current_shard.publication_patterns.each do |pattern|
-              %li{ "data-pattern-id" => pattern.id }
-                %a.pattern{ href: "#", "data-terminals" => pattern.terminals }
-                  %strong= pattern.name
+              = render "author/publication_patterns/pattern", pattern: pattern
           %a.add-pattern{ href: "#" } Добавить шаблон
     .modal-footer
       %button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Close
