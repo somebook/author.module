@@ -1,3 +1,4 @@
+= render "author/publication_patterns/index"
 :coffeescript
   jQuery ->
     $(".sticky a").bind 'ajax:before', (e) ->
@@ -19,9 +20,18 @@
     .alert.alert-warning.clearfix= translate('author.post.no_languages_alert')
   - else
   %div.pull-right
-    %a{ href: new_post_path(:stream => Account::STREAMS.invert[params[:stream].to_sym]), class: %w(btn btn-inverse)}
-      %i.icon-white.icon-plus
-      = t('author.post.new')
+    .btn-group.post-settings
+      %a{ href: new_post_path(:stream => Account::STREAMS.invert[params[:stream].to_sym]), class: %w(btn btn-inverse)}
+        %i.icon-white.icon-plus
+        = t('author.post.new')
+      %button.btn.dropdown-toggle{ "data-toggle" => "dropdown" }
+        Создать по шаблону
+        %span.caret
+      %ul.dropdown-menu
+        - @patterns.each do |pattern|
+          %li
+            %a{ href: new_post_path(:stream => Account::STREAMS.invert[params[:stream].to_sym], pattern: pattern.id) }
+              = pattern.name
   %h1
     %i{ class: "icon48-#{params[:stream] == 'personal' ? 'blog' : 'news'}"}
     = translate("author.post.list_#{params[:stream]}")

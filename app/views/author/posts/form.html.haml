@@ -77,3 +77,7 @@
     .input-append
       = f.text_field :name, placeholder: "Дайте название текущим настройкам", class: %w(span3)
       = f.submit t('global.save'), class: %w(btn)
+- if params[:pattern]
+  :coffeescript
+    jQuery ->
+      $(".post-settings .pattern[data-pattern-id=#{params[:pattern]}]").click()
