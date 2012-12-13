@@ -5,6 +5,7 @@ class PostsController < SpaceController
 
   before_filter :shard_languages, except: [:publish, :destroy, :show]
   before_filter :assets, only: [:new, :edit, :update]
+  before_filter :publication_patterns, only: [:new, :edit, :update]
 
   def index
     @posts = @current_shard.posts
@@ -106,7 +107,6 @@ class PostsController < SpaceController
   end
 
   def update
-    ap params
     if params[:publish_at_date]
       params[:post][:publish_at] = params[:publish_at_date] + " " + params[:publish_at_time]
     end
@@ -225,6 +225,10 @@ private
   
   def set_section_class
     @section_class = "posts"
+  end
+  
+  def publication_patterns
+    @patterns = @current_shard.publication_patterns
   end
 end
 end

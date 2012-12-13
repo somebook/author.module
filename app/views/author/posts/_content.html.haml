@@ -22,7 +22,7 @@
   -#         - content.social_contents.each do |social_content|
   -#           = render "social_content", content: content, social_content: social_content, as: as
   - unless content.accounts_for_stream(params[:stream]).empty?
-    .accordion.connections#accordion2
+    .accordion.connections#social_connections
       - content.accounts_for_stream(params[:stream]).each do |account|
         = render "account", account: account, content: content, as: as
   .control-group

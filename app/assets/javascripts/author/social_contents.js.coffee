@@ -1,5 +1,5 @@
 jQuery ->
-  $(".connections a.edit").live 'click', (e) ->
+  $("#social_connections.connections a.edit").live 'click', (e) ->
     if $(this).text() == "Edit" or $(this).text() == "Изменить"
       $(this).parent().parent().parent().find('.terminal-form').slideDown('fast')
       $(this).text('Hide') if $(this).text() == "Edit"
@@ -12,11 +12,11 @@ jQuery ->
       $(this).siblings('.edit').css('display', 'none')
     return false
 
-  $(".connections input:radio").live 'click', (e) ->
+  $("#social_connections.connections input:radio").live 'click', (e) ->
     $(".#{$(this).data('social-content-id')}").attr("disabled", "disabled")
     $(this).next().next().removeAttr("disabled")
 
-  $(".connections .copy").live 'click', (e) ->
+  $("#social_connections.connections .copy").live 'click', (e) ->
     $(this).next().next().next().val($(this).parent().prev().find('textarea').val())
     false
 
@@ -28,7 +28,7 @@ jQuery ->
           tmp.innerHTML = sanitize($(this).val())
           body = (tmp.textContent || tmp.innerText).replace(/\[br\]/g, '\r')#.replace(/\[(\/*i|\/*p|\/*b)\]/g, '<$1>')
           title = $("input.content-title.#{$(this).data('content-id')}").val()
-          $(".connections .generated textarea.#{$(this).data('content-id')}").each(
+          $("#social_connections.connections .generated textarea.#{$(this).data('content-id')}").each(
             ->
               counter = $(this).parent().parent().parent().find(".counter")
               if $(this).data('provider') == "twitter"
@@ -43,7 +43,7 @@ jQuery ->
     1000
   )
   
-  $(".connections a.accordion-toggle").live 'click', (e) ->
+  $("#social_connections.connections a.accordion-toggle").live 'click', (e) ->
     $($(this).attr('href')).toggle()
     false
 
@@ -64,7 +64,7 @@ jQuery ->
   #     $(this).text('Изменить') if $(this).text() == "Отменить"
   #   return false
   
-  $(".connections input[type=checkbox]").live 'change', (e) ->
+  $("#social_connections.connections input[type=checkbox]").live 'change', (e) ->
     contents = $(this).parent().contents()
     if $(this).attr('checked') == "checked" && $(this).parent().hasClass("label") && $(this).parent().parent().parent().parent().find('.terminal-form .generated input[type=radio]').attr("checked") == "checked"
       $(this).parent().removeClass("edited").addClass("auto")
@@ -75,8 +75,27 @@ jQuery ->
     else
       $(this).parent().removeClass("auto").removeClass("edited")
       contents[contents.length - 1].nodeValue = "None"
+      
+    new_terminals = []
+    $("#social_connections.connections input[type=checkbox]").each(
+      ->
+        if $(this).attr("checked") == "checked"
+          new_terminals
+          new_terminals.push($(this).data("terminal-id"))
+          new_terminals
+    )
+    if $(".post-settings .pattern.active").data("terminals")
+      terminals = $(".post-settings .pattern.active").data("terminals")
+    else
+      terminals = []
 
-  $(".connections input[type=radio]").live 'change', (e) ->
+    if terminals.sort().join() == new_terminals.sort().join()
+      $(".post-settings.create").hide()
+    else
+      $(".post-settings.create").show()
+      $("#publication_pattern_terminals").attr("value", new_terminals)
+
+  $("#social_connections.connections input[type=radio]").live 'change', (e) ->
     contents = $(this).parent().parent().parent().find(".clearfix .pull-right .label").contents()
     if $(this).attr('checked') == "checked" && $(this).parent().hasClass("generated") && $(this).parent().parent().parent().find(".clearfix .pull-right input[type=checkbox]").attr("checked") == "checked"
       $(this).parent().parent().parent().find(".clearfix .pull-right .label").removeClass("edited").addClass("auto")

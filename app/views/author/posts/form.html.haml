@@ -1,12 +1,26 @@
 = javascript_include_tag "author/posts"
 = stylesheet_link_tag "author/posts"
 = stylesheet_link_tag "jquery-ui"
+= render "author/publication_patterns/index"
 = form_for @post, html: { class: %w(form-horizontal form-stacked) } do |f|
   %fieldset
     %header
       %h1= @form_legend
     .content
       .form-top
+        .btn-group.post-settings
+          %label Выбрать настройки публикации:
+          %button.btn{ onclick: "return false"}
+            %em -custom-
+          %button.btn.dropdown-toggle{ "data-toggle" => "dropdown" }
+            %span.caret
+          %ul.dropdown-menu
+            - @patterns.each do |pattern|
+              = render "pattern", pattern: pattern
+            %li.divider
+            %li
+              %a{ href: "#patterns", "data-toggle" => "modal", role: "button" }
+                %strong Создать новый шаблон
         - unless @post.published?
           .pull-right.publish-date
             = f.label :publish_at, class: %w()
@@ -54,3 +68,10 @@
           = f.text_field :created_at, value: @post.created_at ? @post.created_at.strftime("%d.%m.%Y %H:%M") : nil
         = submit_tag translate('global.save'), class: %w(btn btn-large btn-primary)
         = link_to translate('global.cancel'), posts_path, class: %w(btn btn-large)
+.post-settings.create{ style: "display: none" }
+  %span.status.orange Настройки публикации изменены
+  = form_for PublicationPattern.new(), remote: true do |f|
+    = f.hidden_field :terminals
+    .input-append
+      = f.text_field :name, placeholder: "Дайте название текущим настройкам", class: %w(span3)
+      = f.submit t('global.save'), class: %w(btn)

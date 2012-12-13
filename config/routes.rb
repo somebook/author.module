@@ -17,6 +17,7 @@ Author::Engine.routes.draw do
     get 'publish'
     get 'sticky'
   end
+  resources :publication_patterns
   resources :static_pages do
     resources :contents
   end

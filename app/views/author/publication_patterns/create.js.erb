@@ -1,0 +1,4 @@
+$(".post-settings.create").hide()
+$(".post-settings li.divider").before("<%= j render('author/posts/pattern', pattern: @pattern) %>")
+$("#patterns.modal ul.patterns").append("<%= j render('author/posts/pattern', pattern: @pattern) %>")
+$(".post-settings .pattern[data-pattern-id=<%= @pattern.id %>]").click()

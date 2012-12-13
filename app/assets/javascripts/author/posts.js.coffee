@@ -110,5 +110,20 @@ window.setDroppable = ->
       else
         false
   true
-
+  
+  $(".post-settings .pattern").live 'click', (e) ->
+    console.log "clicked"
+    $(".post-settings .pattern").removeClass("active")
+    $(this).addClass("active")
+    terminals =  $(this).data('terminals')
+    $("#social_connections.connections input[type=checkbox]").attr("checked", null)
+    $("#social_connections.connections input[type=checkbox]").each(
+      ->
+        if terminals.indexOf($(this).data("terminal-id")) > -1
+          $(this).click()
+    )
+    $(".post-settings button:first").text($(this).text())
+    $(".post-settings.create").hide()
+    return false
+    
 

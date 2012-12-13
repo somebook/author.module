@@ -1,0 +1,52 @@
+= javascript_include_tag "author/patterns"
+= content_for :modal do
+  #patterns.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+    .modal-header
+      %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+      %h3#patternsLabel Настройки публикации
+    .modal-body
+      .row-fluid
+        .span8
+          .form-options.case-account
+            .control-group
+              %label Название шаблона публикации
+              .input
+                %input.name.fake.span12{ type: "text" }
+            %label Аккаунты и терминалы, включенные в этот шаблон
+            #patterns-accordion.accordion.connections
+              - @current_shard.accounts.joins(:service).where("services.social = ?", true).each do |account|
+                .accordion-group
+                  .accordion-heading.btn-box.clearfix
+                    %a.accordion-toggle.btn-user.user{ "data-toggle" => "collapse", href: "#account#{account.id}" }
+                      = image_tag account.avatar
+                      %i.icon-social16{ class: account.provider }
+                      %strong= account.name
+                  .accordion-body.collapse.in{ id: "account#{account.id}" }
+                    .accordion-inner
+                      %ul.terminals
+                        - account.terminals.each do |terminal|
+                          %li{ id: "terminal-pattern-#{terminal.id}"}
+                            .clearfix
+                              %span.pull-right
+                                %input{ type: "checkbox", "data-terminal-id" => terminal.id }
+                              %a.terminal-name
+                                %i.icon @
+                                = terminal.name
+          = form_for PublicationPattern.new, remote: true, html: { class: %w(form-create) } do |f|
+            = f.hidden_field :terminals, class: %w(terminals)
+            = f.hidden_field :name, class: %w(name real)
+            .clearfix.form-actions= f.submit t('global.save'), class: %w(btn btn-large btn-primary)
+          = form_for PublicationPattern.new, remote: true, html: { class: %w(form-update), style: "display: none", method: :put } do |f|
+            = f.hidden_field :terminals, class: %w(terminals)
+            = f.hidden_field :name, class: %w(name real)
+            .clearfix.form-actions= f.submit t('global.save'), class: %w(btn btn-large btn-primary)
+        .span4
+          %label Шаблоны настроек публикации
+          %ul.nav.nav-list.patterns
+            - @current_shard.publication_patterns.each do |pattern|
+              %li{ "data-pattern-id" => pattern.id }
+                %a.pattern{ href: "#", "data-terminals" => pattern.terminals }
+                  %strong= pattern.name
+          %a.add-pattern{ href: "#" } Добавить шаблон
+    .modal-footer
+      %button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Close
