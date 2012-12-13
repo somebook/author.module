@@ -8,6 +8,7 @@ class PostsController < SpaceController
   before_filter :publication_patterns, only: [:new, :edit, :update]
 
   def index
+    @patterns = @current_shard.publication_patterns
     @posts = @current_shard.posts
       .with_stream(params[:stream])
       .order('created_at DESC')
