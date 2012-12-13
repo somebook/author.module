@@ -1238,7 +1238,10 @@ border-radius:0 4px 0 0;
 .modal-body .form-options { margin:5px 0 0; padding:20px 10px 0px}
 
 .modal-body .options > li > em { margin: 0 0 20px; display: block;}
-    
+.create { bottom: 55px;
+    height: 60px;
+    position: absolute;
+    right: 20px;}   
 @media (min-width: 768px) and (max-width: 980px) {
 
   /* Remove any padding from the body */
