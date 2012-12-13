@@ -2,7 +2,7 @@
   %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
   - unless account.new_record?
     %a.accordion-toggle.btn-user.user{:href => ""}
-      = image_tag account.avatar
+      = image_tag (account.avatar.nil? ? "author/user-empty.png" : account.avatar)
       %i.icon-social16{ class: account.service.code }
       %strong= account.name
 .modal-body

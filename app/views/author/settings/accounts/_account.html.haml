@@ -8,7 +8,7 @@
           = t('global.destroy')
           %span.badge.badge-important !
     %a.accordion-toggle.btn-user.user{ href: "#collapse#{account.id}", "data-terminal" => account.id }
-      = image_tag account.avatar
+      = image_tag (account.avatar.nil? ? "author/user-empty.png" : account.avatar)
       %i.icon-social16{ class: account.service.code }
       %strong= account.name
   .accordion-body.collapse.in{ id: "collapse#{account.id}", style: "display: none;" }
