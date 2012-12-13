@@ -39,37 +39,41 @@ class IndexController < SpaceController
 
     # Google Analytics
     @domains = []
-    if @current_shard.settings.has_site
-      @domains = @current_shard.shard_languages.map{ |shard_language|
-        { name: shard_language.domain, account: @current_shard.accounts.find_by_provider(:google_analytics) }
-      }
-    end
-
-    @domains.each{ |domain|
-      next if domain[:account].nil?
-
-      Garb::Session.access_token = domain[:account].google_access_token
-      profiles = Rails.cache.fetch("ga_profiles#{domain[:account].id}", expires_in: 5.hours) {
-        Garb::Management::Profile.all
-      }
-
-      if domain[:account].additional.nil?
-        if profiles.count == 1
-          domain[:account].update_attribute(:additional, profiles.first.web_property_id)
-          profile = profiles.detect { |profile| profile.web_property_id == domain[:account].additional }
-          domain[:report] = Rails.cache.fetch("ga_results#{domain[:account].id}", expires_in: 5.hours) {
-            ViewsVisits.results(profile)
-          }
-        else
-          domain[:profiles] = profiles.map{ |profile| { name: profile.name, code: profile.web_property_id } }
-        end
-      else
-        profile = profiles.detect { |profile| profile.web_property_id == domain[:account].additional }
-        domain[:report] = Rails.cache.fetch("ga_results#{domain[:account].id}", expires_in: 5.hours) {
-          ViewsVisits.results(profile)
+    begin
+      if @current_shard.settings.has_site
+        @domains = @current_shard.shard_languages.map{ |shard_language|
+          { name: shard_language.domain, account: @current_shard.accounts.find_by_provider(:google_analytics) }
         }
+
+        @domains.each{ |domain|
+          next if domain[:account].nil?
+
+          Garb::Session.access_token = domain[:account].google_access_token
+          profiles = Rails.cache.fetch("ga_profiles#{domain[:account].id}", expires_in: 5.hours) {
+            Garb::Management::Profile.all
+          }
+
+          if domain[:account].additional.nil?
+            if profiles.count == 1
+              domain[:account].update_attribute(:additional, profiles.first.web_property_id)
+              profile = profiles.detect { |profile| profile.web_property_id == domain[:account].additional }
+              domain[:report] = Rails.cache.fetch("ga_results#{domain[:account].id}", expires_in: 5.hours) {
+                ViewsVisits.results(profile)
+              }
+            else
+              domain[:profiles] = profiles.map{ |profile| { name: profile.name, code: profile.web_property_id } }
+            end
+          else
+            profile = profiles.detect { |profile| profile.web_property_id == domain[:account].additional }
+            domain[:report] = Rails.cache.fetch("ga_results#{domain[:account].id}", expires_in: 5.hours) {
+              ViewsVisits.results(profile)
+            }
+          end
+        }
+      rescue
+        
       end
-    }
+    end
   end
   
   private

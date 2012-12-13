@@ -78,7 +78,7 @@ class AlbumsController < SpaceController
             provider: "picasa",
             token: picasa.token,
             uid: picasa.user.user.to_s,
-            nickname: picasa.user.nickname,
+            name: picasa.user.nickname,
             user_id: current_user.id,
             service_id: Service.find_by_code("picasa")
           )

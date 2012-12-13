@@ -11,7 +11,8 @@
       = image_tag (account.avatar.nil? ? "author/user-empty.png" : account.avatar)
       %i.icon-social16{ class: account.service.code }
       %strong= account.name
-  .accordion-body.collapse.in{ id: "collapse#{account.id}", style: "display: none;" }
-    .accordion-inner
-      -# %ul.options
-      %ul.terminals{ "data-terminal" => account.id }= image_tag "author/ajax-loader.gif", style: "position: relative; left: 50%; margin: 5px 5px 5px -15px"
+  - unless %w(picasa youtube google_analytics).include?account.service.code
+    .accordion-body.collapse.in{ id: "collapse#{account.id}", style: "display: none;" }
+      .accordion-inner
+        -# %ul.options
+        %ul.terminals{ "data-terminal" => account.id }= image_tag "author/ajax-loader.gif", style: "position: relative; left: 50%; margin: 5px 5px 5px -15px"
