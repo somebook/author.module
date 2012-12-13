@@ -1,8 +1,8 @@
 = form_for [:settings, account], remote: true, html: { class: %w(form-inline) } do |f|
   = f.hidden_field :service_id
   = f.hidden_field :provider
-  = f.label :nickname, "Username", class: %w(control-label)
-  .controls= f.text_field :nickname, class: %w(input-small)
-  = f.label :password, class: %w(control-label)
-  .controls= f.password_field :password, class: %w(input-small)
+  = f.label :nickname, "Username", class: %w(control-label wall)
+  = f.text_field :nickname, class: %w(input-small)
+  = f.label :password, class: %w(control-label wall)
+  = f.password_field :password, class: %w(input-small)
   = f.submit t('global.save'), class: %w(btn btn-primary), "data-loading-text" => "Saving..."
