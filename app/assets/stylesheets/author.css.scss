@@ -231,7 +231,6 @@ ul {
   }
   &.tabbable {
     .tab-content {
-      margin-top: -20px;
       padding-top: 20px;
       clear: left;
     }
@@ -1181,7 +1180,7 @@ border-radius:0 4px 0 0;
     font-weight: bold;
     text-shadow: 0 1px #F3F3F3;
     text-transform: uppercase;}
-    
+.nav-tabs.media > li { margin-bottom: -3px;}  
 .form-horizontal .control-group.publish-date { margin: 0 0 6px;}
 
 .connections textarea {background: #fff; border-radius: 4px; border: solid 1px #ccc;}
@@ -1233,6 +1232,9 @@ border-radius:0 4px 0 0;
 .save-id { margin:10px 20px 0 73px }
 .actions.visible { display: block!important}
 .modal{ background:url("images/stripes.png") repeat scroll 0 0 #F8F8F8;}
+.modal:focus {
+outline: none;
+}
 
 .modal-body .connections { margin: 0;}
 .modal-body .form-options { margin:5px 0 0; padding:20px 10px 0px}
