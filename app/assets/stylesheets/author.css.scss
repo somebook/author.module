@@ -1241,7 +1241,13 @@ border-radius:0 4px 0 0;
 .create { bottom: 55px;
     height: 60px;
     position: absolute;
-    right: 20px;}   
+    right: 20px;}  
+    
+ #patterns { width: 780px;  margin: -350px 0 0 -380px; } 
+     
+ #patterns .modal-body { min-height: 580px}
+ 
+ 
 @media (min-width: 768px) and (max-width: 980px) {
 
   /* Remove any padding from the body */
