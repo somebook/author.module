@@ -10,7 +10,7 @@
     - if @current_shard.shard_languages.count > 1
       .clearfix.feed-attach
         - @current_shard.shard_languages.each do |sl|
-          %label.label.label-input{ class: (sl.language.code == "ru" ? "label-blog" : "label-news")}
+          %label.label.label-input{ class: (sl.language.code == "ru" ? "label-domain" : "label-domain")}
             = hidden_field_tag "terminal[shard_language_ids][]", nil
             = check_box_tag "terminal[shard_language_ids][]", sl.id, terminal.shard_languages.include?(sl)
             = sl.language.name

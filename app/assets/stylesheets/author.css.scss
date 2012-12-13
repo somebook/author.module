@@ -11,7 +11,8 @@ body {
   background: #F8F8F8 image-url('author/stripes.png');
   padding-top: 50px;
 }
-a { color: #17317C;}
+a { color: #005580 /* #17317C; */}
+a:hover { color: #005580;}
 header {
   margin: 0 0 35px 0;
     .alert {
@@ -1223,6 +1224,7 @@ border-radius:0 4px 0 0;
 
 .label-blog { background: #4C70A3;}
 .label-news { background: #49ABDB;}
+.label-domain { background: #bbb;}
 .label-input input[type="checkbox"]{ margin: -3px 3px 0px!important; }
 .label-input { padding: 4px!important; margin:0 4px 10px 0!important; text-transform: uppercase; }
 
