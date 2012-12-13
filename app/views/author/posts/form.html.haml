@@ -21,12 +21,6 @@
             %li
               %a{ href: "#patterns", "data-toggle" => "modal", role: "button" }
                 %strong Создать новый шаблон
-        - unless @post.published?
-          .pull-right.publish-date
-            = f.label :publish_at, class: %w()
-            = text_field_tag :publish_at_date, (@post.publish_at.strftime("%d.%m.%Y") if @post.publish_at), style: "width: 67px", class: %(datepicker)
-            = text_field_tag :publish_at_time, (@post.publish_at.strftime("%H:%M") if @post.publish_at), style: "width: 35px"
-  
         %ul.nav.nav-pills.langs{ style: (@shard_languages.count == 1 ? "display: none" : "") }
           - @shard_languages.each_with_index do |language, i|
             %li{ class: i.zero? ? "active" : nil, 'data-language-id' => language.id }
@@ -46,6 +40,17 @@
           = present @post, :post_form_presenter, f do |p|
             = p.stream
         .span4
+          .form-options
+            .control-group.publish-date
+              = f.label :created_at, class: %w(span4)
+              = text_field_tag :created_at_date, (@post.created_at ? @post.created_at.strftime("%d.%m.%Y") : nil), style: "width: 67px", class: %(datepicker)
+              = text_field_tag :created_at_time, (@post.created_at ? @post.created_at.strftime("%H:%M") : nil), style: "width: 35px"
+            - unless @post.published?
+              .control-group.publish-date
+                = f.label :publish_at, class: %w(span4)
+                = text_field_tag :publish_at_date, (@post.publish_at.strftime("%d.%m.%Y") if @post.publish_at), style: "width: 67px", class: %(datepicker)
+                = text_field_tag :publish_at_time, (@post.publish_at.strftime("%H:%M") if @post.publish_at), style: "width: 35px"
+              
           %ul.nav.nav-tabs.media
             %li.photo.active
               %a{ href: "#", "data-list" => "photos" }= t('author.album.photo.listing')
@@ -63,9 +68,6 @@
               - @videos.each do |video|
                 %li= image_tag video.preview, title: video.title, class: "video", "data-youtube-id" => video.youtube_id, "data-id" => video.id, "data-bucket" => (video.amazon? ? @current_shard.amazon_setting.video_bucket : "")
       .clearfix.form-actions
-        .pull-right.publish-date
-          = f.label :created_at, class: %w(control-label)
-          = f.text_field :created_at, value: @post.created_at ? @post.created_at.strftime("%d.%m.%Y %H:%M") : nil
         = submit_tag translate('global.save'), class: %w(btn btn-large btn-primary)
         = link_to translate('global.cancel'), posts_path, class: %w(btn btn-large)
 .post-settings.create{ style: "display: none" }

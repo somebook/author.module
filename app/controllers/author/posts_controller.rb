@@ -67,6 +67,7 @@ class PostsController < SpaceController
   def create
     validated_shard_language = true
     params[:post][:publish_at] = params[:publish_at_date] + " " + params[:publish_at_time]
+    params[:post][:created_at] = params[:created_at_date] + " " + params[:created_at_time]
     params[:post][:contents_attributes].each do |key, contents_attribute|
       contents_attribute[:is_enabled] = !!contents_attribute[:is_enabled]
       unless @current_shard.shard_languages.exists?(contents_attribute[:shard_language_id].to_s)
@@ -110,6 +111,7 @@ class PostsController < SpaceController
     if params[:publish_at_date]
       params[:post][:publish_at] = params[:publish_at_date] + " " + params[:publish_at_time]
     end
+    params[:post][:created_at] = params[:created_at_date] + " " + params[:created_at_time]
     params[:post][:user_id] = current_user.id
     @post = @current_shard.posts.find(params[:id]) || not_found
 
