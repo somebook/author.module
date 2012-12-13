@@ -24,7 +24,7 @@
       %a{ href: new_post_path(:stream => Account::STREAMS.invert[params[:stream].to_sym]), class: %w(btn btn-inverse)}
         %i.icon-white.icon-plus
         = t('author.post.new')
-      %button.btn.dropdown-toggle{ "data-toggle" => "dropdown" }
+      %button.btn.btn-inverse.dropdown-toggle{ "data-toggle" => "dropdown" }
         Создать по шаблону
         %span.caret
       %ul.dropdown-menu

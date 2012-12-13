@@ -2,7 +2,8 @@
 = content_for :modal do
   #patterns.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
     .modal-header
-      %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+      %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} x
+
       %h3#patternsLabel Настройки публикации
     .modal-body
       .row-fluid
@@ -41,10 +42,11 @@
             = f.hidden_field :name, class: %w(name real)
             .clearfix.form-actions= f.submit t('global.save'), class: %w(btn btn-large btn-primary)
         .span4
-          %label Шаблоны настроек публикации
+          %h4 Шаблоны настроек публикации
           %ul.nav.nav-list.patterns
             - @current_shard.publication_patterns.each do |pattern|
               = render "author/publication_patterns/pattern", pattern: pattern
           %a.add-pattern{ href: "#" } Добавить шаблон
+
     .modal-footer
       %button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Close

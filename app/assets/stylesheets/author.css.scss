@@ -1241,12 +1241,22 @@ border-radius:0 4px 0 0;
 .create { bottom: 55px;
     height: 60px;
     position: absolute;
-    right: 20px;}  
+    right: 30px;}  
     
  #patterns { width: 780px;  margin: -350px 0 0 -380px; } 
      
  #patterns .modal-body { min-height: 580px}
- 
+.nav-list.patterns { margin: 10px 0 20px; padding: 0;}
+.nav-list.patterns > li  { position: relative; padding:3px 30px 3px 8px; margin: 0 0 2px;}
+.nav-list.patterns > li a.delete {position: absolute;
+    right: 2px; display: none;
+    text-decoration: none;
+    top: 2px; width: 20px;}
+.nav-list.patterns > li a:hover { background: none;}
+.nav-list.patterns > li a.patern:hover { text-decoration: underline; display: inline-block;}
+.nav-list.patterns > li:hover a.delete { display: inline-block;}
+.nav-list.patterns > li:hover { background: #eee; border-radius: 4px;}
+
  
 @media (min-width: 768px) and (max-width: 980px) {
 
