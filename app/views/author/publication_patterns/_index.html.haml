@@ -19,7 +19,7 @@
                 .accordion-group
                   .accordion-heading.btn-box.clearfix
                     %a.accordion-toggle.btn-user.user{ "data-toggle" => "collapse", href: "#account#{account.id}" }
-                      = image_tag account.avatar
+                      = image_tag (account.avatar.nil? ? "author/user-empty.png" : account.avatar)
                       %i.icon-social16{ class: account.provider }
                       %strong= account.name
                   .accordion-body.collapse.in{ id: "account#{account.id}" }
