@@ -18,10 +18,16 @@ module Author
     def update
       params[:publication_pattern][:terminals] = params[:publication_pattern][:terminals].split(",").map{ |i| i.to_i }
       @pattern = @current_shard.publication_patterns.find(params[:id])
-      @pattern.update_attributes(params[:publication_pattern])
-      respond_to do |format|
-        format.html
-        format.js
+      if @pattern.update_attributes(params[:publication_pattern])
+        respond_to do |format|
+          format.html
+          format.js
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to :edit }
+          format.js { render nothing: true }
+        end
       end
     end
     
@@ -29,19 +35,31 @@ module Author
       params[:publication_pattern][:terminals] = params[:publication_pattern][:terminals].split(",").map{ |i| i.to_i }
       @pattern = PublicationPattern.new(params[:publication_pattern])
       @pattern.shard = @current_shard
-      @pattern.save
-      respond_to do |format|
-        format.html
-        format.js
+      if @pattern.save
+        respond_to do |format|
+          format.html
+          format.js
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to :new }
+          format.js { render nothing: true }
+        end
       end
     end
     
     def destroy
       @pattern = @current_shard.publication_patterns.find(params[:id])
-      @pattern.destroy if @pattern
-      respond_to do |format|
-        format.html
-        format.js
+      if @pattern.destroy
+        respond_to do |format|
+          format.html
+          format.js
+        end
+      else
+        respond_to do |format|
+          format.html
+          format.js { render nothing: true }
+        end
       end
     end
   end

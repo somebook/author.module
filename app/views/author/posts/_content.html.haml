@@ -24,6 +24,7 @@
   - unless content.accounts_for_stream(params[:stream]).empty?
     .accordion.connections#social_connections
       - content.accounts_for_stream(params[:stream]).each do |account|
+        - next if (account.terminal_ids & content.social_contents.map{ |sc| sc.terminal.id }).empty?
         = render "account", account: account, content: content, as: as
   .control-group
     = render("gallery", content: content, f: f) if as == 'post'

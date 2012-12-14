@@ -70,9 +70,9 @@ class IndexController < SpaceController
             }
           end
         }
-      rescue
-        
       end
+    rescue
+      
     end
   end
   
