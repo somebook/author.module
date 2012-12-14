@@ -30,15 +30,23 @@ jQuery ->
           title = $("input.content-title.#{$(this).data('content-id')}").val()
           $("#social_connections.connections .generated textarea.#{$(this).data('content-id')}").each(
             ->
-              counter = $(this).parent().parent().parent().find(".counter")
-              if $(this).data('provider') == "twitter"
-                if $(this).val().length > 120
-                  $(counter).addClass("label-important")
-                else
-                  $(counter).removeClass("label-important")
-                $(counter).text(120 - $(this).val().length)
               $(this).val(body) if $(this).val() != body
           )
+      )
+    1000
+  )
+  
+  setInterval(
+    ->
+      $("#social_connections.connections textarea").each(
+        ->
+          if $(this).data('provider') == "twitter" && $(this).parent().find("input[type=radio]").attr("checked") == "checked"
+            counter = $(this).parent().parent().parent().find(".counter")
+            if $(this).val().length > 120
+              $(counter).addClass("label-important")
+            else
+              $(counter).removeClass("label-important")
+            $(counter).text(120 - $(this).val().length)
       )
     1000
   )

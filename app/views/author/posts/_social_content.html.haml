@@ -11,6 +11,8 @@
     %a.terminal-name
       %i.icon @
       = social_content.terminal.name
+      - if social_content.terminal.account.provider == "twitter"
+        %span.label.counter 0
   .terminal-form{ style: "display: none;" }
     .generated
       = radio_button_tag("#{as}[contents_attributes][#{content.tmp_id}][social_contents_attributes][#{social_content.tmp_id}][edited]", false, (social_content.edited.nil? || !social_content.edited), style: "float: left; margin-right: 5px", 'data-social-content-id' => social_content.tmp_id)
