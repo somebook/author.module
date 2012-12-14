@@ -26,14 +26,13 @@ class EventsController < SpaceController
     )
     
     @event.infos.each do |info|
-      info.shard_language.accounts.joins(:service).where(services: { events: true }).each do |acc|
-        acc.terminals.each do |terminal|
-          cnt = SocialContent.new(
-            event_info: info,
-            terminal: terminal
-          )
-          info.social_contents << cnt
-        end
+      Terminal.joins(:shard_languages).where('shard_language_id = ?', info.shard_language.id).each do |terminal|
+        next unless terminal.account.service.events
+        cnt = SocialContent.new(
+          event_info: info,
+          terminal: terminal
+        )
+        info.social_contents << cnt
       end
     end
     
