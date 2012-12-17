@@ -1,8 +1,8 @@
 .accordion-group{ "data-account" => account.id }
   .accordion-heading.btn-box.clearfix
     %ul.nav.nav-pills.actions
-      %li
-        %a.link{ href: "#account#{account.id}", "data-terminal" => account.id }= t('global.params')
+      -# %li
+      -#   %a.link{ href: "#account#{account.id}", "data-terminal" => account.id }= t('global.params')
       %li
         = link_to([:settings, account], :confirm => 'Are you sure?', class: %w(link delete), remote: true, :method => :delete) do
           = t('global.destroy')
