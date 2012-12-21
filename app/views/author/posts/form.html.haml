@@ -35,6 +35,7 @@
 
       .row-fluid
         .span8
+          .form-options
           - @post.contents.each do |content|
             = render "content", container: @post, as: 'post', content: content, f: f
           = present @post, :post_form_presenter, f do |p|
