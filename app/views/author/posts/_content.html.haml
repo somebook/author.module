@@ -1,4 +1,4 @@
-%div{ class: "content_form content_form_#{content.shard_language_id} #{content.is_enabled? ? '' : 'dont-publish'} form-options" }
+%div{ class: "content_form content_form_#{content.shard_language_id} #{content.is_enabled? ? '' : 'dont-publish'} form-options", id: "content_form_#{content.shard_language.language.code}" }
   .form-disabler
     = hidden_field_tag "#{as}[contents_attributes][#{content.tmp_id}][id]", content.id
   = hidden_field_tag "#{as}[contents_attributes][#{content.tmp_id}][shard_language_id]", content.shard_language_id

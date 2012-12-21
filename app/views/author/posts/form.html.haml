@@ -68,7 +68,7 @@
             %ul
               - @videos.each do |video|
                 %li= image_tag video.preview, title: video.title, class: "video", "data-youtube-id" => video.youtube_id, "data-id" => video.id, "data-bucket" => (video.amazon? ? @current_shard.amazon_setting.video_bucket : "")
-      .clearfix.form-actions
+      #save-post.clearfix.form-actions
         = submit_tag translate('global.save'), class: %w(btn btn-large btn-primary)
         = link_to translate('global.cancel'), posts_path, class: %w(btn btn-large)
 .post-settings.create{ style: "display: none" }
