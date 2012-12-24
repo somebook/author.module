@@ -759,7 +759,7 @@ border-radius:0 4px 0 0;
 }
 .form-top,
 .form-actions { background:rgba(0, 0, 0, 0.03); border-bottom: 1px solid rgba(255, 255, 255, 0.6); border-top:none; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06) inset;}
-.form-top {border-radius: 8px 8px 0 0; margin: -20px -20px 30px;padding: 10px 10px 0; min-height: 35px; }
+.form-top { border-radius: 8px 8px 0 0; margin: -20px -20px 30px;padding: 10px 10px 0; min-height: 32px; }
 .form-actions { border-radius: 0 0 8px 8px; margin: 30px -20px -20px; padding: 10px 10px 10px 20px; }
 .form-options {  background:rgba(0, 0, 0, 0.03);
     border-bottom:1px solid rgba(255, 255, 255, 0.6);
@@ -1166,7 +1166,7 @@ border-radius:0 4px 0 0;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);}   
     .form-options label.checkbox.label.auto { background: #4C70A3}
     .form-options label.checkbox.label.edited { background: #468847}
-
+.form-options .controls { margin-bottom:0;}
 .form-options label.checkbox input[type="checkbox"] { margin: 0 5px 0 -2px;} 
 /* add to author.css .gallery .tab-pane */
 

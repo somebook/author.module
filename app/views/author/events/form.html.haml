@@ -13,14 +13,10 @@
               %a{ href: "#" }
                 %i.arrow
                 = language.name
-
-
-
       .row-fluid
         .span8
-          .form-options
-            - @event.infos.each do |info|
-              = render "info", event: @post, info: info
+          - @event.infos.each do |info|
+            = render "info", event: @post, info: info
 
         
         .span4
@@ -33,12 +29,8 @@
               = text_field_tag :starts_at_date, (@event.starts_at.strftime("%d.%m.%Y") if @event.starts_at), style: "width: 67px", class: %{date-input}
               = text_field_tag :starts_at_time, (@event.starts_at.strftime("%H:%M") if (@event.starts_at && !@event.without_time)), style: "width: 35px", class: %{time-input}
 
-          .form-options
-            .control-group
-              - # TODO: Fix broken widget
-              = # render_widget :media_bucket, :gallery, :event, {video_gallery: @event.videos, photo_gallery: @event.photos, audio_gallery: @event.audios}
-
-            
+            - # TODO: Fix broken widget
+            = # render_widget :media_bucket, :gallery, :event, {video_gallery: @event.videos, photo_gallery: @event.photos, audio_gallery: @event.audios}
             - # TODO: Fix broken widget
             -# = render_widget :media_bucket, :display, {videos: @videos, albums: @albums, audios: @audio_albums}, @current_shard
       .form-actions
