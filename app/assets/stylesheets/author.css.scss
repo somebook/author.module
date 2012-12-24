@@ -1258,8 +1258,14 @@ outline: none;
 .nav-list.patterns > li a.patern:hover { text-decoration: underline; display: inline-block;}
 .nav-list.patterns > li:hover a.delete { display: inline-block;}
 .nav-list.patterns > li:hover { background: #eee; border-radius: 4px;}
+.form-horizontal .form-options .control-group { margin-bottom: 0; } 
+.urls .input-prepend { white-space: nowrap; display: block; }
+.help-block { font-size: 12px; font-style: italic; color:#555;}
+.form-options .event-connetions label.checkbox  { padding: 5px 5px 2px 9px }
 
- 
+.publish-date .badge { display: inline-block;
+    line-height: 18px;
+    margin: 5px 5px 0 -8px; }
 @media (min-width: 768px) and (max-width: 980px) {
 
   /* Remove any padding from the body */

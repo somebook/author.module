@@ -28,23 +28,22 @@
         - else
           .controls= text_area_tag "event[infos_attributes][#{event_info_id}][desc]", info.desc, :cols => 10, :rows => 10, class: %w(span8 wysiwyg w), 'data-content-id' => "#{event_info_id}"
       - unless info.social_contents.empty?
-        .control-group.social-edit
+        .accordion.connections
           %table.table.data.social
-            %thead
-              %th Social Networks:
-              %th{ style: "width: 60px" }
-            %tbody
-              - info.social_contents.each do |social_content|
-                = render "social_content", info: info, social_content: social_content, event_info_id: event_info_id
+            - info.social_contents.each do |social_content|
+              = render "social_content", info: info, social_content: social_content, event_info_id: event_info_id
       .control-group{ class: (info.errors.get(:tickets_url).nil? or info.errors.get(:tickets_url).empty? ? "" : "error") }
-        %label{ for: "event_infos_attributes_#{event_info_id}_tickets_url"}= EventInfo.human_attribute_name(:tickets_url)
-        .controls.urls
-          .input-prepend
-            %label.add-on
-              %input#buy_tickets{ type: "checkbox", checked: ("checked" unless info.tickets_url.to_s == "") }
-            = text_field_tag "event[infos_attributes][#{event_info_id}][tickets_url]", info.tickets_url, class: %w(span6), disabled: (info.tickets_url.to_s == "")
-            %p.help-block Example: http://www.example.com/concert1221
+        .row-fluid
+          .span6 
+            %label{ for: "event_infos_attributes_#{event_info_id}_tickets_url"}= EventInfo.human_attribute_name(:tickets_url)
+            .controls.urls
+              .input-prepend
+                %label.add-on
+                  %input#buy_tickets{ type: "checkbox", checked: ("checked" unless info.tickets_url.to_s == "") }
+                = text_field_tag "event[infos_attributes][#{event_info_id}][tickets_url]", info.tickets_url, class: %w(span10), disabled: (info.tickets_url.to_s == "")
+                %p.help-block Example: http://www.example.com/concert1221
+          .span6   
             %label{ for: "event_infos_attributes_#{event_info_id}_tickets_price"}= EventInfo.human_attribute_name(:tickets_price)
-            = text_field_tag "event[infos_attributes][#{event_info_id}][tickets_price]", info.tickets_price, class: %w(span6), disabled: (info.tickets_url.to_s == "")
-          %p.help-block Example: $150-300
-        %span.help-inline= info.errors.get(:tickets_url).join(', ') unless info.errors.get(:tickets_url).nil?
+            = text_field_tag "event[infos_attributes][#{event_info_id}][tickets_price]", info.tickets_price, class: %w(span10), disabled: (info.tickets_url.to_s == "")
+            %p.help-block Example: $150-300
+            %span.help-inline= info.errors.get(:tickets_url).join(', ') unless info.errors.get(:tickets_url).nil?
