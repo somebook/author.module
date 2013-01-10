@@ -27,10 +27,16 @@
           .input= text_area_tag "event[infos_attributes][#{event_info_id}][desc]", info.desc, 'data-content-id' => "#{event_info_id}"
         - else
           .controls= text_area_tag "event[infos_attributes][#{event_info_id}][desc]", info.desc, :cols => 10, :rows => 10, class: %w(span8 wysiwyg w), 'data-content-id' => "#{event_info_id}"
-      - unless info.social_contents.empty?
-        .accordion.connections.event-connetions
-          - info.social_contents.each do |social_content|
-            = render "social_content", info: info, social_content: social_content, event_info_id: event_info_id
+      -# - unless info.social_contents.empty?
+      -#         .accordion.connections.event-connetions
+      -#           - info.social_contents.each do |social_content|
+      -#             = render "social_content", info: info, social_content: social_content, event_info_id: event_info_id
+      - unless info.accounts_for_events.empty?
+        .accordion.connections#social_connections
+          - info.accounts_for_events.each do |account|
+            - next if (account.terminal_ids & info.social_contents.map{ |sc| sc.terminal.id }).empty?
+            = render "account", account: account, info: info, event_info_id: event_info_id
+      
       .control-group{ class: (info.errors.get(:tickets_url).nil? or info.errors.get(:tickets_url).empty? ? "" : "error") }
         .row-fluid
           .span6 

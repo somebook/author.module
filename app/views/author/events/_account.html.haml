@@ -1,0 +1,12 @@
+.accordion-group
+  .accordion-heading.btn-box.clearfix
+    %a.accordion-toggle.btn-user.user{ href: "#content_account_#{info.tmp_id}_#{account.id}" }
+      = image_tag (account.avatar.nil? ? "author/user-empty.png" : account.avatar)
+      %i.icon-social16{ class: account.provider }
+      %strong= account.name
+  .accordion-body.collapse.in{ id: "content_account_#{info.tmp_id}_#{account.id}", style: "display: none" }
+    .accordion-inner
+      %ul.terminals
+        - info.social_contents.each do |social_content|
+          - next unless account.terminals.include? social_content.terminal
+          = render "social_content", social_content: social_content, info: info, event_info_id: event_info_id
