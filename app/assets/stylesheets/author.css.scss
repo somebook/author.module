@@ -1266,6 +1266,8 @@ outline: none;
 .publish-date .badge { display: inline-block;
     line-height: 18px;
     margin: 5px 5px 0 -8px; }
+
+input[type="file"].upload-input { min-width: 300px; }
 @media (min-width: 768px) and (max-width: 980px) {
 
   /* Remove any padding from the body */
