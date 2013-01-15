@@ -1220,6 +1220,14 @@ border-radius:0 4px 0 0;
 .post-settings { float: right; white-space: nowrap;}
 .post-settings .dropdown-menu { left:auto; right: 0;}
 .post-settings .input-append .btn { margin-left: -5px; }
+.post-settings .badge { bottom: 10px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    padding: 5px 10px;
+    position: fixed;
+    right: 10px;
+    white-space: normal;
+    width: 100px;
+    z-index: 1000; }
 
 .label-blog { background: #4C70A3;}
 .label-news { background: #49ABDB;}
