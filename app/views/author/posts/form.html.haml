@@ -71,7 +71,7 @@
         = submit_tag translate('global.save'), class: %w(btn btn-large btn-primary)
         = link_to translate('global.cancel'), posts_path, class: %w(btn btn-large)
 .post-settings.create{ style: "display: none" }
-  #toTop.btn
+  %a
     %span.badge.badge-warning
       Сохранить новые настройки публикации?
       %i.icon-white.icon-arrow-down
