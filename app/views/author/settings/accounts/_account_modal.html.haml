@@ -14,7 +14,7 @@
           = render "author/settings/accounts/form", account: account
     - unless account.new_record?
       %li{:style => "display:_none"}
-        %em В вашем аккаунте доступны эти терминалы для публикаций:
+        %em= t('author.settings.available_terminals')
         .connections
           %ul.terminals
             = render template: "author/settings/accounts/terms", locals: { account: account }

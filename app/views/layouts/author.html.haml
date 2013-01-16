@@ -20,7 +20,7 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          = link_to "#{@current_shard.name.capitalize}", root_path, class: "brand"
+          = link_to @current_shard.name, root_path, class: "brand"
           = render :partial => "layouts/nav"
 
     -if @pending_social_contents && @pending_social_contents.size > 0 && @pending_social_contents.first && @pending_social_contents.first.terminal && @pending_social_contents.first.terminal.account

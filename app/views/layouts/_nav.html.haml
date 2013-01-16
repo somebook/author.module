@@ -12,7 +12,7 @@
       %li{ class: page_is?("audio_albums") }= link_to t('author.audio_album.audio_albums'), audio_albums_path if can? :manage, AudioAlbum.new(shard_id: @current_shard.id)
       %li{ class: page_is?("static_pages") }= link_to t('author.static_page.static_pages'), static_pages_path if can?(:manage, StaticPage.new(shard_id: @current_shard.id)) && @current_shard.settings.has_site
       %li{ class: page_is?("social_drafts") }= link_to t('author.social_draft.social_drafts') + " (#{@current_shard.social_drafts.where(deleted: false).count})", social_drafts_path if can? :manage, SocialDraft.new(shard_id: @current_shard.id)
-      %li{ class: page_is?("settings") }= link_to t('author.settings'), settings_path
+      %li{ class: page_is?("settings") }= link_to t('author.settings.settings'), settings_path
 
   %ul.nav.secondary-nav.pull-right
     %li{ style: "margin-top: 5px" }

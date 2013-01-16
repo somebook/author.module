@@ -1,6 +1,6 @@
 .btn-group.pull-right.add-connect
   %button.btn.btn-primary.dropdown-toggle{ "data-toggle" => "dropdown" }
-    Добавить аккаунт в соцсети
+    = t('author.settings.add_account')
     %span.caret
   %ul.dropdown-menu
     - Service.all.each do |service|

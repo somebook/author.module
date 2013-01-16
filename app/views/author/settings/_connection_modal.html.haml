@@ -1,4 +1,4 @@
 .modal.hide.fade{ "aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: -1, id: (account.new_record? ? "service-modal-#{account.service.code}" : "account-modal#{account.id}")}
   = render "author/settings/accounts/account_modal", account: account
   .modal-footer.clearfix
-    %button.btn.btn-primary.pull-right{"aria-hidden" => "true", "data-dismiss" => "modal"} Ок
+    %button.btn.btn-primary.pull-right{"aria-hidden" => "true", "data-dismiss" => "modal"} Ok
