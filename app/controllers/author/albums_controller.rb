@@ -69,18 +69,17 @@ class AlbumsController < SpaceController
       begin
         picasa = Picasa.authorize_request(request)
         acc = Account.find_by_provider_and_uid_and_shard_id("picasa", picasa.user.user.to_s, @current_shard.id)
-        ap picasa.user.user
         if acc
           redirect_to settings_path, error: "Account already exists."
         else
-          Account.create!(
+          account = Account.create!(
             shard_id: @current_shard.id,
             provider: "picasa",
             token: picasa.token,
             uid: picasa.user.user.to_s,
             name: picasa.user.nickname,
             user_id: current_user.id,
-            service_id: Service.find_by_code("picasa")
+            service_id: Service.find_by_code("picasa").id
           )
           current_user.sync_albums(picasa, @current_shard)
           redirect_to settings_path, notice: t("author.album.notice.picasa_auth_success")
