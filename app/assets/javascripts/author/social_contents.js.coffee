@@ -1,5 +1,5 @@
 jQuery ->
-  $("#social_connections.connections a.edit").live 'click', (e) ->
+  $("#social_connections.connections a.edit").on 'click', (e) ->
     if $(this).text() == "Edit" or $(this).text() == "Изменить"
       $(this).parent().parent().parent().find('.terminal-form').slideDown('fast')
       $(this).text('Hide') if $(this).text() == "Edit"
@@ -12,11 +12,11 @@ jQuery ->
       $(this).siblings('.edit').css('display', 'none')
     return false
 
-  $("#social_connections.connections input:radio").live 'click', (e) ->
+  $("#social_connections.connections input:radio").on 'click', (e) ->
     $(".#{$(this).data('social-content-id')}").attr("disabled", "disabled")
     $(this).next().next().removeAttr("disabled")
 
-  $("#social_connections.connections .copy").live 'click', (e) ->
+  $("#social_connections.connections .copy").on 'click', (e) ->
     $(this).next().next().next().val($(this).parent().prev().find('textarea').val())
     false
 
@@ -51,7 +51,7 @@ jQuery ->
     1000
   )
   
-  $("#social_connections.connections a.accordion-toggle").live 'click', (e) ->
+  $("#social_connections.connections a.accordion-toggle").on 'click', (e) ->
     $($(this).attr('href')).toggle()
     false
 
@@ -60,19 +60,8 @@ jQuery ->
       .replace(/<\/p><p>/g, '</p>[br]<p>')
       # .replace(/<iframe.*src=\"([^"]*).*iframe>/g, ' $1 ')
       # .replace(/<(\/*i|\/*p|\/*b)>/g, '[$1]')
-
-  # $(".connections a.edit").live 'click', (e) ->
-  #   if $(this).text() == "Edit" or $(this).text() == "Изменить"
-  #     $(this).parent().parent().parent().find('.edited').slideDown('fast')
-  #     $(this).text('Cancel') if $(this).text() == "Edit"
-  #     $(this).text('Отменить') if $(this).text() == "Изменить"
-  #   else
-  #     $(this).parent().parent().parent().find('.edited').slideUp('fast')
-  #     $(this).text('Edit') if $(this).text() == "Cancel"
-  #     $(this).text('Изменить') if $(this).text() == "Отменить"
-  #   return false
   
-  $("#social_connections.connections input[type=checkbox]").live 'change', (e) ->
+  $("#social_connections.connections input[type=checkbox]").on 'change', (e) ->
     contents = $(this).parent().contents()
     if $(this).attr('checked') == "checked" && $(this).parent().hasClass("label") && $(this).parent().parent().parent().parent().find('.terminal-form .generated input[type=radio]').attr("checked") == "checked"
       $(this).parent().removeClass("edited").addClass("auto")
@@ -103,7 +92,7 @@ jQuery ->
       $(".post-settings.create").show()
       $("#publication_pattern_terminals").attr("value", new_terminals)
 
-  $("#social_connections.connections input[type=radio]").live 'change', (e) ->
+  $("#social_connections.connections input[type=radio]").on 'change', (e) ->
     contents = $(this).parent().parent().parent().find(".clearfix .pull-right .label").contents()
     if $(this).attr('checked') == "checked" && $(this).parent().hasClass("generated") && $(this).parent().parent().parent().find(".clearfix .pull-right input[type=checkbox]").attr("checked") == "checked"
       $(this).parent().parent().parent().find(".clearfix .pull-right .label").removeClass("edited").addClass("auto")

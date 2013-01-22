@@ -12,7 +12,7 @@
   / this switches tabs
   :coffeescript
 
-    $("div##{widget_id} > .nav-tabs.media > li > a").live 'click', (e) ->
+    $("div##{widget_id} > .nav-tabs.media > li > a").on 'click', (e) ->
       $(this).parent().siblings().removeClass("active")
       $(this).parent().addClass("active")
       $(".list.media").hide()

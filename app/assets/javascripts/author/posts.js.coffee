@@ -22,14 +22,14 @@ jQuery ->
     e.stopPropagation()
     true
 
-  $(".ready_checkbox").live 'change', (e) ->
+  $(".ready_checkbox").on 'change', (e) ->
     if $(this).attr('checked')
       $(this).parent().parent().addClass("ready")
     else
       $(this).parent().parent().removeClass("ready")
     false
 
-  $(".nav-tabs.media > li > a").live 'click', (e) ->
+  $(".nav-tabs.media > li > a").on 'click', (e) ->
     $(this).parent().siblings().removeClass("active")
     $(this).parent().addClass("active")
     $(".list.media").hide()
@@ -39,7 +39,7 @@ jQuery ->
   $(".photo, .video").draggable
     helper: "clone"
 
-  $(".gallery .icon-remove").live 'click', (e) ->
+  $(".gallery .icon-remove").on 'click', (e) ->
     if $(this).parent().parent().find(".thumbnail").size() > 1
       $(this).parent().remove()
     else
@@ -111,7 +111,7 @@ window.setDroppable = ->
         false
   true
   
-  $(".post-settings .pattern").live 'click', (e) ->
+  $(".post-settings .pattern").on 'click', (e) ->
     console.log "clicked"
     $(".post-settings .pattern").removeClass("active")
     $(this).addClass("active")

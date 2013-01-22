@@ -1,6 +1,6 @@
 :coffeescript
   jQuery ->
-    $("a.amazon-form").live 'click', (e) ->
+    $("a.amazon-form").on 'click', (e) ->
       $(this).siblings('div.amazon-form').toggle(50)
       false
 %tr

@@ -1,5 +1,5 @@
 jQuery ->
-  $("#patterns.modal .pattern").live 'click', (e) ->
+  $("#patterns.modal .pattern").on 'click', (e) ->
     $("#patterns.modal .form-create").hide()
     $("#patterns.modal .form-update").show()
     $("#patterns.modal .form-update").attr("action", "/author/publication_patterns/" + $(this).parent().data("pattern-id"))
@@ -14,7 +14,7 @@ jQuery ->
     )
     return false
     
-  $(".add-pattern").live 'click', (e) ->
+  $(".add-pattern").on 'click', (e) ->
     $("#patterns.modal .form-create").show()
     $("#patterns.modal .form-update").hide()
     $("#patterns.modal .form-update input#publication_pattern_terminals").attr("value", "")
@@ -22,13 +22,13 @@ jQuery ->
     $("#patterns.modal input[type=checkbox]").attr("checked", null)
     return false
     
-  $("#patterns.modal input.name.fake").live 'keyup', (e) ->
+  $("#patterns.modal input.name.fake").on 'keyup', (e) ->
     if $("#patterns.modal .form-create").css("display") == 'none'
       $("#patterns.modal .form-update input.name.real").attr("value", $(this).attr("value"))
     else
       $("#patterns.modal .form-create input.name.real").attr("value", $(this).attr("value"))
       
-  $("#patterns.modal input[type=checkbox]").live 'change', (e) ->
+  $("#patterns.modal input[type=checkbox]").on 'change', (e) ->
     terminals = []
     $("#patterns.modal input[type=checkbox]").each(
       ->

@@ -79,7 +79,7 @@
         else
           false
       true
-    $(".gallery .icon-remove").live 'click', (e) ->
+    $(".gallery .icon-remove").on 'click', (e) ->
       if $(this).parent().parent().find(".thumbnail").size() > 1
         $(this).parent().remove()
       else
