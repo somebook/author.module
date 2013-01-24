@@ -13,12 +13,27 @@
       = link_to translate('global.edit'), edit_post_path(post)
       = link_to translate('global.destroy'), post, :confirm => 'Are you sure?', :method => :delete
   %td
-    - post.contents.each do |content|
-      %span.small.gray.domen
-        = content.shard_language.domain unless content.shard_language.nil?
-        %span.badge= content.shard_language.language.code
+    - if post.contents.size > 0
+      - cnt=post.default_content_for_shard(@current_shard)
         - if @current_shard.settings.has_site
-          = link_to "comments", post_content_comments_path(post, content)
+        - post.contents.each do |content|
+          %a{ href: ('http://'+cnt.shard_language.domain+(([80,443].include?(request.port)) ? '':':'+request.port.to_s)+main_app.blog_path(post)), class: %w(nowrap blacklink) }
+            %i.icon.icon-share
+            = content.shard_language.domain unless content.shard_language.nil?
+            /%span.badge= content.shard_language.language.code
+            /- if @current_shard.settings.has_site
+            /= link_to "comments", post_content_comments_path(post, content)
+  %td{class: "sticky view"}
+    - if post.published?
+      .sticky{ class: ("sticked" if post.sticky?) }
+        - if post.sticky
+          = link_to t('author.post.sticked'), "#", remote: true
+        - else
+          = link_to t('author.post.stick'), post_sticky_path(post), remote: true
+      
+        /%a{ href: ('http://'+cnt.shard_language.domain+(([80,443].include?(request.port)) ? '':':'+request.port.to_s)+main_app.blog_path(post)), class: %w(blacklink) }
+        /= t("author.post.preview")
+
   %td
     %span.small.light-gray
       = post.created_at.strftime("%b %-d, %H:%M")
@@ -33,16 +48,16 @@
         = link_to translate('author.post.publish'), post_publish_path(post), class: %w(btn btn-primary btn-small btn-publish), remote: true, :'data-loading-text' => "Publishing..."
       - elsif post.delayed?
         = link_to translate('author.post.publish_now'), post_publish_path(post, now: true), class: %w(btn btn-small btn-publish), remote: true, :'data-loading-text' => "Publishing..."
-  %td{class: "sticky view"}
-    - if post.published?
-      .sticky{ class: ("sticked" if post.sticky?) }
-        - if post.sticky
-          = link_to t('author.post.sticked'), "#", remote: true
-        - else
-          = link_to t('author.post.stick'), post_sticky_path(post), remote: true
-    - if post.contents.size > 0
-      - cnt=post.default_content_for_shard(@current_shard)
-      - if @current_shard.settings.has_site
-        %a{ href: ('http://'+cnt.shard_language.domain+(([80,443].include?(request.port)) ? '':':'+request.port.to_s)+main_app.blog_path(post)), class: %w(blacklink) }
-          = t("author.post.preview")
-          %i.icon.icon-share
+  %td{class: "analitic-td"}
+    %a.likes-counter{"data-original-title" => "Количество лайков", "data-placement" => "top", :href => "#", :rel => "tooltip"}
+      %i.icon-important.icon-heart
+      16
+    %a.shared-counter{"data-original-title" => "Количество поделившихся", "data-placement" => "top", :href => "#", :rel => "tooltip"}
+      %i.icon-success.icon-bullhorn
+      6
+    %a.subsribe-counter{"data-original-title" => "Количество подписчиков", "data-placement" => "top", :href => "#", :rel => "tooltip"}
+      %i.icon-info.icon-bookmark
+      1
+    %a.comment-counter{"data-original-title" => "Комментариев", "data-placement" => "top", :href => "#", :rel => "tooltip"}
+      %i.icon-default.icon-comment
+      6    

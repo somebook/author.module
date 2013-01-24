@@ -25,7 +25,7 @@
         %i.icon-white.icon-plus
         = t('author.post.new')
       %button.btn.btn-inverse.dropdown-toggle{ "data-toggle" => "dropdown" }
-        Создать по шаблону
+        = t('author.post.add_pattern')
         %span.caret
       %ul.dropdown-menu
         - @patterns.each do |pattern|
@@ -46,10 +46,11 @@
             = t("author.post.posts.domain")
           - else
             = t("author.post.posts.lang")
+        %th= t("author.post.posts.blog_action")
         %th= t("author.post.posts.created_at")
         %th= t("author.post.posts.status")
         %th
-        %th
+        %th= t("author.post.posts.post_analitic")                
       - @posts.each do |post|
         = render 'post', post: post
     = will_paginate(@posts)

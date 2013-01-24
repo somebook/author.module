@@ -305,6 +305,7 @@ div {
     display: inline-block;
     font-size: .88em;
     min-width: 8em;
+    visibility: hidden;
     a {
       background-image: image-url('author/sticky.png');
       background-repeat: no-repeat;
@@ -321,7 +322,7 @@ div {
         text-decoration: none;
       }
     }
-    &.sticked {
+    &.sticked { visibility: visible!important;
       a {
         background-position: right 0px;
         font-style: italic;
@@ -390,7 +391,7 @@ div {
       &:first-child {
         & + td {
           width: 1%;
-          white-space: nowrap;
+          min-width: 5em;
           & + td {
             width: 1%;
             min-width: 5em;
@@ -445,6 +446,10 @@ div {
       }
     }
     &:hover {
+      div {
+      &.sticky{ visibility: visible;}
+       }
+
       td {
         background: #fbfcf5 !important;
         .actions {
@@ -1239,7 +1244,7 @@ border-radius:0 4px 0 0;
 .feed-attach { margin: 20px 20px 0px 70px }
 .save-id { margin:10px 20px 0 73px }
 .actions.visible { display: block!important}
-.modal{ background:url("images/stripes.png") repeat scroll 0 0 #F8F8F8;}
+.modal{ background:image-url("author/stripes.png") repeat scroll 0 0 #F8F8F8;}
 .modal:focus {
 outline: none;
 }
@@ -1276,6 +1281,23 @@ outline: none;
     margin: 5px 5px 0 -8px; }
 
 input[type="file"].upload-input { min-width: 300px; }
+
+.icon-important {  background-image: image-url('author/glyphicons-halflings-important.png');}
+.icon-info {  background-image: image-url('author/glyphicons-halflings-info.png');}
+.icon-success {  background-image: image-url('author/glyphicons-halflings-success.png');}
+.icon-blog {  background-image: image-url('author/glyphicons-halflings-blog.png');}
+.icon-default {  background-image: image-url('author/glyphicons-halflings-default.png');}
+
+.analitic-td {font-size: 0.88em; font-weight: bold}
+.analitic-td a { margin: 0 4px 0 0;}
+
+
+.likes-counter, .likes-counter:hover { color: #B94A48}
+.shared-counter, .shared-counter:hover {  color:#468847}
+.subsribe-counter,.subsribe-counter:hover { color:#3A87AD }
+.comment-counter, .comment-counter:hover { color: #999}
+
+
 @media (min-width: 768px) and (max-width: 980px) {
 
   /* Remove any padding from the body */
