@@ -212,6 +212,20 @@ class PostsController < SpaceController
     # redirect_to posts_path, notice: "Post was succesfully #{'un' unless @post.sticky}sticked."
     render nothing: true
   end
+  
+  def statistics
+    @post = @current_shard.posts.find(params[:post_id]) || not_found
+  end
+  
+  def statistics_update
+    @post = @current_shard.posts.find(params[:post_id]) || not_found
+    @post.contents.each do |content|
+      content.social_contents.each do |social_content|
+        social_content.update_post_counts if social_content.published?
+      end
+    end
+    redirect_to :back
+  end
 
 private
 

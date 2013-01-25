@@ -8,6 +8,7 @@
 #= require bootstrap-collapse
 #= require bootstrap-modal
 #= require bootstrap-alert
+#= require bootstrap-tooltip
 #= require jquery.maskedinput.min
 #= require chosen-jquery
 #= require jquery-tagselector
@@ -24,5 +25,10 @@ jQuery ->
   $('.date-input').mask('99.99.9999')
   $('.time-input').mask('99:99')
   $('select').chosen()
+  
+  $('.content').tooltip({
+    selector: "a[rel=tooltip]"
+  })
+  $('.content').tooltip()
   
   false

@@ -14,6 +14,8 @@ Author::Engine.routes.draw do
         end
       end
     end
+    get 'statistics'
+    get 'statistics_update'
     get 'publish'
     get 'sticky'
   end

@@ -49,15 +49,16 @@
       - elsif post.delayed?
         = link_to translate('author.post.publish_now'), post_publish_path(post, now: true), class: %w(btn btn-small btn-publish), remote: true, :'data-loading-text' => "Publishing..."
   %td{class: "analitic-td"}
-    %a.likes-counter{"data-original-title" => "Количество лайков", "data-placement" => "top", :href => "#", :rel => "tooltip"}
-      %i.icon-important.icon-heart
-      16
-    %a.shared-counter{"data-original-title" => "Количество поделившихся", "data-placement" => "top", :href => "#", :rel => "tooltip"}
-      %i.icon-success.icon-bullhorn
-      6
-    %a.subsribe-counter{"data-original-title" => "Количество подписчиков", "data-placement" => "top", :href => "#", :rel => "tooltip"}
-      %i.icon-info.icon-bookmark
-      1
-    %a.comment-counter{"data-original-title" => "Комментариев", "data-placement" => "top", :href => "#", :rel => "tooltip"}
-      %i.icon-default.icon-comment
-      6    
+    - if post.published?
+      %a.likes-counter{"data-original-title" => "Количество лайков", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
+        %i.icon-important.icon-heart
+        = post.stats[:likes]
+      %a.shared-counter{"data-original-title" => "Количество поделившихся", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
+        %i.icon-success.icon-bullhorn
+        = post.stats[:shares]
+      -# %a.subsribe-counter{"data-original-title" => "Количество подписчиков", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
+      -#   %i.icon-info.icon-bookmark
+      -#   1
+      %a.comment-counter{"data-original-title" => "Комментариев", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
+        %i.icon-default.icon-comment
+        = post.stats[:comments]
