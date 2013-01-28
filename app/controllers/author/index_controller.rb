@@ -16,6 +16,9 @@ class IndexController < SpaceController
     # Drafts
     @drafts = @current_shard.posts.drafted.all
     
+    # Pending
+    @delayed = @current_shard.posts.delayed.all
+    
     # Posts
     @posts = @current_shard.posts.unscoped.published.order('created_at DESC').limit(3)
     

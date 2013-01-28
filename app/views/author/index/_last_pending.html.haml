@@ -1,4 +1,8 @@
 %h2 Отложенные посты
 .box.white.padded
   %ul.import-info
-    %li
+    - @delayed.each do |post|
+      %li
+        - cnt = post.default_content_for_shard(@current_shard)
+        - title = cnt.title.strip.empty? ? t('author.post.no_title') : cnt.title
+        = link_to title, edit_post_path(post)

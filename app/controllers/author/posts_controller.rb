@@ -142,8 +142,10 @@ class PostsController < SpaceController
         job = Delayed::Job.find_by_id(@post.job_id)
         job.destroy if job
         if @post.publish_at && @post.publish_at > Time.now
-          @post.delay! unless @post.delayed? || @post.published?
-          job = Delayed::Job.enqueue(PublishingJob.new(@current_shard, @post), 0, @post.publish_at) unless Rails.env.test?
+          ap @post.workflow_state
+          @post.delay! unless (@post.delayed? || @post.published?)
+          ap @post.workflow_state
+          job = Delayed::Job.enqueue(PublishingJob.new(@current_shard, @post), run_at: @post.publish_at) unless Rails.env.test?
           @post.update_attribute(:job_id, job.id)
         else
           @post.draft! unless @post.published?
