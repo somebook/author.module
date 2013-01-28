@@ -380,8 +380,8 @@ div {
     background: #f2f2f2;
   }
   tr {
-          .btns { vertical-align: bottom;
-         .btn { display: block; margin: 0 0 5px;}
+       .btns { vertical-align: bottom;
+       .btn { display: block; margin: 0 0 5px;}
         }
 
     td {
@@ -784,7 +784,8 @@ border-radius:0 4px 0 0;
     border: none;
   }
   .box {
-    margin: 0 20px 40px 0;
+    margin: 0 ;
+    min-height: 80px;
   }
   .data {
     &.feeds {
@@ -1363,7 +1364,7 @@ h4.uppercase {  color: #888888;
     text-transform: uppercase;
     margin-bottom: 18px;
     }
-h4.uppercase.more { margin:-9px 0 0; display: block}
+h4.uppercase.more { margin:10px 0 0; display: block}
 h4.uppercase.more a { color: #444; text-decoration: underline; text-shadow: 0 1px #f6f6f6}
 h4.uppercase.more a:hover { color: #000;}
 

@@ -4,27 +4,44 @@
   .row-fluid
     .span6
       .row-fluid
+        %h2.inline-block 
+          = t('author.dashboard.statistics.statistics')
+        %a.help{ href: "#", "data-original-title" => "Все опубликованные записи и медиафайлы", rel: "tooltip", "data-placement" => "right" }
+          %i.icon-white.icon-info-sign
         .form-options
-          %h2= t('author.dashboard.statistics.statistics')
           .row-fluid
             .span6
               = render partial: "statistics", statistics: @statistics
-            -# .span6
-            -#   = render partial: "comments"
+            .span6
+              = render partial: "comments"
           -# = render partial: "last_comments"
+      
+        %h2.inline-block 
+          = t('author.dashboard.posts.future_posts')
+        %a.help{ href: "#", "data-original-title" => "Созданные, но не опубликованные записи", rel: "tooltip", "data-placement" => "right" }
+          %i.icon-white.icon-info-sign
       .form-options
         .row-fluid
           .span6
             = render partial: "drafts", drafts: @drafts
           .span6
             = render partial: "last_pending"       
-    .span6.import
-      %h2.inline-block Последние публикации
+    .span6
+      %h2.inline-block 
+        = t('author.dashboard.posts.last_posts')      
       %a.help{ href: "#", "data-original-title" => "Подробная статистика по каждой записи доступна по ссылкам", rel: "tooltip", "data-placement" => "right" }
         %i.icon-white.icon-info-sign
       .form-options
         = render partial: "posts"
+      %h2.inline-block 
+        = t("author.import.caption")
+      %a.help{ href: "#", "data-original-title" => "Данные по социальной активности аккаунтов", rel: "tooltip", "data-placement" => "right" }
+        %i.icon-white.icon-info-sign
       .form-options
         = render partial: "import"
+      -# %h2.inline-block 
+        -# = t('author.dashboard.ga.ga')
+      -# %a.help{ href: "#", "data-original-title" => "Данные о анализе просмотра страниц блога на Somebook", rel: "tooltip", "data-placement" => "right" }
+        -# %i.icon-white.icon-info-sign
       -#.form-options       
         -# = render partial: "google_analytics", reports: @reports, accounts: @accounts if @current_shard.settings.has_site
