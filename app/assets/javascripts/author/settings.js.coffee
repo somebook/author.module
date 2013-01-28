@@ -1,15 +1,15 @@
 jQuery ->
-  $(".terminal-params").on 'click', (e) ->
+  $(document).on 'click', ".terminal-params", (e) ->
     $(this).parent().toggleClass("active")
     $(this).parent().parent().parent().parent().find('.add-terminal').slideToggle('fast')
     return false
     
-  $(".terminal-connect").on 'click', (e) ->
+  $(document).on 'click', ".terminal-connect", (e) ->
     $("li[data-terminal=" + $(this).data("terminal-id") + "]").find('form').submit()
     $("li[data-terminal=" + $(this).data("terminal-id") + "]").addClass("removed")
     return false
     
-  $("a.accordion-toggle").on 'click', (e) ->
+  $(document).on 'click', "a.accordion-toggle", (e) ->
     loadTerminals($(this).data("terminal"))
     $($(this).attr("href")).toggle()
     return false
@@ -20,5 +20,5 @@ jQuery ->
         $("ul.terminals[data-terminal=" + account + "]").html(data)
       )
       
-  $("form").on 'submit', (e) ->
+  $(document).on 'submit', "form", (e) ->
     $('input[type=submit]', this).button('loading')
