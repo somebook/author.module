@@ -20,6 +20,7 @@
               = post.stats[:comments]
         - if post.contents.size > 0
           - cnt = post.default_content_for_shard(@current_shard)
+          - cnt = post.contents.first if cnt.nil?
           - title = cnt.title.strip.empty? ? t('author.post.no_title') : cnt.title
           = link_to title, edit_post_path(post)
         - else
