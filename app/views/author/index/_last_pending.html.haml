@@ -1,4 +1,5 @@
-%h2 Отложенные посты
+%h4.uppercase
+  = t('author.dashboard.posts.pending_posts') 
 .box.white.padded
   %ul.import-info
     - @delayed.each do |post|

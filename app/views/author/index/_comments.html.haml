@@ -1,16 +1,19 @@
-%h2 Комментарии
-.block
-  %table.table
-    %tbody
-      %tr
-        %td Всего
-        %td 20
-      %tr
-        %td Одобренных
-        %td 7
-      %tr
-        %td Требуют одобрения
-        %td 10
-      %tr
-        %td Отклоненных
-        %td 3
+.box.white.padded
+  %h4.uppercase
+    = t('author.dashboard.statistics.comments_statistics') 
+
+  %ul.import-info
+    %li
+      Всего
+      .pull-right 0
+    %li
+      %td Одобренных
+      .pull-right 0
+    %li
+      %td Требуют одобрения
+      .pull-right 0
+    %li
+      %td Отклоненных
+      .pull-right 0
+      
+        

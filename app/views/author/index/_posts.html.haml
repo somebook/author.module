@@ -24,4 +24,6 @@
           n/a
         - if post.draft?
           %span.label.label-info= t("author.post.status.draft")
-%h4.uppercase.more= link_to "Все публикации", blog_posts_path
+%h4.uppercase.more
+  %a{ href: blog_posts_path }
+    = t("author.dashboard.posts.all_posts")
