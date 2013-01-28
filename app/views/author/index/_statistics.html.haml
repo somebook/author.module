@@ -38,7 +38,7 @@
     - if can? :manage, AudioAlbum.new(shard_id: @current_shard.id)
       %li
         .pull-right
-          = link_to(audio_albums_path, class: %w(badge), "data-original-title" => t('author.dashboard.statistics.audio'), rel: "tooltip", "data-placement" => "top") do |link|
+          = link_to(audio_albums_path, class: %w(badge), "data-original-title" => t('author.dashboard.statistics.audios'), rel: "tooltip", "data-placement" => "top") do |link|
             %i.icon-white.icon-volume-up
             = @statistics[:audio_albums]
         = link_to t('author.dashboard.statistics.audio_albums'), audio_albums_path

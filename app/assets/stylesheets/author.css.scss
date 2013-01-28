@@ -1349,7 +1349,9 @@ input[type="file"].upload-input { min-width: 300px; }
 .comment-counter, .comment-counter:hover { color: #999}
 
 .import-info, .import-info li { list-style: none; padding: 0;  margin: 0;}   
-.import-info li {padding: 9px;}  
+.import-info li {padding: 9px;}
+.import-info .pull-right { margin-bottom: 8px; padding-left: 4px} 
+.import-info .badge  { margin-left: 4px; }
 .import-info .badge i { margin-right: 4px; }
 
 .import-info .pull-right { padding-right: 3px;}
