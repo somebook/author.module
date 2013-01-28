@@ -1,18 +1,25 @@
 %header
   %h1= t('author.dashboard.dashboard')
-%section.content.dashboard
+%section.dashboard
   .row-fluid
     .span6
       .row-fluid
-        .span12
-          = render partial: "statistics", statistics: @statistics
-        -# .span6
-        -#   = render partial: "comments"
-      .row-fluid
-        .span12
-          = render partial: "drafts", drafts: @drafts
+        .form-options
+          %h2= t('author.dashboard.statistics.statistics')
+          .row-fluid
+            .span6
+              = render partial: "statistics", statistics: @statistics
+            -# .span6
+            -#   = render partial: "comments"
           -# = render partial: "last_comments"
+      .form-options
+        .row-fluid
+          .span6
+            = render partial: "drafts", drafts: @drafts
+          .span6
+            -# = render partial: "last_pending"       
     .span6.import
-      = render partial: "import"
-    .span6.analitics
-      -# = render partial: "google_analytics", reports: @reports, accounts: @accounts if @current_shard.settings.has_site
+      .form-options
+        = render partial: "import"
+      -#.form-options       
+        -# = render partial: "google_analytics", reports: @reports, accounts: @accounts if @current_shard.settings.has_site

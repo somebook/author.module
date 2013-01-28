@@ -1,46 +1,38 @@
-%h2= t('author.dashboard.statistics.statistics')
-.block
-  %table.table
-    %tbody
-      - if can? :blog, Post.new(shard_id: @current_shard.id)
-        %tr
-          %td
-            = link_to t('author.dashboard.statistics.posts'), blog_posts_path
-          %td
-            = link_to @statistics[:blog], blog_posts_path
-      - if can? :news, Post.new(shard_id: @current_shard.id)
-        %tr
-          %td
-            = link_to t('author.dashboard.statistics.news'), news_posts_path
-          %td
-            = link_to @statistics[:news], news_posts_path
-      - if can? :manage, Event.new(shard_id: @current_shard.id)
-        %tr
-          %td
-            = link_to t('author.dashboard.statistics.events'), events_path
-          %td
-            = link_to @statistics[:events], events_path
-      - if can? :manage, Album.new(shard_id: @current_shard.id)
-        %tr
-          %td
-            = link_to t('author.dashboard.statistics.albums'), albums_path
-          %td
-            = link_to @statistics[:albums], albums_path
-      - if can? :manage, Video.new(shard_id: @current_shard.id)
-        %tr
-          %td
-            = link_to t('author.dashboard.statistics.videos'), videos_path
-          %td
-            = link_to @statistics[:videos], videos_path
-      - if can? :manage, AudioAlbum.new(shard_id: @current_shard.id)
-        %tr
-          %td
-            = link_to t('author.dashboard.statistics.audio_albums'), audio_albums_path
-          %td
-            = link_to @statistics[:audio_albums], audio_albums_path
-      - if can? :manage, StaticPage.new(shard_id: @current_shard.id)
-        %tr
-          %td
-            = link_to t('author.dashboard.statistics.static_pages'), static_pages_path
-          %td
-            = link_to @statistics[:static_pages], static_pages_path
+.box.white.padded
+  %ul.import-info
+    - if can? :blog, Post.new(shard_id: @current_shard.id)
+      %li
+        = link_to t('author.dashboard.statistics.posts'), blog_posts_path
+        .pull-right            
+          = link_to @statistics[:blog], blog_posts_path
+    - if can? :news, Post.new(shard_id: @current_shard.id)
+      %li
+        = link_to t('author.dashboard.statistics.news'), news_posts_path
+        .pull-right
+          = link_to @statistics[:news], news_posts_path
+    - if can? :manage, Event.new(shard_id: @current_shard.id)
+      %li
+        = link_to t('author.dashboard.statistics.events'), events_path
+        .pull-right
+          = link_to @statistics[:events], events_path
+    - if can? :manage, Album.new(shard_id: @current_shard.id)
+      %li
+        = link_to t('author.dashboard.statistics.albums'), albums_path
+        .pull-right
+          = link_to @statistics[:albums], albums_path
+    - if can? :manage, Video.new(shard_id: @current_shard.id)
+      %li
+        = link_to t('author.dashboard.statistics.videos'), videos_path
+        .pull-right
+          = link_to @statistics[:videos], videos_path
+    - if can? :manage, AudioAlbum.new(shard_id: @current_shard.id)
+      %li
+        %td
+        = link_to t('author.dashboard.statistics.audio_albums'), audio_albums_path
+        .pull-right
+          = link_to @statistics[:audio_albums], audio_albums_path
+    - if can? :manage, StaticPage.new(shard_id: @current_shard.id)
+      %li
+        = link_to t('author.dashboard.statistics.static_pages'), static_pages_path
+        .pull-right
+          = link_to @statistics[:static_pages], static_pages_path
