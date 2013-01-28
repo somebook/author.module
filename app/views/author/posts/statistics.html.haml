@@ -51,6 +51,12 @@
                           %a.comment-counter{"data-original-title" => "Количество комментариев", "data-placement" => "top", :href => "#", :rel => "tooltip"}
                             %i.icon-default.icon-comment
                             = social_content.social_content_stat.comments
+                        %ul
+                          - social_content.social_content_comments.each do |comment|
+                            %li
+                              %a.c-name{ href: comment.account_url, target: "_blank", rel: "tooltip", "data-placement" => "top", "data-original-title" => comment.name }
+                                = image_tag (comment.avatar.nil? ? "author/user-empty.png" : comment.avatar)
+                              = comment.body
     .span4
       %h2.inline-block Аналитика
       %a.help{ href: "#", "data-original-title" => "Динамика изменений показателей социальной активности", rel: "tooltip", "data-placement" => "right"}
