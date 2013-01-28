@@ -1,10 +1,8 @@
 %h2 Черновики
-.block
-  %table.table
-    %tbody
-      - @drafts.each do |post|
-        %tr
-          %td
-            - cnt=post.default_content_for_shard(@current_shard)
-            - title=cnt.title.strip.empty? ? t('author.post.no_title') : cnt.title
-            = link_to title, edit_post_path(post)
+.box.white.padded
+  %ul.import-info
+    - @drafts.each do |post|
+      %li
+        - cnt=post.default_content_for_shard(@current_shard)
+        - title=cnt.title.strip.empty? ? t('author.post.no_title') : cnt.title
+        = link_to title, edit_post_path(post)
