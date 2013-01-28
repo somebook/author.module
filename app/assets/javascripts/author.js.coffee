@@ -26,7 +26,7 @@ jQuery ->
   $('.time-input').mask('99:99')
   $('select').chosen()
   
-  $('.content').tooltip({
+  $('*').tooltip({
     selector: "a[rel=tooltip]"
   })
   $('.content').tooltip()
