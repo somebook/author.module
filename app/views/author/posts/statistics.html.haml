@@ -16,7 +16,7 @@
       %h2.inline-block Экспорт данных из соцсетей
       %a.help{ href: "#", "data-original-title" => "Подробная статистика по данной записи из всех соцсетей, где она опубликована", rel: "tooltip", "data-placement" => "right"}
         %i.icon-white.icon-info-sign
-      .form-options.tab-content
+      .tab-content
         - @post.contents.each_with_index do |content, i|
           - next unless content.is_enabled?
           %div.form-options.tab-pane{ id: "content#{content.id}", class: (i.zero? ? "active" : "") }
@@ -52,7 +52,7 @@
                             %i.icon-default.icon-comment
                             = social_content.social_content_stat.comments
     .span4
-      %h2.inline-block
+      %h2.inline-block Аналитика
       %a.help{ href: "#", "data-original-title" => "Динамика изменений показателей социальной активности", rel: "tooltip", "data-placement" => "right"}
         %i.icon-white.icon-info-sign
       .form-options
