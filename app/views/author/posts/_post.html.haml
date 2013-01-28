@@ -50,15 +50,15 @@
         = link_to translate('author.post.publish_now'), post_publish_path(post, now: true), class: %w(btn btn-small btn-publish), remote: true, :'data-loading-text' => "Publishing..."
   %td{class: "analitic-td"}
     - if post.published?
-      %a.likes-counter{"data-original-title" => "Количество лайков", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
+      %a.likes-counter{"data-original-title" => t('author.dashboard.last_posts.likes'), "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
         %i.icon-important.icon-heart
         = post.stats[:likes]
-      %a.shared-counter{"data-original-title" => "Количество поделившихся", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
+      %a.shared-counter{"data-original-title" => t('author.dashboard.last_posts.shared'), "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
         %i.icon-success.icon-bullhorn
         = post.stats[:shares]
-      -# %a.subsribe-counter{"data-original-title" => "Количество подписчиков", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
+      -# %a.subsribe-counter{"data-original-title" => t('author.dashboard.last_posts.subsribers'), "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
       -#   %i.icon-info.icon-bookmark
       -#   1
-      %a.comment-counter{"data-original-title" => "Комментариев", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
+      %a.comment-counter{"data-original-title" => t('author.dashboard.last_posts.comments'), "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
         %i.icon-default.icon-comment
         = post.stats[:comments]
