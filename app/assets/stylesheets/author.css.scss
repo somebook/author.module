@@ -1258,6 +1258,18 @@ outline: none;
 .modal-body .form-options { margin:5px 0 0; padding:20px 10px 0px}
 
 .modal-body .options > li > em { margin: 0 0 20px; display: block;}
+
+.box.white { background: rgba(255, 255, 255, 0.9);
+    border-radius: 4px 4px 4px 4px;
+    -moz-border-radius: 4px 4px 4px 4px;
+    -webkit-border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+    -moz-box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+    -webkit-box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.2) inset; }
+    
+.box { margin-bottom:18px; }
+.box.padded { padding: 10px;}    
+
 .create { bottom: 55px;
     height: 60px;
     position: absolute;
