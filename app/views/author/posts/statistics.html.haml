@@ -70,7 +70,8 @@
         .box.white.padded.post-social-data
           %ul
             %li
-              %h4.uppercase Всего по соцсетям
+              %h4.uppercase 
+                =t('author.post.analitics.total_analitic_label')
               %a.badge.badge-important{"data-original-title" => t('author.dashboard.last_posts.likes'), "data-placement" => "top", href: "#", :rel => "tooltip"}
                 %i.icon-white.icon-heart
                 = @post.stats[:likes]

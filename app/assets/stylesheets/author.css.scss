@@ -1393,14 +1393,15 @@ h4.uppercase.more a:hover { color: #000;}
 .post-social-data ul li { list-style: none; padding: 0; margin: 0;  font-size: 12px;}
 
 .post-social-data > ul { padding: 0 0 0 10px} 
+.post-social-data > ul > li { padding-bottom: 8px}
 
-.post-social-data h4 { margin: 0;}
+.post-social-data h4 { margin: 0 0 8px; display: block;}
 .post-comments ul li {  line-height: 15px;margin: 0 0 11px; padding: 0 0 0 28px;}
 .post-comments ul li .c-name { margin: 0 8px 0 -24px; float: left;}
-.post-social-data .badge { margin-left: 4px;}
+.post-social-data .badge { margin-right: 4px;}
 
 ul.post-functions { padding: 10px 20px 0;}
-ul.post-functions > li { padding-left: 80px; margin: 0 0 12px;}
+ul.post-functions > li { padding-left: 80px; margin: 0 0 12px; }
 ul.post-functions > li .f-name { margin: 0 0 0 -80px; float: left; }
 
 .t-name { font-weight: bold; margin: 0 4px 9px 0; display: block;  }
