@@ -2,37 +2,48 @@
   %ul.import-info
     - if can? :blog, Post.new(shard_id: @current_shard.id)
       %li
-        = link_to t('author.dashboard.statistics.posts'), blog_posts_path
         .pull-right            
-          = link_to @statistics[:blog], blog_posts_path
+          = link_to(blog_posts_path, class: %w(badge badge-blog), "data-original-title" => "Количество публикаций", rel: "tooltip", "data-placement" => "top") do |link|
+            %i.icon-white.icon-file
+            = @statistics[:blog]
+        = link_to t('author.dashboard.statistics.posts'), blog_posts_path
     - if can? :news, Post.new(shard_id: @current_shard.id)
       %li
-        = link_to t('author.dashboard.statistics.news'), news_posts_path
         .pull-right
-          = link_to @statistics[:news], news_posts_path
+          = link_to(news_posts_path, class: %w(badge badge-news), "data-original-title" => "Количество новостей", rel: "tooltip", "data-placement" => "top") do |link|
+            %i.icon-white.icon-list-alt
+            = @statistics[:news]
+        = link_to t('author.dashboard.statistics.news'), news_posts_path
     - if can? :manage, Event.new(shard_id: @current_shard.id)
       %li
-        = link_to t('author.dashboard.statistics.events'), events_path
         .pull-right
-          = link_to @statistics[:events], events_path
+          = link_to(events_path, class: %w(badge), "data-original-title" => "Количество событий", rel: "tooltip", "data-placement" => "top") do |link|
+            %i.icon-white.icon-time
+            = @statistics[:events]
+        = link_to t('author.dashboard.statistics.events'), events_path
     - if can? :manage, Album.new(shard_id: @current_shard.id)
       %li
-        = link_to t('author.dashboard.statistics.albums'), albums_path
         .pull-right
-          = link_to @statistics[:albums], albums_path
+          = link_to(albums_path, class: %w(badge), "data-original-title" => "Количество альбомов", rel: "tooltip", "data-placement" => "top") do |link|
+            %i.icon-white.icon-camera
+            = @statistics[:albums]
+        = link_to t('author.dashboard.statistics.albums'), albums_path
     - if can? :manage, Video.new(shard_id: @current_shard.id)
       %li
-        = link_to t('author.dashboard.statistics.videos'), videos_path
         .pull-right
-          = link_to @statistics[:videos], videos_path
+          = link_to(videos_path, class: %w(badge), "data-original-title" => "Количество видео", rel: "tooltip", "data-placement" => "top") do |link|
+            %i.icon-white.icon-film
+            = @statistics[:videos]
+        = link_to t('author.dashboard.statistics.videos'), videos_path
     - if can? :manage, AudioAlbum.new(shard_id: @current_shard.id)
       %li
-        %td
+        .pull-right
+          = link_to(audio_albums_path, class: %w(badge), "data-original-title" => "Количество аудио альбомов", rel: "tooltip", "data-placement" => "top") do |link|
+            %i.icon-white.icon-volume-up
+            = @statistics[:audio_albums]
         = link_to t('author.dashboard.statistics.audio_albums'), audio_albums_path
-        .pull-right
-          = link_to @statistics[:audio_albums], audio_albums_path
-    - if can? :manage, StaticPage.new(shard_id: @current_shard.id)
-      %li
-        = link_to t('author.dashboard.statistics.static_pages'), static_pages_path
-        .pull-right
-          = link_to @statistics[:static_pages], static_pages_path
+    -# - if can? :manage, StaticPage.new(shard_id: @current_shard.id)
+    -#   %li
+    -#     .pull-right
+    -#       = link_to @statistics[:static_pages], static_pages_path
+    -#     = link_to t('author.dashboard.statistics.static_pages'), static_pages_path
