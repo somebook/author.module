@@ -1,5 +1,5 @@
 jQuery ->
-  $("#social_connections.connections a.edit").on 'click', (e) ->
+  $(document).on 'click', "#social_connections.connections a.edit", (e) ->
     if $(this).text() == "Edit" or $(this).text() == "Изменить"
       $(this).parent().parent().parent().find('.terminal-form').slideDown('fast')
       $(this).text('Hide') if $(this).text() == "Edit"
@@ -12,11 +12,11 @@ jQuery ->
       $(this).siblings('.edit').css('display', 'none')
     return false
 
-  $("#social_connections.connections input:radio").on 'click', (e) ->
+  $(document).on 'click', "#social_connections.connections input:radio", (e) ->
     $(".#{$(this).data('social-content-id')}").attr("disabled", "disabled")
     $(this).next().next().removeAttr("disabled")
 
-  $("#social_connections.connections .copy").on 'click', (e) ->
+  $(document).on 'click', "#social_connections.connections .copy", (e) ->
     $(this).next().next().next().val($(this).parent().prev().find('textarea').val())
     false
 
@@ -51,7 +51,7 @@ jQuery ->
     1000
   )
   
-  $("#social_connections.connections a.accordion-toggle").on 'click', (e) ->
+  $(document).on 'click', "#social_connections.connections a.accordion-toggle", (e) ->
     $($(this).attr('href')).toggle()
     false
 
@@ -61,7 +61,7 @@ jQuery ->
       # .replace(/<iframe.*src=\"([^"]*).*iframe>/g, ' $1 ')
       # .replace(/<(\/*i|\/*p|\/*b)>/g, '[$1]')
   
-  $("#social_connections.connections input[type=checkbox]").on 'change', (e) ->
+  $(document).on 'change', "#social_connections.connections input[type=checkbox]", (e) ->
     contents = $(this).parent().contents()
     if $(this).attr('checked') == "checked" && $(this).parent().hasClass("label") && $(this).parent().parent().parent().parent().find('.terminal-form .generated input[type=radio]').attr("checked") == "checked"
       $(this).parent().removeClass("edited").addClass("auto")
@@ -92,7 +92,7 @@ jQuery ->
       $(".post-settings.create").show()
       $("#publication_pattern_terminals").attr("value", new_terminals)
 
-  $("#social_connections.connections input[type=radio]").on 'change', (e) ->
+  $(document).on 'change', "#social_connections.connections input[type=radio]", (e) ->
     contents = $(this).parent().parent().parent().find(".clearfix .pull-right .label").contents()
     if $(this).attr('checked') == "checked" && $(this).parent().hasClass("generated") && $(this).parent().parent().parent().find(".clearfix .pull-right input[type=checkbox]").attr("checked") == "checked"
       $(this).parent().parent().parent().find(".clearfix .pull-right .label").removeClass("edited").addClass("auto")
