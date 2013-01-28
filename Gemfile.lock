@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    author_module (0.2.5)
+    author_module (0.4.0)
 
 GEM
   remote: http://rubygems.org/
