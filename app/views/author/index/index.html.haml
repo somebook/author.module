@@ -19,6 +19,11 @@
           .span6
             -# = render partial: "last_pending"       
     .span6.import
+      %h2.inline-block Последние публикации
+      %a.help{ href: "#", "data-original-title" => "Подробная статистика по каждой записи доступна по ссылкам", rel: "tooltip", "data-placement" => "right" }
+        %i.icon-white.icon-info-sign
+      .form-options
+        = render partial: "posts"
       .form-options
         = render partial: "import"
       -#.form-options       

@@ -16,6 +16,9 @@ class IndexController < SpaceController
     # Drafts
     @drafts = @current_shard.posts.drafted.all
     
+    # Posts
+    @posts = @current_shard.posts.unscoped.published.order('created_at DESC').limit(3)
+    
     # Import
     @streams = []
     @streams << :personal if can?(:blog, Post.new(shard_id: @current_shard.id))

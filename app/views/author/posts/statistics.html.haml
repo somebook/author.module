@@ -36,27 +36,30 @@
                         %i.icon-globe
                         = social_content.terminal.name
                     %ul.post-functions
-                      %li.post-likes
-                        .f-name
-                          %a.likes-counter{"data-original-title" => "Количество лайков в этом терминале", "data-placement" => "top", href: "#", :rel => "tooltip"}
-                            %i.icon-important.icon-heart
-                            = social_content.social_content_stat.likes
-                      %li.post-shares
-                        .f-name
-                          %a.shared-counter{"data-original-title" => "Количество поделившихся", "data-placement" => "top", href: "#", :rel => "tooltip"}
-                            %i.icon-success.icon-bullhorn
-                            = social_content.social_content_stat.shares
-                      %li.post-comments
-                        .f-name
-                          %a.comment-counter{"data-original-title" => "Количество комментариев", "data-placement" => "top", :href => "#", :rel => "tooltip"}
-                            %i.icon-default.icon-comment
-                            = social_content.social_content_stat.comments
-                        %ul
-                          - social_content.social_content_comments.each do |comment|
-                            %li
-                              %a.c-name{ href: comment.account_url, target: "_blank", rel: "tooltip", "data-placement" => "top", "data-original-title" => comment.name }
-                                = image_tag (comment.avatar.nil? ? "author/user-empty.png" : comment.avatar)
-                              = comment.body
+                      - unless social_content.social_content_stat.likes.zero?
+                        %li.post-likes
+                          .f-name
+                            %a.likes-counter{"data-original-title" => "Количество лайков в этом терминале", "data-placement" => "top", href: "#", :rel => "tooltip"}
+                              %i.icon-important.icon-heart
+                              = social_content.social_content_stat.likes
+                      - unless social_content.social_content_stat.shares.zero?
+                        %li.post-shares
+                          .f-name
+                            %a.shared-counter{"data-original-title" => "Количество поделившихся", "data-placement" => "top", href: "#", :rel => "tooltip"}
+                              %i.icon-success.icon-bullhorn
+                              = social_content.social_content_stat.shares
+                      - unless social_content.social_content_stat.comments.zero?
+                        %li.post-comments
+                          .f-name
+                            %a.comment-counter{"data-original-title" => "Количество комментариев", "data-placement" => "top", :href => "#", :rel => "tooltip"}
+                              %i.icon-default.icon-comment
+                              = social_content.social_content_stat.comments
+                          %ul
+                            - social_content.social_content_comments.each do |comment|
+                              %li
+                                %a.c-name{ href: comment.account_url, target: "_blank", rel: "tooltip", "data-placement" => "top", "data-original-title" => comment.name }
+                                  = image_tag (comment.avatar.nil? ? "author/user-empty.png" : comment.avatar)
+                                = comment.body
     .span4
       %h2.inline-block Аналитика
       %a.help{ href: "#", "data-original-title" => "Динамика изменений показателей социальной активности", rel: "tooltip", "data-placement" => "right"}
@@ -66,15 +69,18 @@
           %ul
             %li
               %h4.uppercase Всего по соцсетям
-              %a.likes-counter{"data-original-title" => "Количество лайков в этом терминале", "data-placement" => "top", href: "#", :rel => "tooltip"}
-                %i.icon-important.icon-heart
-                = @post.stats[:likes]
-              %a.shared-counter{"data-original-title" => "Количество поделившихся", "data-placement" => "top", href: "#", :rel => "tooltip"}
-                %i.icon-success.icon-bullhorn
-                = @post.stats[:shares]
+              - unless @post.stats[:likes].zero?
+                %a.likes-counter{"data-original-title" => "Количество лайков в этом терминале", "data-placement" => "top", href: "#", :rel => "tooltip"}
+                  %i.icon-important.icon-heart
+                  = @post.stats[:likes]
+              - unless @post.stats[:shares].zero?
+                %a.shared-counter{"data-original-title" => "Количество поделившихся", "data-placement" => "top", href: "#", :rel => "tooltip"}
+                  %i.icon-success.icon-bullhorn
+                  = @post.stats[:shares]
               -# %a.subsribe-counter{"data-original-title" => "Количество подписчиков", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
               -#   %i.icon-info.icon-bookmark
               -#   1
-              %a.comment-counter{"data-original-title" => "Количество комментариев", "data-placement" => "top", :href => "#", :rel => "tooltip"}
-                %i.icon-default.icon-comment
-                = @post.stats[:comments]
+              - unless @post.stats[:comments].zero?
+                %a.comment-counter{"data-original-title" => "Количество комментариев", "data-placement" => "top", :href => "#", :rel => "tooltip"}
+                  %i.icon-default.icon-comment
+                  = @post.stats[:comments]

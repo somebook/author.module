@@ -17,7 +17,7 @@
       - cnt=post.default_content_for_shard(@current_shard)
         - if @current_shard.settings.has_site
         - post.contents.each do |content|
-          %a{ href: ('http://'+cnt.shard_language.domain+(([80,443].include?(request.port)) ? '':':'+request.port.to_s)+main_app.blog_path(post)), class: %w(nowrap blacklink) }
+          %a{ href: ('http://'+content.shard_language.domain+(([80,443].include?(request.port)) ? '':':'+request.port.to_s)+main_app.blog_path(post)), class: %w(nowrap blacklink) }
             %i.icon.icon-share
             = content.shard_language.domain unless content.shard_language.nil?
             /%span.badge= content.shard_language.language.code
@@ -50,15 +50,18 @@
         = link_to translate('author.post.publish_now'), post_publish_path(post, now: true), class: %w(btn btn-small btn-publish), remote: true, :'data-loading-text' => "Publishing..."
   %td{class: "analitic-td"}
     - if post.published?
-      %a.likes-counter{"data-original-title" => "Количество лайков", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
-        %i.icon-important.icon-heart
-        = post.stats[:likes]
-      %a.shared-counter{"data-original-title" => "Количество поделившихся", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
-        %i.icon-success.icon-bullhorn
-        = post.stats[:shares]
+      - unless post.stats[:likes].zero?
+        %a.likes-counter{"data-original-title" => "Количество лайков", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
+          %i.icon-important.icon-heart
+          = post.stats[:likes]
+      - unless post.stats[:shares].zero?
+        %a.shared-counter{"data-original-title" => "Количество поделившихся", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
+          %i.icon-success.icon-bullhorn
+          = post.stats[:shares]
       -# %a.subsribe-counter{"data-original-title" => "Количество подписчиков", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
       -#   %i.icon-info.icon-bookmark
       -#   1
-      %a.comment-counter{"data-original-title" => "Комментариев", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
-        %i.icon-default.icon-comment
-        = post.stats[:comments]
+      - unless post.stats[:comments].zero?
+        %a.comment-counter{"data-original-title" => "Комментариев", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
+          %i.icon-default.icon-comment
+          = post.stats[:comments]
