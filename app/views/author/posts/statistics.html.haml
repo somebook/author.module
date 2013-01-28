@@ -69,18 +69,15 @@
           %ul
             %li
               %h4.uppercase Всего по соцсетям
-              - unless @post.stats[:likes].zero?
-                %a.likes-counter{"data-original-title" => "Количество лайков в этом терминале", "data-placement" => "top", href: "#", :rel => "tooltip"}
-                  %i.icon-important.icon-heart
-                  = @post.stats[:likes]
-              - unless @post.stats[:shares].zero?
-                %a.shared-counter{"data-original-title" => "Количество поделившихся", "data-placement" => "top", href: "#", :rel => "tooltip"}
-                  %i.icon-success.icon-bullhorn
-                  = @post.stats[:shares]
+              %a.likes-counter{"data-original-title" => "Количество лайков в этом терминале", "data-placement" => "top", href: "#", :rel => "tooltip"}
+                %i.icon-important.icon-heart
+                = @post.stats[:likes]
+              %a.shared-counter{"data-original-title" => "Количество поделившихся", "data-placement" => "top", href: "#", :rel => "tooltip"}
+                %i.icon-success.icon-bullhorn
+                = @post.stats[:shares]
               -# %a.subsribe-counter{"data-original-title" => "Количество подписчиков", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
               -#   %i.icon-info.icon-bookmark
               -#   1
-              - unless @post.stats[:comments].zero?
-                %a.comment-counter{"data-original-title" => "Количество комментариев", "data-placement" => "top", :href => "#", :rel => "tooltip"}
-                  %i.icon-default.icon-comment
-                  = @post.stats[:comments]
+              %a.comment-counter{"data-original-title" => "Количество комментариев", "data-placement" => "top", :href => "#", :rel => "tooltip"}
+                %i.icon-default.icon-comment
+                = @post.stats[:comments]

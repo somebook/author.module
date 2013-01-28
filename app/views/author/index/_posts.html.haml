@@ -3,21 +3,18 @@
     - @posts.each do |post|
       %li
         .pull-right
-          - unless post.stats[:likes].zero?
-            %a.badge.badge-important{"data-original-title" => "Количество лайков", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
-              %i.icon-white.icon-heart
-              = post.stats[:likes]
-          - unless post.stats[:shares].zero?
-            %a.badge.badge-success{"data-original-title" => "Количество поделившихся", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
-              %i.icon-white.icon-bullhorn
-              = post.stats[:shares]
+          %a.badge.badge-important{"data-original-title" => "Количество лайков", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
+            %i.icon-white.icon-heart
+            = post.stats[:likes]
+          %a.badge.badge-success{"data-original-title" => "Количество поделившихся", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
+            %i.icon-white.icon-bullhorn
+            = post.stats[:shares]
           -# %a.subsribe-counter{"data-original-title" => "Количество подписчиков", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
           -#   %i.icon-info.icon-bookmark
           -#   1
-          - unless post.stats[:comments].zero?
-            %a.badge{"data-original-title" => "Комментариев", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
-              %i.icon-white.icon-comment
-              = post.stats[:comments]
+          %a.badge{"data-original-title" => "Комментариев", "data-placement" => "top", :href => post_statistics_path(post), :rel => "tooltip"}
+            %i.icon-white.icon-comment
+            = post.stats[:comments]
         - if post.contents.size > 0
           - cnt = post.default_content_for_shard(@current_shard)
           - cnt = post.contents.first if cnt.nil?
