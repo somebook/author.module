@@ -1,6 +1,22 @@
 %header
   = link_to "Синхронизировать вручную", post_statistics_update_path(@post), class: %w(btn btn-primary pull-right)
   %h1 Аналитика
+.right-nav
+  %ul.nav.nav-pills.langs
+    %li.active
+      %a{ href: "#"} Post Analitics
+
+%ul.breadcrumb
+  %li
+    %a{ href: "#"} Home
+    %span.divider /
+  %li
+    %a{ href: "#"} Posts
+    %span.divider /
+  %li
+    %a{ href: "#"} There are many variations of passages
+    %span.divider /
+  %li.active Post Analitics
 %section.content
   - if @current_shard.shard_languages.count > 1
     %div.form-top

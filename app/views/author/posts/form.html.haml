@@ -2,6 +2,19 @@
 = stylesheet_link_tag "author/posts"
 = stylesheet_link_tag "jquery-ui"
 = render "author/publication_patterns/index"
+.right-nav
+  %ul.nav.nav-pills.langs
+    %li
+      %a{ href: "#"} Post Analitics
+
+%ul.breadcrumb.over-header
+  %li
+    %a{ href: "#"} Home
+    %span.divider /
+  %li
+    %a{ href: "#"} Posts
+    %span.divider /
+  %li.active There are many variations of passages
 = form_for @post, html: { class: %w(form-horizontal form-stacked) } do |f|
   %fieldset
     %header

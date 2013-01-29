@@ -36,6 +36,12 @@
     %i{ class: "icon48-#{params[:stream] == 'personal' ? 'blog' : 'news'}"}
     = translate("author.post.list_#{params[:stream]}")
 = render partial: "author/shared/flash_messages"
+%ul.breadcrumb
+  %li
+    %a{ href: "#"} Home
+    %span.divider /
+  %li.active Posts
+
 %section.content
   %div.block
     %table.table.table-striped.data
