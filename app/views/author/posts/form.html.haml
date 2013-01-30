@@ -6,15 +6,12 @@
   %ul.nav.nav-pills.langs
     %li
       %a{ href: "#"} Post Analitics
+- case Account::STREAMS[params[:stream]]
+- when :official
+  - bc([[t('author.home'), root_path], [t('author.post.list_official'), news_posts_path], [@form_legend]], true)
+- when :personal
+  - bc([[t('author.home'), root_path], [t('author.post.list_personal'), blog_posts_path], [@form_legend]], true)
 
-%ul.breadcrumb.over-header
-  %li
-    %a{ href: "#"} Home
-    %span.divider /
-  %li
-    %a{ href: "#"} Posts
-    %span.divider /
-  %li.active There are many variations of passages
 = form_for @post, html: { class: %w(form-horizontal form-stacked) } do |f|
   %fieldset
     %header

@@ -9,11 +9,7 @@
 .row-fluid
   .span12
     = render partial: "author/shared/flash_messages"
-    %ul.breadcrumb
-      %li
-        = link_to t('author.album.listing'), albums_path
-        %span.divider /
-      %li= @album.title
+    - bc([[t('author.home'), root_path], [t('author.album.listing'), albums_path], [@album.title]])
 
 .content
   %ul.thumbnails

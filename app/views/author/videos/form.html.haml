@@ -3,6 +3,7 @@
     %header
       %h1= @form_legend
     = render partial: "shared/flash_messages"
+    - bc([[t('author.home'), root_path], [t('author.video.listing'), videos_path], [@form_legend]])
     .content
       .video-preview
         -unless @video.new_record?

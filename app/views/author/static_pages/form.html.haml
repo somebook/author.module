@@ -5,6 +5,7 @@
   %fieldset
     %header
       %h1= @form_legend
+    - bc([[t('author.home'), root_path], [t('author.static_page.listing'), static_pages_path], [@form_legend]])
     .content
       .form-top
         %ul.langs.nav.nav-pills
