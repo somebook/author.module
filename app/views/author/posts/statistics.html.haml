@@ -6,17 +6,12 @@
     %li.active
       %a{ href: "#"} Post Analitics
 
-%ul.breadcrumb
-  %li
-    %a{ href: "#"} Home
-    %span.divider /
-  %li
-    %a{ href: "#"} Posts
-    %span.divider /
-  %li
-    %a{ href: "#"} There are many variations of passages
-    %span.divider /
-  %li.active Post Analitics
+- case @post.stream_name
+- when :official
+  - bc([[t('author.home'), root_path], [t('author.post.list_official'), news_posts_path], [@post.contents.first.title, edit_post_path(@post)], [t('author.post.statistics.capture')]])
+- when :personal
+  - bc([[t('author.home'), root_path], [t('author.post.list_personal'), blog_posts_path], [@post.contents.first.title, edit_post_path(@post)], [t('author.post.statistics.capture')]])
+
 %section.content
   - if @current_shard.shard_languages.count > 1
     %div.form-top
