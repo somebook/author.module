@@ -2,7 +2,6 @@ module Author::BreadcrumbsHelper
   def bc(elements, oh = false)
     haml_tag(:ul, class: (oh ? %w(breadcrumb over-header) : %w(breadcrumb) )) do
       elements.each do |el|
-        ap el
         if el.count > 1
           haml_tag(:li) do
             haml_tag(:a, href: el[1]) do

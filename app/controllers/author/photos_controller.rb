@@ -1,9 +1,11 @@
+require 'ruby_picasa'
 module Author
 class PhotosController < SpaceController
   before_filter :init_picasa
 
   def index
     @photos = album.photos
+    @form_legend = t("author.album.photo.form_legend.new")
   end
 
   def new
@@ -22,9 +24,15 @@ class PhotosController < SpaceController
     )
 
     if @photo.save_to_db_and_picasa(@picasa, params[:photo][:file])
-      redirect_to album_photos_path(album), notice: t("author.photo.notice.create_success")
+      # redirect_to album_photos_path(album), notice: t("author.photo.notice.create_success")
+      respond_to do |format|
+        format.js
+      end
     else
-      redirect_to new_album_photo_path(album), error: t("author.photo.notice.create_fail")
+      # redirect_to new_album_photo_path(album), error: t("author.photo.notice.create_fail")
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
@@ -32,9 +40,13 @@ class PhotosController < SpaceController
     @photo = Photo.find_by_id(params[:id])
 
     if @photo.destroy_from_db_and_picasa(@picasa)
-      redirect_to album_photos_path(album), notice: t("author.photo.notice.delete_success")
+      respond_to do |format|
+        format.js
+      end
     else
-      redirect_to album_photos_path(album), error: t("author.photo.notice.delete_fail")
+      respond_to do |format|
+        format.js
+      end
     end
   end
 

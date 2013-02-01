@@ -1,0 +1,3 @@
+%li.thumbnail{ "data-photo-id" => photo.id}
+  = link_to image_tag(photo.link('160c'), title: photo.title), "#"
+  = link_to 'X', [photo.album, photo], confirm: 'Are you sure?', method: :delete, class: %w(btn btn-small btn-danger x), remote: true, title: t('global.destroy')

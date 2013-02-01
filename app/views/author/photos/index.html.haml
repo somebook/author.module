@@ -1,10 +1,11 @@
+= javascript_include_tag "author/photos"
 %header
   %a{ href: sync_album_photos_path(@album), class: %w(btn btn-info pull-right)}
     %i.icon-white.icon-refresh
     = t('author.album.photo.synchronize')
-  %a{ href: new_album_photo_path(@album), class: %w(btn btn-inverse pull-right)}
-    %i.icon-white.icon-plus
-    = t('author.album.photo.new')
+  -# %a{ href: new_album_photo_path(@album), class: %w(btn btn-inverse pull-right)}
+  -#   %i.icon-white.icon-plus
+  -#   = t('author.album.photo.new')
   %h1= t('author.album.photo.listing')
 .row-fluid
   .span12
@@ -12,8 +13,9 @@
     - bc([[t('author.home'), root_path], [t('author.album.listing'), albums_path], [@album.title]])
 
 .content
-  %ul.thumbnails
+  = render 'form'
+  %ul#photos.thumbnails
     - @photos.each do |photo|
-      %li.thumbnail
+      %li.thumbnail{ "data-photo-id" => photo.id}
         = link_to image_tag(photo.link('160c'), title: photo.title), "#"
-        = link_to 'X', [@album, photo], confirm: 'Are you sure?', method: :delete, class: %w(btn btn-small btn-danger x), title: t('global.destroy')
+        = link_to 'X', [@album, photo], confirm: 'Are you sure?', method: :delete, class: %w(btn btn-small btn-danger x), remote: true, title: t('global.destroy')

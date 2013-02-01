@@ -14,6 +14,6 @@ class PhotoFormPresenter < BasePresenter
   end
 
   def file
-    form_field(:file, f.file_field(:file))
+    form_field(:file, f.file_field(:file, multiple: true, name: "photo[file]"))
   end
 end
