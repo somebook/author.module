@@ -80,7 +80,7 @@ class PostsController < SpaceController
       post_params_clone = post_params.clone
       post_params_clone[:post][:user_id] = current_user.id
 
-      @post= Post.new(post_params_clone[:post])
+      @post= Post.new(params[:post])
       @post.contents.each { |content|
         content.photos = [] if content.gallery == "videos"
         content.videos = [] if content.gallery == "photos"
