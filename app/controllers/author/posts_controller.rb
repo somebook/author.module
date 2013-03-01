@@ -138,7 +138,7 @@ class PostsController < SpaceController
     @form_legend = t("author.post.form_legend.edit")
 
     respond_to do |format|
-      if validated &&  @post.update_attributes(post_params[:post])
+      if validated &&  @post.update_attributes(params[:post])
         job = Delayed::Job.find_by_id(@post.job_id)
         job.destroy if job
         if @post.publish_at && @post.publish_at > Time.now
