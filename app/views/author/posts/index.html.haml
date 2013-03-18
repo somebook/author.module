@@ -3,8 +3,8 @@
   jQuery ->
     $(".sticky a").bind 'ajax:before', (e) ->
       if $(this).parent().hasClass("sticked")
-        # $(this).parent().removeClass("sticked")
-        #         $(this).text("#{t('author.post.stick')}")
+        $(this).parent().removeClass("sticked")
+        $(this).text("#{t('author.post.stick')}")
       else
         $(".sticky").removeClass("sticked")
         $(this).parent().addClass("sticked")

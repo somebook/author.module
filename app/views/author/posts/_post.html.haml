@@ -27,12 +27,9 @@
     - if post.published?
       .sticky{ class: ("sticked" if post.sticky?) }
         - if post.sticky
-          = link_to t('author.post.sticked'), "#", remote: true
+          = link_to t('author.post.sticked'), post_sticky_path(post), remote: true
         - else
           = link_to t('author.post.stick'), post_sticky_path(post), remote: true
-      
-        /%a{ href: ('http://'+cnt.shard_language.domain+(([80,443].include?(request.port)) ? '':':'+request.port.to_s)+main_app.blog_path(post)), class: %w(blacklink) }
-        /= t("author.post.preview")
 
   %td
     %span.small.light-gray
