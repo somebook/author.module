@@ -2,7 +2,10 @@
   %ul.pull-right.nav.nav-pills.actions
     %li
       - if terminal.new_record?
-        = link_to t('author.terminals.connect'), "#", class: %w(link terminal-connect), "data-terminal-id" => terminal.object_id
+        - if !["Группа", "Страница", "Событие"].keep_if{|v| terminal.name.include? v}.empty? && @current_shard.has_free_tariff?
+          = link_to t('author.terminals.connect'), "#", class: %w(link terminal-connect-fail), "data-terminal-id" => terminal.object_id
+        - else
+          = link_to t('author.terminals.connect'), "#", class: %w(link terminal-connect), "data-terminal-id" => terminal.object_id
       - else
         = link_to t('global.params'), [:edit, :settings, terminal.account, terminal], class: %w(link terminal-params)
     %li

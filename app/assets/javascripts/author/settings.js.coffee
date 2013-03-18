@@ -9,6 +9,10 @@ jQuery ->
     $("li[data-terminal=" + $(this).data("terminal-id") + "]").addClass("removed")
     return false
     
+  $(document).on 'click', ".terminal-connect-fail", (e) ->
+    alert "With free tariff you cannot connect groups, pages and events. Please, upgrade to pro or premium tariff."
+    return false
+    
   $(document).on 'click', "a.accordion-toggle", (e) ->
     loadTerminals($(this).data("terminal"))
     $($(this).attr("href")).toggle()
