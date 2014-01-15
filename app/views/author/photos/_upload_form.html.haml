@@ -1,0 +1,10 @@
+%h2= t('author.album.photo.new')
+= form_for [:album, Photo.new], multipart: true do |f|
+  -# = f.label :file, 'Upload photos:'
+  = f.file_field :file, multiple: true, name: 'photo[file]'
+  = f.hidden_field :album_id, value: @album.id
+%script#template-upload{ type: "text/x-tmpl" }
+  .upload
+    = "{%= o.name %}"
+    .progress
+      .bar{ style: "width: 0%" }

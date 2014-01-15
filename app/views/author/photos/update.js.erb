@@ -1,0 +1,2 @@
+$("li[data-photo-id=<%= @photo.id %>] .photo_link").popover("hide")
+$("li[data-photo-id=<%= @photo.id %>]").replaceWith("<%= j render('photo', photo: @photo)%>")
