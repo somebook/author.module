@@ -1,4 +1,5 @@
 jQuery ->
+  $("#photos li.thumbnail").popover()
   $('#new_photo').fileupload
     dataType: 'script'
     add: (e, data) ->
@@ -16,3 +17,11 @@ jQuery ->
         data.context.find('.bar').css('width', progress + '%')
         if progress == 100
           data.context.remove()
+
+  $("#photos").on 'click', 'li.thumbnail .photo_link', (e) ->
+    $(this).popover('toggle')
+    e.preventDefault()
+
+  $("body").on 'click', '.popover-close', (e) ->
+    $("li.thumbnail[data-photo-id=" + $(this).data("photo-id") + "] .photo_link").popover("hide")
+    e.preventDefault()

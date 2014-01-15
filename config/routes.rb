@@ -75,6 +75,11 @@ Author::Engine.routes.draw do
     resource :amazon_setting
     match 'picasa/destroy' => 'picasa#destroy', as: :picasa_destroy
   end
+  
+  match 'tariffs'   => 'tariffs#index',         as: :tariffs
+  match 'tariffs/paid'    => 'tariffs#paid',    as: :tariffs_paid
+  match 'tariffs/success' => 'tariffs#success', as: :tariffs_success
+  match 'tariffs/fail'    => 'tariffs#fail',    as: :tariffs_fail
 
   match 'settings' => 'settings#index', as: :settings
   match 'set_my_shard/:shard_id' => 'space#set_my_shard', as: :set_my_shard

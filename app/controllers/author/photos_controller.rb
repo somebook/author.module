@@ -16,7 +16,17 @@ class PhotosController < SpaceController
     render :form
   end
 
+  def update
+    album
+    @photo = Photo.find_by_id(params[:id])
+    @photo.update_attributes(params[:photo])
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def create
+    album
     @photo = Photo.new(
       summary: params[:photo][:summary],
       album_id: params[:photo][:album_id],

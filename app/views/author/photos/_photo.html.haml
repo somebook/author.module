@@ -1,3 +1,3 @@
-%li.thumbnail{ "data-photo-id" => photo.id}
-  = link_to image_tag(photo.link('160c'), title: photo.title), "#"
+%li.thumbnail{ "data-photo-id" => photo.id }
+  = link_to image_tag(photo.link('160c'), title: photo.title), "#", class: "photo_link", "data-content" => "#{render('form', { photo: photo })}", "data-placement" => :right, "data-trigger" => "click", "data-html" => 1
   = link_to 'X', [photo.album, photo], confirm: 'Are you sure?', method: :delete, class: %w(btn btn-small btn-danger x), remote: true, title: t('global.destroy')

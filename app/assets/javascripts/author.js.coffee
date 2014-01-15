@@ -11,6 +11,7 @@
 #= require bootstrap-modal
 #= require bootstrap-alert
 #= require bootstrap-tooltip
+#= require bootstrap-popover
 #= require jquery.maskedinput.min
 #= require chosen-jquery
 #= require jquery-tagselector
