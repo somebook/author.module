@@ -58,7 +58,7 @@ class StaticPagesController < SpaceController
     @static_page = StaticPage.find_by_id(params[:id])
     @form_legend = t("author.static_page.form_legend.edit")
 
-    if @static_page.update_attributes(static_page_params[:static_page])
+    if @static_page.update_attributes(params[:static_page])
       redirect_to static_pages_path, notice: t("author.static_page.notice.update_success")
     else
       render :form
