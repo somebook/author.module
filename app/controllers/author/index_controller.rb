@@ -1,6 +1,5 @@
 module Author
 class IndexController < SpaceController
-
   def index
     # Statisctics
     @statistics = {

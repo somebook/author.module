@@ -16,20 +16,29 @@ class SpaceController < ::ApplicationController
 
 private
 
+  def authenticate_user!
+    ap "au"
+    super
+  end
+
   def shard_languages
     @shard_languages ||= @current_shard.shard_languages
   end
 
   def authenticate_author!
+    ap "aa_1"
     raise unless user_signed_in?
+    ap "aa_2"
     raise unless @current_shard
-
+    ap "aa_3"
     raise unless im_author? or im_master?
+    ap "aa_4"
   rescue
     redirect_to "/users/login/"
   end
 
   def set_shard
+    ap "ss"
     @current_shard = catch(:cookie_shard) do
       if cookies[:current_shard_id]
         if shard = Shard.find(cookies[:current_shard_id])
