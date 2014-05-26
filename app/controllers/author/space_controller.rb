@@ -1,6 +1,6 @@
 module Author
 class SpaceController < ::ApplicationController
-  force_ssl if Rails.env.production?
+  #force_ssl if Rails.env.production?
   layout "author"
   before_filter :authenticate_user!, :set_shard, :authenticate_author!, :set_section_class,
                 :check_pending_social_contents, :set_accessible_shards
