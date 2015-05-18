@@ -9,7 +9,7 @@
       - next if @current_shard.accounts.where('provider = ?', service.code).count > 1 && @current_shard.has_pro_tariff?
       - case service.code
       - when "picasa"
-        - url = Picasa.authorization_url(authorize_albums_url)
+        - url = picasa_authorization_url
       - else
         - url = settings_link_service_path(code: service.code)
       %li

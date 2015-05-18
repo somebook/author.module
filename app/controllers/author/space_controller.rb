@@ -1,9 +1,10 @@
 module Author
-class SpaceController < ::ApplicationController
-  #force_ssl if Rails.env.production?
+class SpaceController < ::ApplicationController #force_ssl if Rails.env.production?
   layout "author"
   before_filter :authenticate_user!, :set_shard, :authenticate_author!, :set_section_class,
                 :check_pending_social_contents, :set_accessible_shards
+
+  helper_method :picasa_authorization_url
 
   def set_my_shard
     shard = Shard.find(params[:shard_id])
@@ -12,6 +13,13 @@ class SpaceController < ::ApplicationController
     end
 
     redirect_to root_path
+  end
+
+  def picasa_authorization_url
+    callback_url = CGI.escape(authorize_albums_url)
+    oauth2_url = "https://accounts.google.com/o/oauth2/auth?redirect_uri=#{callback_url}&response_type=code&client_id=363793298712-bescboa3tr86qcvutmibum2hnohp12o7.apps.googleusercontent.com&scope=https%3A%2F%2Fpicasaweb.google.com%2Fdata%2F&approval_prompt=force&access_type=offline"
+
+    Picasa.authorization_url(authorize_albums_url, true, false, oauth2_url)
   end
 
 private

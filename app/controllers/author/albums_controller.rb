@@ -5,7 +5,7 @@ class AlbumsController < SpaceController
   before_filter :check_picasa_auth, except: [:index, :authorize]
 
   def index
-  	@url = Picasa.authorization_url(authorize_albums_url) if @picasa.nil?
+  	@url = picasa_authorization_url if @picasa.nil?
     @albums = @current_shard.albums.order('id DESC').paginate(page: params[:page], per_page: 20)
   end
 

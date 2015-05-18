@@ -25,7 +25,7 @@ module Author
           account_url = acc.ext_url
           destroy_url = settings_account_path(acc)
         elsif provider == :picasa
-          connect_url = Picasa.authorization_url(authorize_albums_url)
+          connect_url = picasa_authorization_url
         else
           connect_url = settings_link_service_path(code: provider)
         end
