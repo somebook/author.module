@@ -65,9 +65,11 @@ class AlbumsController < SpaceController
   end
 
   def authorize
-    if Picasa.token_in_request?(request)
+    if params.has_key?(:code)
       begin
-        picasa = Picasa.authorize_request(request)
+        refresh_token = Picasa.code_to_refresh_token(params[:code])
+        picasa = Picasa.new(refresh_token)
+        picasa.authorize_token!
         acc = Account.find_by_provider_and_uid_and_shard_id("picasa", picasa.user.user.to_s, @current_shard.id)
         if acc
           redirect_to settings_path, error: "Account already exists."
@@ -75,7 +77,7 @@ class AlbumsController < SpaceController
           account = Account.create!(
             shard_id: @current_shard.id,
             provider: "picasa",
-            token: picasa.token,
+            token: picasa.refresh_token,
             uid: picasa.user.user.to_s,
             name: picasa.user.nickname,
             user_id: current_user.id,
