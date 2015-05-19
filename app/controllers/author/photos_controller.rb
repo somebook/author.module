@@ -3,6 +3,9 @@ module Author
 class PhotosController < SpaceController
   before_filter :init_picasa
 
+  PICASA_CLIENT_ID = "363793298712-bescboa3tr86qcvutmibum2hnohp12o7.apps.googleusercontent.com"
+  PICASA_CLIENT_SECRET = "QMpsT0ibx1JNXXkE39deCLG8"  
+
   def index
     @photos = album.photos
     @form_legend = t("author.album.photo.form_legend.new")
@@ -75,7 +78,7 @@ private
   
   def init_picasa
     picasa_acc = Account.where(provider: "picasa", shard_id: @current_shard.id).first
-    @picasa = picasa_acc.nil? ? nil : Picasa.new(picasa_acc.token)
+    @picasa = picasa_acc.nil? ? nil : Picasa.new(picasa_acc.token, Author::SpaceController::PICASA_CLIENT_ID, Author::SpaceController::PICASA_CLIENT_SECRET)
   end
   
   def set_section_class

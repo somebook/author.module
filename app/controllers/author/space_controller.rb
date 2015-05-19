@@ -6,6 +6,9 @@ class SpaceController < ::ApplicationController #force_ssl if Rails.env.producti
 
   helper_method :picasa_authorization_url
 
+  PICASA_CLIENT_ID = "363793298712-bescboa3tr86qcvutmibum2hnohp12o7.apps.googleusercontent.com"
+  PICASA_CLIENT_SECRET = "QMpsT0ibx1JNXXkE39deCLG8"
+
   def set_my_shard
     shard = Shard.find(params[:shard_id])
     if im_author?(shard) or im_master?(shard)
@@ -17,9 +20,7 @@ class SpaceController < ::ApplicationController #force_ssl if Rails.env.producti
 
   def picasa_authorization_url
     callback_url = CGI.escape(authorize_albums_url)
-    oauth2_url = "https://accounts.google.com/o/oauth2/auth?redirect_uri=#{callback_url}&response_type=code&client_id=363793298712-bescboa3tr86qcvutmibum2hnohp12o7.apps.googleusercontent.com&scope=https%3A%2F%2Fpicasaweb.google.com%2Fdata%2F&approval_prompt=force&access_type=offline"
-
-    Picasa.authorization_url(authorize_albums_url, true, false, oauth2_url)
+    Picasa.authorization_url(authorize_albums_url, PICASA_CLIENT_ID)
   end
 
 private

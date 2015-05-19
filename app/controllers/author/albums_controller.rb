@@ -67,7 +67,7 @@ class AlbumsController < SpaceController
   def authorize
     if params.has_key?(:code)
       begin
-        refresh_token = Picasa.code_to_refresh_token(params[:code])
+        refresh_token = Picasa.code_to_refresh_token(params[:code], Author::SpaceController::PICASA_CLIENT_ID, Author::SpaceController::PICASA_CLIENT_SECRET)
         picasa = Picasa.new(refresh_token)
         picasa.authorize_token!
         acc = Account.find_by_provider_and_uid_and_shard_id("picasa", picasa.user.user.to_s, @current_shard.id)
@@ -108,7 +108,8 @@ private
   
   def init_picasa
     picasa_acc = Account.where(provider: "picasa", shard_id: @current_shard.id).first
-    @picasa = picasa_acc.nil? ? nil : Picasa.new(picasa_acc.token)
+
+    @picasa = picasa_acc.nil? ? nil : Picasa.new(picasa_acc.token, Author::SpaceController::PICASA_CLIENT_ID, Author::SpaceController::PICASA_CLIENT_SECRET)
   end
   
   def set_section_class
