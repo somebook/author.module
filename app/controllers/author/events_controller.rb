@@ -27,7 +27,7 @@ class EventsController < SpaceController
     
     @event.infos.each do |info|
       Terminal.joins(:shard_languages).where('shard_language_id = ?', info.shard_language.id).each do |terminal|
-        next unless terminal.account.service.events
+        next unless terminal.account.service.events rescue next
         cnt = SocialContent.new(
           event_info: info,
           terminal: terminal
